@@ -534,13 +534,6 @@ RULE CUAC:WaterVolumeCost
     0
 ENDRULE
 
-RULE CUAC:SewerMonthlyCost
-  MINIMUM
-    0
-  DEFAULT
-    0
-ENDRULE
-
 RULE CUAC:TrashMonthlyCost
   MINIMUM
     0
@@ -1130,22 +1123,11 @@ RULE ResProj:Fuel_HaveElec
   DEFAULT
      1
 ENDRULE
-; add logic to following rules to ensure Std design models can track NatGas or Other fuel use - SAC 04/01/26 (dev #818)
 RULE ResProj:Fuel_HaveNatGas
   DESCRIPTION
     "flag indicating use of natural gas"
   DEFAULT
-     if( IfValidAnd( GasType = "NaturalGas" ) .OR.
-         ( IfValidAnd( GasType = "None" ) .AND. IfValidAnd( NatGasAvail > 0 ) .AND.
-           ( IfValidAnd( RunAbbrev = "s" ) .OR. IfValidAnd( RunAbbrev = "zb" ) .OR.
-             IfValidAnd( RunAbbrev = "ab" ) ) ) )
-     then  1
-     else  0  endif
-  SIZING
-     if( IfValidAnd( GasType = "NaturalGas" ) .OR.
-         ( IfValidAnd( GasType = "None" ) .AND. IfValidAnd( NatGasAvail > 0 ) .AND.
-           ( IfValidAnd( RunAbbrev = "s" ) .OR. IfValidAnd( RunAbbrev = "zb" ) .OR.
-             IfValidAnd( RunAbbrev = "ab" ) ) ) )
+     if (IfValidAnd( GasType = "NaturalGas" ))
      then  1
      else  0  endif
 ENDRULE
@@ -1153,17 +1135,7 @@ RULE ResProj:Fuel_HaveOther
   DESCRIPTION
     "flag indicating use of a fuel other than natural gas"
   DEFAULT
-     if( IfValidAnd( GasType = "Propane" ) .OR.
-         ( IfValidAnd( GasType = "None" ) .AND. IfValidAnd( NatGasAvail > 0 )==0 .AND.
-           ( IfValidAnd( RunAbbrev = "s" ) .OR. IfValidAnd( RunAbbrev = "zb" ) .OR.
-             IfValidAnd( RunAbbrev = "ab" ) ) ) )
-     then  1
-     else  0  endif
-  SIZING
-     if( IfValidAnd( GasType = "Propane" ) .OR.
-         ( IfValidAnd( GasType = "None" ) .AND. IfValidAnd( NatGasAvail > 0 )==0 .AND.
-           ( IfValidAnd( RunAbbrev = "s" ) .OR. IfValidAnd( RunAbbrev = "zb" ) .OR.
-             IfValidAnd( RunAbbrev = "ab" ) ) ) )
+     if (IfValidAnd( GasType = "Propane" ))
      then  1
      else  0  endif
 ENDRULE
@@ -1176,17 +1148,7 @@ RULE NEW Proj:Fuel_HaveNatGas
   DESCRIPTION
     "flag indicating use of natural gas"
   DEFAULT
-     if( IfValidAnd( GasType = "NaturalGas" ) .OR.
-         ( IfValidAnd( GasType = "None" ) .AND. IfValidAnd( NatGasAvail > 0 ) .AND.
-           ( IfValidAnd( RunAbbrev = "s" ) .OR. IfValidAnd( RunAbbrev = "zb" ) .OR.
-             IfValidAnd( RunAbbrev = "ab" ) ) ) )
-     then  1
-     else  0  endif
-  SIZING
-     if( IfValidAnd( GasType = "NaturalGas" ) .OR.
-         ( IfValidAnd( GasType = "None" ) .AND. IfValidAnd( NatGasAvail > 0 ) .AND.
-           ( IfValidAnd( RunAbbrev = "s" ) .OR. IfValidAnd( RunAbbrev = "zb" ) .OR.
-             IfValidAnd( RunAbbrev = "ab" ) ) ) )
+     if (IfValidAnd( GasType = "NaturalGas" ))
      then  1
      else  0  endif
 ENDRULE
@@ -1198,17 +1160,7 @@ RULE NEW Proj:Fuel_HaveOther
   DESCRIPTION
     "flag indicating use of a fuel other than natural gas"
   DEFAULT
-     if( IfValidAnd( GasType = "Propane" ) .OR.
-         ( IfValidAnd( GasType = "None" ) .AND. IfValidAnd( NatGasAvail > 0 )==0 .AND.
-           ( IfValidAnd( RunAbbrev = "s" ) .OR. IfValidAnd( RunAbbrev = "zb" ) .OR.
-             IfValidAnd( RunAbbrev = "ab" ) ) ) )
-     then  1
-     else  0  endif
-  SIZING
-     if( IfValidAnd( GasType = "Propane" ) .OR.
-         ( IfValidAnd( GasType = "None" ) .AND. IfValidAnd( NatGasAvail > 0 )==0 .AND.
-           ( IfValidAnd( RunAbbrev = "s" ) .OR. IfValidAnd( RunAbbrev = "zb" ) .OR.
-             IfValidAnd( RunAbbrev = "ab" ) ) ) )
+     if (IfValidAnd( GasType = "Propane" ))
      then  1
      else  0  endif
 ENDRULE
@@ -2617,10 +2569,9 @@ RULE NEW DwellUnitType:IAQSubjectToAccessOrFIDAdjustment
 ENDRULE
 
 ; SAC 02/21/23 (tic #3418)   ; revised checks to warnings for Proj:EnableResearchMode - SAC 03/02/23
-; add logic to prevent certain errors (throughout this module) when doing CUAC - SAC 03/11/26 (dev #741)
 RULE ResOtherZn:ActiveDHWSystem
   CHECKCODE
-    if (LocalCompAssigned( ActiveDHWSystem) < 1 .AND. ShowDHWSysAssignment > 0 .AND. IfValidAnd( Proj:CUACReportID > 0 )==0)
+    if (LocalCompAssigned( ActiveDHWSystem) < 1 .AND. ShowDHWSysAssignment > 0)
     then  if ( (EnumValue(SpcFunc) == 231 .OR. EnumValue(SpcFunc) == 342) .AND.      ; 231, "Laundry Area"
                SumRevRef( DwellUnit:WasherZoneRef, DwellUnit:TotalDHWFlrArea ) > 1 )
           then  if (IfValidAnd( Proj:EnableResearchMode > 0 ))
