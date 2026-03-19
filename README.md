@@ -1,4 +1,4 @@
-# California Building Energy Code Compliance Software (CBECC)
+# California Building Energy Code Compliance (CBECC) Software 
 California Building Energy Code Compliance (CBECC) software for nonresidential, single-family, and multifamily is an open source project that may be used by Code Agencies, Rating Authorities, or Utility Programs in the development of energy codes, standards, or efficiency programs. Architects, engineers, and energy consultants may also use these tools to demonstrate compliance with energy codes or beyond-code programs.
 
 The software's key components are:
