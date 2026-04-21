@@ -694,6 +694,90 @@ RULE ConsAssm:FrmMat
 ENDRULE
 
 
+// -----------------------------------------------------------------------------
+RULE NEW ConsAssm:FrmDepth
+  DATATYPE
+    Float
+  LONGFORM
+    FramingDepth
+  UNITS
+    in
+  DESCRIPTION
+    "Depth (in inches) of the framing layer in this construction assembly, derived from composite material layers"
+  INPUTCLASS
+    NotInput
+  DEFAULT
+    switch( NumMats )
+    case  1 :     if(IfValidAnd( MatRef[1]:FrmDepthVal > 0 ) ) then  MatRef[1]:FrmDepthVal
+               else  0  endif
+    case  2 :     if(IfValidAnd( MatRef[1]:FrmDepthVal > 0 ) ) then  MatRef[1]:FrmDepthVal
+               else if(IfValidAnd( MatRef[2]:FrmDepthVal > 0 ) ) then  MatRef[2]:FrmDepthVal
+               else  0  endif endif
+    case  3 :     if(IfValidAnd( MatRef[1]:FrmDepthVal > 0 ) ) then  MatRef[1]:FrmDepthVal
+               else if(IfValidAnd( MatRef[2]:FrmDepthVal > 0 ) ) then  MatRef[2]:FrmDepthVal
+               else if(IfValidAnd( MatRef[3]:FrmDepthVal > 0 ) ) then  MatRef[3]:FrmDepthVal
+               else  0  endif endif endif
+    case  4 :     if(IfValidAnd( MatRef[1]:FrmDepthVal > 0 ) ) then  MatRef[1]:FrmDepthVal
+               else if(IfValidAnd( MatRef[2]:FrmDepthVal > 0 ) ) then  MatRef[2]:FrmDepthVal
+               else if(IfValidAnd( MatRef[3]:FrmDepthVal > 0 ) ) then  MatRef[3]:FrmDepthVal
+               else if(IfValidAnd( MatRef[4]:FrmDepthVal > 0 ) ) then  MatRef[4]:FrmDepthVal
+               else  0  endif endif endif endif
+    case  5 :     if(IfValidAnd( MatRef[1]:FrmDepthVal > 0 ) ) then  MatRef[1]:FrmDepthVal
+               else if(IfValidAnd( MatRef[2]:FrmDepthVal > 0 ) ) then  MatRef[2]:FrmDepthVal
+               else if(IfValidAnd( MatRef[3]:FrmDepthVal > 0 ) ) then  MatRef[3]:FrmDepthVal
+               else if(IfValidAnd( MatRef[4]:FrmDepthVal > 0 ) ) then  MatRef[4]:FrmDepthVal
+               else if(IfValidAnd( MatRef[5]:FrmDepthVal > 0 ) ) then  MatRef[5]:FrmDepthVal
+               else  0  endif endif endif endif endif
+    case  6 :     if(IfValidAnd( MatRef[1]:FrmDepthVal > 0 ) ) then  MatRef[1]:FrmDepthVal
+               else if(IfValidAnd( MatRef[2]:FrmDepthVal > 0 ) ) then  MatRef[2]:FrmDepthVal
+               else if(IfValidAnd( MatRef[3]:FrmDepthVal > 0 ) ) then  MatRef[3]:FrmDepthVal
+               else if(IfValidAnd( MatRef[4]:FrmDepthVal > 0 ) ) then  MatRef[4]:FrmDepthVal
+               else if(IfValidAnd( MatRef[5]:FrmDepthVal > 0 ) ) then  MatRef[5]:FrmDepthVal
+               else if(IfValidAnd( MatRef[6]:FrmDepthVal > 0 ) ) then  MatRef[6]:FrmDepthVal
+               else  0  endif endif endif endif endif endif
+    case  7 :     if(IfValidAnd( MatRef[1]:FrmDepthVal > 0 ) ) then  MatRef[1]:FrmDepthVal
+               else if(IfValidAnd( MatRef[2]:FrmDepthVal > 0 ) ) then  MatRef[2]:FrmDepthVal
+               else if(IfValidAnd( MatRef[3]:FrmDepthVal > 0 ) ) then  MatRef[3]:FrmDepthVal
+               else if(IfValidAnd( MatRef[4]:FrmDepthVal > 0 ) ) then  MatRef[4]:FrmDepthVal
+               else if(IfValidAnd( MatRef[5]:FrmDepthVal > 0 ) ) then  MatRef[5]:FrmDepthVal
+               else if(IfValidAnd( MatRef[6]:FrmDepthVal > 0 ) ) then  MatRef[6]:FrmDepthVal
+               else if(IfValidAnd( MatRef[7]:FrmDepthVal > 0 ) ) then  MatRef[7]:FrmDepthVal
+               else  0  endif endif endif endif endif endif endif
+    case  8 :     if(IfValidAnd( MatRef[1]:FrmDepthVal > 0 ) ) then  MatRef[1]:FrmDepthVal
+               else if(IfValidAnd( MatRef[2]:FrmDepthVal > 0 ) ) then  MatRef[2]:FrmDepthVal
+               else if(IfValidAnd( MatRef[3]:FrmDepthVal > 0 ) ) then  MatRef[3]:FrmDepthVal
+               else if(IfValidAnd( MatRef[4]:FrmDepthVal > 0 ) ) then  MatRef[4]:FrmDepthVal
+               else if(IfValidAnd( MatRef[5]:FrmDepthVal > 0 ) ) then  MatRef[5]:FrmDepthVal
+               else if(IfValidAnd( MatRef[6]:FrmDepthVal > 0 ) ) then  MatRef[6]:FrmDepthVal
+               else if(IfValidAnd( MatRef[7]:FrmDepthVal > 0 ) ) then  MatRef[7]:FrmDepthVal
+               else if(IfValidAnd( MatRef[8]:FrmDepthVal > 0 ) ) then  MatRef[8]:FrmDepthVal
+               else  0  endif endif endif endif endif endif endif endif
+    case  9 :     if(IfValidAnd( MatRef[1]:FrmDepthVal > 0 ) ) then  MatRef[1]:FrmDepthVal
+               else if(IfValidAnd( MatRef[2]:FrmDepthVal > 0 ) ) then  MatRef[2]:FrmDepthVal
+               else if(IfValidAnd( MatRef[3]:FrmDepthVal > 0 ) ) then  MatRef[3]:FrmDepthVal
+               else if(IfValidAnd( MatRef[4]:FrmDepthVal > 0 ) ) then  MatRef[4]:FrmDepthVal
+               else if(IfValidAnd( MatRef[5]:FrmDepthVal > 0 ) ) then  MatRef[5]:FrmDepthVal
+               else if(IfValidAnd( MatRef[6]:FrmDepthVal > 0 ) ) then  MatRef[6]:FrmDepthVal
+               else if(IfValidAnd( MatRef[7]:FrmDepthVal > 0 ) ) then  MatRef[7]:FrmDepthVal
+               else if(IfValidAnd( MatRef[8]:FrmDepthVal > 0 ) ) then  MatRef[8]:FrmDepthVal
+               else if(IfValidAnd( MatRef[9]:FrmDepthVal > 0 ) ) then  MatRef[9]:FrmDepthVal
+               else  0  endif endif endif endif endif endif endif endif endif
+    case 10 :     if(IfValidAnd( MatRef[1]:FrmDepthVal > 0 ) ) then  MatRef[1]:FrmDepthVal
+               else if(IfValidAnd( MatRef[2]:FrmDepthVal > 0 ) ) then  MatRef[2]:FrmDepthVal
+               else if(IfValidAnd( MatRef[3]:FrmDepthVal > 0 ) ) then  MatRef[3]:FrmDepthVal
+               else if(IfValidAnd( MatRef[4]:FrmDepthVal > 0 ) ) then  MatRef[4]:FrmDepthVal
+               else if(IfValidAnd( MatRef[5]:FrmDepthVal > 0 ) ) then  MatRef[5]:FrmDepthVal
+               else if(IfValidAnd( MatRef[6]:FrmDepthVal > 0 ) ) then  MatRef[6]:FrmDepthVal
+               else if(IfValidAnd( MatRef[7]:FrmDepthVal > 0 ) ) then  MatRef[7]:FrmDepthVal
+               else if(IfValidAnd( MatRef[8]:FrmDepthVal > 0 ) ) then  MatRef[8]:FrmDepthVal
+               else if(IfValidAnd( MatRef[9]:FrmDepthVal > 0 ) ) then  MatRef[9]:FrmDepthVal
+               else if(IfValidAnd( MatRef[10]:FrmDepthVal > 0 ) ) then  MatRef[10]:FrmDepthVal
+               else  0  endif endif endif endif endif endif endif endif endif endif
+    default :  0
+    endswitch
+ENDRULE
+
+
 // ----------------------------------------------------------------------------- SAC 02/10/22 (MFam)
 RULE NEW ConsAssm:FramingFactor
   RULESETS
@@ -3816,7 +3900,7 @@ RULE NEW ConsAssm:HtCapCat
     Enumeration
   DESCRIPTION
     "The category for the heat capacity of the wall construction: Light, Heavy, 
-     or not mass. Based on thresholds of 7 and 15 Btu/ft²-F."
+     or not mass. Based on thresholds of 7 and 15 Btu/ftï¿½-F."
   INPUTCLASS
     NotInput
   OPTION
@@ -3856,7 +3940,7 @@ RULE NEW ConsAssm:ConsType
   DATATYPE
     Enumeration
   DESCRIPTION
-    "The Exterior Wall, Roof or Exterior Floor construction type – Metal 
+    "The Exterior Wall, Roof or Exterior Floor construction type ï¿½ Metal 
      Building Wall, Metal Frame Wall, Mass-Light Wall, Mass-Heavy Wall, 
      Wood Framed Wall, Wood Framing And Other Roof, Metal Building Roof, 
      Mass Floor, and Other Floor."
