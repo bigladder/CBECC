@@ -2630,12 +2630,6 @@ RULELIST "CARes_StandardPeakCoolElec" 1 0 1 1
    "set PeakCoolElecLabels[4] - result"   Proj:ResultSummary[1]:PeakCoolElecLabels[4] =
       {  if (IfValidAnd( Proj:StdPeakCoolElecLimitMult = 0.0 )) then  "n/a"
          else if (IfValidAnd( ResultSummary[1]:PeakCoolElecMargin >= 0 )) then  "Pass"  else  "Fail"  endif endif  }
-
-   "set PeakCoolElecFtnote - footnote"    Proj:ResultSummary[1]:PeakCoolElecFtnote =      ; SAC 05/13/26 (dev #757)
-      {  if (IfValidAnd( Proj:StdPeakCoolElecLimitMult = 0.0 ))
-         then  Format( "** Peak cooling target not applicable for Climate Zone %.0f.", Proj:ClimateZone )
-         else  Format( "** Peak cooling represents %.0f%% of the standard design building peak energy use for Climate Zone %.0f.", Proj:StdPeakCoolElecLimitMult * 100, Proj:ClimateZone )
-         endif  }
 END
 ;************************************************************************* SAC 03/20/24 (2025)
 RULELIST "CARes_StandardPeakCoolElec_Exclude" 1 0 1 1
@@ -2643,7 +2637,6 @@ RULELIST "CARes_StandardPeakCoolElec_Exclude" 1 0 1 1
    "set PeakCoolElecLabels[2] - std"      Proj:ResultSummary[1]:PeakCoolElecLabels[2] = {  UNDEFINED  }
    "set PeakCoolElecLabels[3] - margin"   Proj:ResultSummary[1]:PeakCoolElecLabels[3] = {  "0"    }
    "set PeakCoolElecLabels[4] - result"   Proj:ResultSummary[1]:PeakCoolElecLabels[4] = {  "n/a"  }
-   "set PeakCoolElecFtnote - footnote"    Proj:ResultSummary[1]:PeakCoolElecFtnote = {  UNDEFINED  }      ; SAC 05/13/26 (dev #757)
 END
 ;************************************************************************* 
 
@@ -2672,12 +2665,6 @@ RULELIST "CARes_StandardPeakCoolElec_NESW" 1 0 1 1
       {  if (IfValidAnd( Proj:StdPeakCoolElecLimitMult = 0.0 )) then  "n/a"
          else if (IfValidAnd( ResultSummary[2]:PeakCoolElecMargin >= 0 )) then  "Pass"  else  "Fail"  endif endif  }
 
-   "set PeakCoolElecFtnote - footnote"    Proj:ResultSummary[2]:PeakCoolElecFtnote =      ; SAC 05/13/26 (dev #757)
-      {  if (IfValidAnd( Proj:StdPeakCoolElecLimitMult = 0.0 ))
-         then  Format( "** Peak cooling target not applicable for Climate Zone %.0f.", Proj:ClimateZone )
-         else  Format( "** Peak cooling represents %.0f%% of the standard design building peak energy use for Climate Zone %.0f.", Proj:StdPeakCoolElecLimitMult * 100, Proj:ClimateZone )
-         endif  }
-
 ; --- EAST ---
    "Calculate & set StdPeakCoolElec"      Proj:ResultSummary[3]:StdPeakCoolElec =
       {	ApplyHourlyResultMultipliers( "none", "PeakCoolingElecEnergyTable", 1, 1, "none", 0, 0, RunID, "MtrElec",   "Clg", "FanC" ) / 3.412  }
@@ -2700,8 +2687,6 @@ RULELIST "CARes_StandardPeakCoolElec_NESW" 1 0 1 1
    "set PeakCoolElecLabels[4] - result"   Proj:ResultSummary[3]:PeakCoolElecLabels[4] =
       {  if (IfValidAnd( Proj:StdPeakCoolElecLimitMult = 0.0 )) then  "n/a"
          else if (IfValidAnd( ResultSummary[3]:PeakCoolElecMargin >= 0 )) then  "Pass"  else  "Fail"  endif endif  }
-
-   "set PeakCoolElecFtnote - footnote"    Proj:ResultSummary[3]:PeakCoolElecFtnote = {  ResultSummary[2]:PeakCoolElecFtnote  }    ; SAC 05/13/26 (dev #757)
 
 ; --- SOUTH ---
    "Calculate & set StdPeakCoolElec"      Proj:ResultSummary[4]:StdPeakCoolElec =
@@ -2726,8 +2711,6 @@ RULELIST "CARes_StandardPeakCoolElec_NESW" 1 0 1 1
       {  if (IfValidAnd( Proj:StdPeakCoolElecLimitMult = 0.0 )) then  "n/a"
          else if (IfValidAnd( ResultSummary[4]:PeakCoolElecMargin >= 0 )) then  "Pass"  else  "Fail"  endif endif  }
 
-   "set PeakCoolElecFtnote - footnote"    Proj:ResultSummary[4]:PeakCoolElecFtnote = {  ResultSummary[2]:PeakCoolElecFtnote  }    ; SAC 05/13/26 (dev #757)
-
 ; --- WEST ---
    "Calculate & set StdPeakCoolElec"      Proj:ResultSummary[5]:StdPeakCoolElec =
       {	ApplyHourlyResultMultipliers( "none", "PeakCoolingElecEnergyTable", 1, 1, "none", 0, 0, RunID, "MtrElec",   "Clg", "FanC" ) / 3.412  }
@@ -2750,8 +2733,6 @@ RULELIST "CARes_StandardPeakCoolElec_NESW" 1 0 1 1
    "set PeakCoolElecLabels[4] - result"   Proj:ResultSummary[5]:PeakCoolElecLabels[4] =
       {  if (IfValidAnd( Proj:StdPeakCoolElecLimitMult = 0.0 )) then  "n/a"
          else if (IfValidAnd( ResultSummary[5]:PeakCoolElecMargin >= 0 )) then  "Pass"  else  "Fail"  endif endif  }
-
-   "set PeakCoolElecFtnote - footnote"    Proj:ResultSummary[5]:PeakCoolElecFtnote = {  ResultSummary[2]:PeakCoolElecFtnote  }    ; SAC 05/13/26 (dev #757)
 END
 ;************************************************************************* SAC 03/20/24 (2025)
 RULELIST "CARes_StandardPeakCoolElec_NESW_Exclude" 1 0 1 1
@@ -2759,7 +2740,6 @@ RULELIST "CARes_StandardPeakCoolElec_NESW_Exclude" 1 0 1 1
    "set PeakCoolElecLabels[2] - std"     for:#R=(2to5)  Proj:ResultSummary[#R]:PeakCoolElecLabels[2] = {  UNDEFINED  }
    "set PeakCoolElecLabels[3] - margin"  for:#R=(2to5)  Proj:ResultSummary[#R]:PeakCoolElecLabels[3] = {  "0"    }
    "set PeakCoolElecLabels[4] - result"  for:#R=(2to5)  Proj:ResultSummary[#R]:PeakCoolElecLabels[4] = {  "n/a"  }
-   "set PeakCoolElecFtnote - footnote"   for:#R=(2to5)  Proj:ResultSummary[#R]:PeakCoolElecFtnote = {  UNDEFINED  }     ; SAC 05/13/26 (dev #757)
 END
 ;*************************************************************************
 

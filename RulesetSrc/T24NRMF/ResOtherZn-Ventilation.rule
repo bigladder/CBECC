@@ -624,15 +624,6 @@ RULE ResOtherZn:CentralSupplyCFM
     then  SupplyIAQCFM ; Use CentralVentSys to model individual fans
     else  0
     endif endif
-  SIZING_PROPOSED
-    if( IAQOption = "Central Supply / Central Exhaust" .OR.
-        IAQOption = "Central Supply / Individual Exhaust" .OR.
-        IAQOption = "Central Supply" )
-    then  UNCHANGED
-    else if( IAQOption = "Central Exhaust / Individual Supply" )
-    then  SupplyIAQCFM ; Use CentralVentSys to model individual fans
-    else  0
-    endif endif
   SIZING_BASELINE
     if( IAQOption = "Central Supply / Central Exhaust" .OR.
         IAQOption = "Central Supply / Individual Exhaust" .OR.
@@ -651,15 +642,6 @@ RULE ResOtherZn:CentralExhaustCFM
         IAQOption = "Central Exhaust / Individual Supply" .OR.
         IAQOption = "Central Exhaust" )
     then  MinIAQCFM
-    else if( IAQOption = "Central Supply / Individual Exhaust" )
-    then  ExhaustIAQCFM
-    else  0
-    endif endif
-  SIZING_PROPOSED
-    if( IAQOption = "Central Supply / Central Exhaust" .OR.
-        IAQOption = "Central Exhaust / Individual Supply" .OR.
-        IAQOption = "Central Exhaust" )
-    then  UNCHANGED
     else if( IAQOption = "Central Supply / Individual Exhaust" )
     then  ExhaustIAQCFM
     else  0
@@ -683,7 +665,7 @@ RULE NEW ResOtherZn:CentralSupplyCFMWithMult
     NotInput
   DEFAULT
     CentralSupplyCFM * Mult
-  SIZING
+  SIZING_BASELINE
     CentralSupplyCFM * Mult
 ENDRULE
 
@@ -696,7 +678,7 @@ RULE NEW ResOtherZn:CentralExhaustCFMWithMult
     NotInput
   DEFAULT
     CentralExhaustCFM * Mult
-  SIZING
+  SIZING_BASELINE
     CentralExhaustCFM * Mult
 ENDRULE
 
@@ -1060,23 +1042,4 @@ RULE ResOtherZn:Action
     then  EvalRulelist( "Create_Default_ResOtherZnIAQFan", 1 )
     else  UNCHANGED
     endif
-ENDRULE
-
-// ------------------- Total Zone Supply Flow Rate (Reported) ------------------------------------------
-RULE NEW ResOtherZn:TotalSupOACFM
-  DESCRIPTION
-     "Total zone supply outside air flow rate by fan system(s)."
-  DATATYPE
-    Float
-  INPUTCLASS
-    NotInput
-  UNITS
-    cfm
-  DEFAULT : T24N
-    if( ServedByAirSys > 0 ) ; air system
-    then  ValidOr( AirSysVentCFM, 0 )
-    else if( EnumValue( IAQOption ) >= 11 .AND. EnumValue( IAQOption ) <= 15 ) ; central ventilation system
-    then  ValidOr( CentralSupplyCFM, 0 )
-    else  IAQHRVCFM + IAQCFM_Supply ; individual IAQ fans / default minimum
-    endif endif
 ENDRULE
