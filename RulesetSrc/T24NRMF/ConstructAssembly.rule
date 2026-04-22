@@ -3900,7 +3900,7 @@ RULE NEW ConsAssm:HtCapCat
     Enumeration
   DESCRIPTION
     "The category for the heat capacity of the wall construction: Light, Heavy, 
-     or not mass. Based on thresholds of 7 and 15 Btu/ftï¿½-F."
+     or not mass. Based on thresholds of 7 and 15 Btu/ft²-F."
   INPUTCLASS
     NotInput
   OPTION
@@ -3940,7 +3940,7 @@ RULE NEW ConsAssm:ConsType
   DATATYPE
     Enumeration
   DESCRIPTION
-    "The Exterior Wall, Roof or Exterior Floor construction type ï¿½ Metal 
+    "The Exterior Wall, Roof or Exterior Floor construction type – Metal 
      Building Wall, Metal Frame Wall, Mass-Light Wall, Mass-Heavy Wall, 
      Wood Framed Wall, Wood Framing And Other Roof, Metal Building Roof, 
      Mass Floor, and Other Floor."
