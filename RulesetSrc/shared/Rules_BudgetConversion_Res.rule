@@ -329,7 +329,7 @@ RULELIST  "BudgetConversion" 1 0 1 0
             else RuleLibrary(Cons, T24RClimateZoneCodeBase:StdFrameIntWallCons( "ClimateZone", Proj:CliZnNum, "CodeBase", Proj:StdDesignBase, "BldgType", Proj:BldgTypeTblStr ) )
             endif
          else if (IsAltered)
-         then  if (LocalCompAssigned( Construction ) == ComponentType( "ResConsAssm" ) .AND. Construction:FrameLayer > 600)
+         then  if (Construction:FrameLayer > 600)
                then  RuleLibrary( Cons, "T24-2016 IntWall 2x6 16oc R19" )
                else  RuleLibrary( Cons, "T24-2013 R13 IntWall Cons"     )  endif
          else UNCHANGED endif endif endif	}	
