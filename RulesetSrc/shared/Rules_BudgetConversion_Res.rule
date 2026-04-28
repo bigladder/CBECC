@@ -1098,7 +1098,7 @@ RULELIST  "BudgetConversion" 1 0 1 0
                            else                                                                   RuleLibrary( Cons, "T24-2013 2x4 Altered Wall" )
                            endif endif endif
                      endif
-               else if (Construction:FrmDepth > 5.4)   ; ConsAssm: use derived framing depth (5.5" = 2x6)
+               else if (LocalCompAssigned( Construction ) == ComponentType( "ConsAssm" ) .AND. Construction:FrmDepth > 5.4)   ; ConsAssm: use derived framing depth (5.5" = 2x6)
                then  RuleLibrary( Cons, "T24-2013 2x6 Altered Wall" )
                else  RuleLibrary( Cons, "T24-2013 2x4 Altered Wall" )
                endif

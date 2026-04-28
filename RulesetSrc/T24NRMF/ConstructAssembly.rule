@@ -707,74 +707,16 @@ RULE NEW ConsAssm:FrmDepth
   INPUTCLASS
     NotInput
   DEFAULT
-    switch( NumMats )
-    case  1 :     if(IfValidAnd( MatRef[1]:FrmDepthVal > 0 ) ) then  MatRef[1]:FrmDepthVal
-               else  0  endif
-    case  2 :     if(IfValidAnd( MatRef[1]:FrmDepthVal > 0 ) ) then  MatRef[1]:FrmDepthVal
-               else if(IfValidAnd( MatRef[2]:FrmDepthVal > 0 ) ) then  MatRef[2]:FrmDepthVal
-               else  0  endif endif
-    case  3 :     if(IfValidAnd( MatRef[1]:FrmDepthVal > 0 ) ) then  MatRef[1]:FrmDepthVal
-               else if(IfValidAnd( MatRef[2]:FrmDepthVal > 0 ) ) then  MatRef[2]:FrmDepthVal
-               else if(IfValidAnd( MatRef[3]:FrmDepthVal > 0 ) ) then  MatRef[3]:FrmDepthVal
-               else  0  endif endif endif
-    case  4 :     if(IfValidAnd( MatRef[1]:FrmDepthVal > 0 ) ) then  MatRef[1]:FrmDepthVal
-               else if(IfValidAnd( MatRef[2]:FrmDepthVal > 0 ) ) then  MatRef[2]:FrmDepthVal
-               else if(IfValidAnd( MatRef[3]:FrmDepthVal > 0 ) ) then  MatRef[3]:FrmDepthVal
-               else if(IfValidAnd( MatRef[4]:FrmDepthVal > 0 ) ) then  MatRef[4]:FrmDepthVal
-               else  0  endif endif endif endif
-    case  5 :     if(IfValidAnd( MatRef[1]:FrmDepthVal > 0 ) ) then  MatRef[1]:FrmDepthVal
-               else if(IfValidAnd( MatRef[2]:FrmDepthVal > 0 ) ) then  MatRef[2]:FrmDepthVal
-               else if(IfValidAnd( MatRef[3]:FrmDepthVal > 0 ) ) then  MatRef[3]:FrmDepthVal
-               else if(IfValidAnd( MatRef[4]:FrmDepthVal > 0 ) ) then  MatRef[4]:FrmDepthVal
-               else if(IfValidAnd( MatRef[5]:FrmDepthVal > 0 ) ) then  MatRef[5]:FrmDepthVal
-               else  0  endif endif endif endif endif
-    case  6 :     if(IfValidAnd( MatRef[1]:FrmDepthVal > 0 ) ) then  MatRef[1]:FrmDepthVal
-               else if(IfValidAnd( MatRef[2]:FrmDepthVal > 0 ) ) then  MatRef[2]:FrmDepthVal
-               else if(IfValidAnd( MatRef[3]:FrmDepthVal > 0 ) ) then  MatRef[3]:FrmDepthVal
-               else if(IfValidAnd( MatRef[4]:FrmDepthVal > 0 ) ) then  MatRef[4]:FrmDepthVal
-               else if(IfValidAnd( MatRef[5]:FrmDepthVal > 0 ) ) then  MatRef[5]:FrmDepthVal
-               else if(IfValidAnd( MatRef[6]:FrmDepthVal > 0 ) ) then  MatRef[6]:FrmDepthVal
-               else  0  endif endif endif endif endif endif
-    case  7 :     if(IfValidAnd( MatRef[1]:FrmDepthVal > 0 ) ) then  MatRef[1]:FrmDepthVal
-               else if(IfValidAnd( MatRef[2]:FrmDepthVal > 0 ) ) then  MatRef[2]:FrmDepthVal
-               else if(IfValidAnd( MatRef[3]:FrmDepthVal > 0 ) ) then  MatRef[3]:FrmDepthVal
-               else if(IfValidAnd( MatRef[4]:FrmDepthVal > 0 ) ) then  MatRef[4]:FrmDepthVal
-               else if(IfValidAnd( MatRef[5]:FrmDepthVal > 0 ) ) then  MatRef[5]:FrmDepthVal
-               else if(IfValidAnd( MatRef[6]:FrmDepthVal > 0 ) ) then  MatRef[6]:FrmDepthVal
-               else if(IfValidAnd( MatRef[7]:FrmDepthVal > 0 ) ) then  MatRef[7]:FrmDepthVal
-               else  0  endif endif endif endif endif endif endif
-    case  8 :     if(IfValidAnd( MatRef[1]:FrmDepthVal > 0 ) ) then  MatRef[1]:FrmDepthVal
-               else if(IfValidAnd( MatRef[2]:FrmDepthVal > 0 ) ) then  MatRef[2]:FrmDepthVal
-               else if(IfValidAnd( MatRef[3]:FrmDepthVal > 0 ) ) then  MatRef[3]:FrmDepthVal
-               else if(IfValidAnd( MatRef[4]:FrmDepthVal > 0 ) ) then  MatRef[4]:FrmDepthVal
-               else if(IfValidAnd( MatRef[5]:FrmDepthVal > 0 ) ) then  MatRef[5]:FrmDepthVal
-               else if(IfValidAnd( MatRef[6]:FrmDepthVal > 0 ) ) then  MatRef[6]:FrmDepthVal
-               else if(IfValidAnd( MatRef[7]:FrmDepthVal > 0 ) ) then  MatRef[7]:FrmDepthVal
-               else if(IfValidAnd( MatRef[8]:FrmDepthVal > 0 ) ) then  MatRef[8]:FrmDepthVal
-               else  0  endif endif endif endif endif endif endif endif
-    case  9 :     if(IfValidAnd( MatRef[1]:FrmDepthVal > 0 ) ) then  MatRef[1]:FrmDepthVal
-               else if(IfValidAnd( MatRef[2]:FrmDepthVal > 0 ) ) then  MatRef[2]:FrmDepthVal
-               else if(IfValidAnd( MatRef[3]:FrmDepthVal > 0 ) ) then  MatRef[3]:FrmDepthVal
-               else if(IfValidAnd( MatRef[4]:FrmDepthVal > 0 ) ) then  MatRef[4]:FrmDepthVal
-               else if(IfValidAnd( MatRef[5]:FrmDepthVal > 0 ) ) then  MatRef[5]:FrmDepthVal
-               else if(IfValidAnd( MatRef[6]:FrmDepthVal > 0 ) ) then  MatRef[6]:FrmDepthVal
-               else if(IfValidAnd( MatRef[7]:FrmDepthVal > 0 ) ) then  MatRef[7]:FrmDepthVal
-               else if(IfValidAnd( MatRef[8]:FrmDepthVal > 0 ) ) then  MatRef[8]:FrmDepthVal
-               else if(IfValidAnd( MatRef[9]:FrmDepthVal > 0 ) ) then  MatRef[9]:FrmDepthVal
-               else  0  endif endif endif endif endif endif endif endif endif
-    case 10 :     if(IfValidAnd( MatRef[1]:FrmDepthVal > 0 ) ) then  MatRef[1]:FrmDepthVal
-               else if(IfValidAnd( MatRef[2]:FrmDepthVal > 0 ) ) then  MatRef[2]:FrmDepthVal
-               else if(IfValidAnd( MatRef[3]:FrmDepthVal > 0 ) ) then  MatRef[3]:FrmDepthVal
-               else if(IfValidAnd( MatRef[4]:FrmDepthVal > 0 ) ) then  MatRef[4]:FrmDepthVal
-               else if(IfValidAnd( MatRef[5]:FrmDepthVal > 0 ) ) then  MatRef[5]:FrmDepthVal
-               else if(IfValidAnd( MatRef[6]:FrmDepthVal > 0 ) ) then  MatRef[6]:FrmDepthVal
-               else if(IfValidAnd( MatRef[7]:FrmDepthVal > 0 ) ) then  MatRef[7]:FrmDepthVal
-               else if(IfValidAnd( MatRef[8]:FrmDepthVal > 0 ) ) then  MatRef[8]:FrmDepthVal
-               else if(IfValidAnd( MatRef[9]:FrmDepthVal > 0 ) ) then  MatRef[9]:FrmDepthVal
-               else if(IfValidAnd( MatRef[10]:FrmDepthVal > 0 ) ) then  MatRef[10]:FrmDepthVal
-               else  0  endif endif endif endif endif endif endif endif endif endif
-    default :  0
-    endswitch
+    ValidOr( MatRef[1]:FrmDepthVal, 0) +
+    ValidOr( MatRef[2]:FrmDepthVal, 0) +
+    ValidOr( MatRef[3]:FrmDepthVal, 0) +
+    ValidOr( MatRef[4]:FrmDepthVal, 0) +
+    ValidOr( MatRef[5]:FrmDepthVal, 0) +
+    ValidOr( MatRef[6]:FrmDepthVal, 0) +
+    ValidOr( MatRef[7]:FrmDepthVal, 0) +
+    ValidOr( MatRef[8]:FrmDepthVal, 0) +
+    ValidOr( MatRef[9]:FrmDepthVal, 0) +
+    ValidOr( MatRef[10]:FrmDepthVal, 0)
 ENDRULE
 
 
