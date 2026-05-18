@@ -1,4 +1,4 @@
-name: Update CBECC Release Statistics Wiki (Accordion Style)
+name: Update CBECC Download Statistics Wiki (Accordion Style)
 
 on:
   schedule:
@@ -19,10 +19,10 @@ jobs:
 
       - name: Build accordion-style Markdown
         run: |
-          echo "# Download Statistics" > CBECC-Releases-Statistics.md
-          echo "" >> CBECC-Releases-Statistics.md
-          echo "Last updated: $(date -u +"%Y-%m-%d %H:%M UTC")" >> CBECC-Releases-Statistics.md
-          echo "" >> CBECC-Releases-Statistics.md
+          echo "# Download Statistics" > CBECC-Download-Statistics.md
+          echo "" >> CBECC-Download-Statistics.md
+          echo "Last updated: $(date -u +"%Y-%m-%d %H:%M UTC")" >> CBECC-Download-Statistics.md
+          echo "" >> CBECC-Download-Statistics.md
 
           releases=$(jq length releases.json)
 
@@ -31,16 +31,16 @@ jobs:
             tag=$(jq -r ".[$i].tag_name" releases.json)
             published=$(jq -r ".[$i].published_at" releases.json)
 
-            echo "<details>" >> CBECC-Releases-Statistics.md
-            echo "  <summary><strong>${name}</strong></summary> " >> CBECC-Releases-Statistics.md
-            echo "" >> CBECC-Releases-Statistics.md
+            echo "<details>" >> CBECC-Download-Statistics.md
+            echo "  <summary><strong>${name}</strong></summary> " >> CBECC-Download-Statistics.md
+            echo "" >> CBECC-Download-Statistics.md
 
-            echo "**Published:** ${published}" >> CBECC-Releases-Statistics.md
-            echo "" >> CBECC-Releases-Statistics.md
+            echo "**Published:** ${published}" >> CBECC-Download-Statistics.md
+            echo "" >> CBECC-Download-Statistics.md
 
-            echo "### Assets" >> CBECC-Releases-Statistics.md
-            echo "| Name | Size | Downloads |" >> CBECC-Releases-Statistics.md
-            echo "|------|------|-----------|" >> CBECC-Releases-Statistics.md
+            echo "### Assets" >> CBECC-Download-Statistics.md
+            echo "| Name | Size | Downloads |" >> CBECC-Download-Statistics.md
+            echo "|------|------|-----------|" >> CBECC-Download-Statistics.md
 
             assets=$(jq ".[$i].assets | length" releases.json)
 
@@ -52,14 +52,14 @@ jobs:
 
               size_mb=$(echo "scale=2; $a_size / 1048576" | bc)
 
-               echo "| [$a_name]($a_url) | ${size_mb} MB | ${a_dl} |" >> CBECC-Releases-Statistics.md
+               echo "| [$a_name]($a_url) | ${size_mb} MB | ${a_dl} |" >> CBECC-Download-Statistics.md
             done
 
-            echo "" >> CBECC-Releases-Statistics.md
-            echo "</details>" >> CBECC-Releases-Statistics.md
-            echo "" >> CBECC-Releases-Statistics.md
-            echo "---" >> CBECC-Releases-Statistics.md
-            echo "" >> CBECC-Releases-Statistics.md
+            echo "" >> CBECC-Download-Statistics.md
+            echo "</details>" >> CBECC-Download-Statistics.md
+            echo "" >> CBECC-Download-Statistics.md
+            echo "---" >> CBECC-Download-Statistics.md
+            echo "" >> CBECC-Download-Statistics.md
           done
 
       - name: Clone Wiki repository
@@ -68,10 +68,10 @@ jobs:
 
       - name: Update Wiki Page
         run: |
-          cp CBECC-Releases-Statistics.md wiki/CBECC-Releases-Statistics.md
+          cp CBECC-Download-Statistics.md wiki/CBECC-Download-Statistics.md
           cd wiki
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
-          git add CBECC-Releases-Statistics.md
+          git add CBECC-Download-Statistics.md
           git commit -m "Automated accordion-style wiki update on $(date -u +"%Y-%m-%d %H:%M UTC")" || echo "No changes"
           git push
