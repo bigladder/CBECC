@@ -19,7 +19,7 @@ jobs:
 
       - name: Build accordion-style Markdown
         run: |
-          echo "# CBECC Release(s) Statistics" > CBECC-Releases-Statistics.md
+          echo "# Download Statistics" > CBECC-Releases-Statistics.md
           echo "" >> CBECC-Releases-Statistics.md
           echo "Last updated: $(date -u +"%Y-%m-%d %H:%M UTC")" >> CBECC-Releases-Statistics.md
           echo "" >> CBECC-Releases-Statistics.md
