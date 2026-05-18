@@ -64,7 +64,7 @@ jobs:
 
       - name: Clone Wiki repository
         run: |
-          git clone "https://github.com/${GITHUB_REPOSITORY}.wiki.git" wiki
+         git clone "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.wiki.git" wiki
 
       - name: Update Wiki Page
         run: |
