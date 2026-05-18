@@ -19,10 +19,10 @@ jobs:
 
       - name: Build accordion-style Markdown
         run: |
-          echo "# CBECC GitHub Releases (Accordion View)" > CBECC-Releases.md
-          echo "" >> CBECC-Releases.md
-          echo "Last updated: $(date -u +"%Y-%m-%d %H:%M UTC")" >> CBECC-Releases.md
-          echo "" >> CBECC-Releases.md
+          echo "# CBECC Release(s) Statistics" > CBECC-Releases-Stats.md
+          echo "" >> CBECC-Releases-Stats.md
+          echo "Last updated: $(date -u +"%Y-%m-%d %H:%M UTC")" >> CBECC-Releases-Stats.md
+          echo "" >> CBECC-Releases-Stats.md
 
           releases=$(jq length releases.json)
 
@@ -31,16 +31,16 @@ jobs:
             tag=$(jq -r ".[$i].tag_name" releases.json)
             published=$(jq -r ".[$i].published_at" releases.json)
 
-            echo "<details>" >> CBECC-Releases.md
-            echo "  <summary><strong>${name}</strong> — <em>${tag}</em></summary>" >> CBECC-Releases.md
-            echo "" >> CBECC-Releases.md
+            echo "<details>" >> CBECC-Releases-Stats.md
+            echo "  <summary><strong>${name}</strong> — <em>${tag}</em></summary>" >> CBECC-Releases-Stats.md
+            echo "" >> CBECC-Releases-Stats.md
 
-            echo "**Published:** ${published}" >> CBECC-Releases.md
-            echo "" >> CBECC-Releases.md
+            echo "**Published:** ${published}" >> CBECC-Releases-Stats.md
+            echo "" >> CBECC-Releases-Stats.md
 
-            echo "### Assets" >> CBECC-Releases.md
-            echo "| Name | Size | Downloads |" >> CBECC-Releases.md
-            echo "|------|------|-----------|" >> CBECC-Releases.md
+            echo "### Assets" >> CBECC-Releases-Stats.md
+            echo "| Name | Size | Downloads |" >> CBECC-Releases-Stats.md
+            echo "|------|------|-----------|" >> CBECC-Releases-Stats.md
 
             assets=$(jq ".[$i].assets | length" releases.json)
 
@@ -52,14 +52,14 @@ jobs:
 
               size_mb=$(echo "scale=2; $a_size / 1048576" | bc)
 
-              echo "| $a_url | ${size_mb} MB | ${a_dl} |" >> CBECC-Releases.md
+              echo "| $a_url | ${size_mb} MB | ${a_dl} |" >> CBECC-Releases-Stats.md
             done
 
-            echo "" >> CBECC-Releases.md
-            echo "</details>" >> CBECC-Releases.md
-            echo "" >> CBECC-Releases.md
-            echo "---" >> CBECC-Releases.md
-            echo "" >> CBECC-Releases.md
+            echo "" >> CBECC-Releases-Stats.md
+            echo "</details>" >> CBECC-Releases-Stats.md
+            echo "" >> CBECC-Releases-Stats.md
+            echo "---" >> CBECC-Releases-Stats.md
+            echo "" >> CBECC-Releases-Stats.md
           done
 
       - name: Clone Wiki repository
@@ -68,10 +68,10 @@ jobs:
 
       - name: Update Wiki Page
         run: |
-          cp CBECC-Releases.md wiki/CBECC-Releases.md
+          cp CBECC-Releases-Stats.md wiki/CBECC-Releases-Stats.md
           cd wiki
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
-          git add CBECC-Releases.md
+          git add CBECC-Releases-Stats.md
           git commit -m "Automated accordion-style wiki update on $(date -u +"%Y-%m-%d %H:%M UTC")" || echo "No changes"
           git push
