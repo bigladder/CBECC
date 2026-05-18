@@ -52,7 +52,7 @@ jobs:
 
               size_mb=$(echo "scale=2; $a_size / 1048576" | bc)
 
-              echo "| $a_url | ${size_mb} MB | ${a_dl} |" >> CBECC-Releases-Statistics.md
+               echo "| [$a_name]($a_url) | ${size_mb} MB | ${a_dl} |" >> CBECC-Releases-Statistics.md
             done
 
             echo "" >> CBECC-Releases-Statistics.md
