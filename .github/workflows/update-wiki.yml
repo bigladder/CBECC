@@ -32,7 +32,7 @@ jobs:
             published=$(jq -r ".[$i].published_at" releases.json)
 
             echo "<details>" >> CBECC-Releases-Statistics.md
-            echo "  <summary><strong>${name}</strong> — <em>${tag}</em></summary>" >> CBECC-Releases-Statistics.md
+            echo "  <summary><strong>${name}</strong></summary>" >> CBECC-Releases-Statistics.md
             echo "" >> CBECC-Releases-Statistics.md
 
             echo "**Published:** ${published}" >> CBECC-Releases-Statistics.md
