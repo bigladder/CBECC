@@ -1,0 +1,77 @@
+name: Update CBECC Release Assets Wiki (Accordion Style)
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"   # updates every 6 hours
+  workflow_dispatch:
+
+jobs:
+  update-wiki:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      - name: Fetch releases from GitHub API
+        run: |
+          curl -s "https://api.github.com/repos/california-energy-commission/CBECC/releases" > releases.json
+
+      - name: Build accordion-style Markdown
+        run: |
+          echo "# CBECC GitHub Releases (Accordion View)" > CBECC-Releases.md
+          echo "" >> CBECC-Releases.md
+          echo "Last updated: $(date -u +"%Y-%m-%d %H:%M UTC")" >> CBECC-Releases.md
+          echo "" >> CBECC-Releases.md
+
+          releases=$(jq length releases.json)
+
+          for ((i=0; i<releases; i++)); do
+            name=$(jq -r ".[$i].name // .[$i].tag_name" releases.json)
+            tag=$(jq -r ".[$i].tag_name" releases.json)
+            published=$(jq -r ".[$i].published_at" releases.json)
+
+            echo "<details>" >> CBECC-Releases.md
+            echo "  <summary><strong>${name}</strong> — <em>${tag}</em></summary>" >> CBECC-Releases.md
+            echo "" >> CBECC-Releases.md
+
+            echo "**Published:** ${published}" >> CBECC-Releases.md
+            echo "" >> CBECC-Releases.md
+
+            echo "### Assets" >> CBECC-Releases.md
+            echo "| Name | Size | Downloads |" >> CBECC-Releases.md
+            echo "|------|------|-----------|" >> CBECC-Releases.md
+
+            assets=$(jq ".[$i].assets | length" releases.json)
+
+            for ((j=0; j<assets; j++)); do
+              a_name=$(jq -r ".[$i].assets[$j].name" releases.json)
+              a_url=$(jq -r ".[$i].assets[$j].browser_download_url" releases.json)
+              a_size=$(jq -r ".[$i].assets[$j].size" releases.json)
+              a_dl=$(jq -r ".[$i].assets[$j].download_count" releases.json)
+
+              size_mb=$(echo "scale=2; $a_size / 1048576" | bc)
+
+              echo "| $a_url | ${size_mb} MB | ${a_dl} |" >> CBECC-Releases.md
+            done
+
+            echo "" >> CBECC-Releases.md
+            echo "</details>" >> CBECC-Releases.md
+            echo "" >> CBECC-Releases.md
+            echo "---" >> CBECC-Releases.md
+            echo "" >> CBECC-Releases.md
+          done
+
+      - name: Clone Wiki repository
+        run: |
+          git clone "https://github.com/${GITHUB_REPOSITORY}.wiki.git" wiki
+
+      - name: Update Wiki Page
+        run: |
+          cp CBECC-Releases.md wiki/CBECC-Releases.md
+          cd wiki
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add CBECC-Releases.md
+          git commit -m "Automated accordion-style wiki update on $(date -u +"%Y-%m-%d %H:%M UTC")" || echo "No changes"
+          git push
