@@ -38,7 +38,7 @@ RULE Proj:CompManagerVersion
   DESCRIPTION
     "Version of Compliance Manager software"
   DEFAULT 
-    Format( "BEMCmpMgr 2025.3.0-RV (%g)", RuleRepoRev )
+    Format( "BEMCmpMgr 2025.2.1.1 (%g)", RuleRepoRev )
   SIZING
     u:CompManagerVersion
   ANNUAL
@@ -62,7 +62,7 @@ RULE Proj:AnalysisVersion
   DESCRIPTION
     "Version ID of analysis, enabling rule logic to be sensitive to analysis version"
   DEFAULT 
-    250300
+    250201
 ENDRULE
 ;    220200
 
@@ -71,7 +71,7 @@ RULE Proj:ReleaseNotesURL
   DESCRIPTION
     "URL (web address) of site to provide release notes"
   DEFAULT 
-    "https://github.com/california-energy-commission/CBECC/releases/tag/2025.3.0-RV"
+    "https://github.com/california-energy-commission/CBECC/releases/tag/2025.2.1.1"
 ENDRULE
 
 // ********** Compliance Reporting properties **********************************
@@ -133,7 +133,7 @@ RULE Proj:RptGenUIVer
   INPUTCLASS
     Prescribed
   DEFAULT 
-    "3"
+    "21"
   SIZING
     u:RptGenUIVer
   ANNUAL
@@ -192,7 +192,7 @@ RULE NEW Proj:NRCC_RptGenServer
   INPUTCLASS
     Prescribed
   DEFAULT 
-    "cf6r.com"
+    "t24docs.com"
   SIZING
     u:NRCC_RptGenServer
   ANNUAL
@@ -206,13 +206,13 @@ RULE NEW Proj:NRCC_RptGenApp
   INPUTCLASS
     Prescribed
   DEFAULT 
-    "ReportGeneratorNRMF2025_git"
+    "ReportGeneratorNRMF2025.2.1.1"
   SIZING
     u:NRCC_RptGenApp
   ANNUAL
     u:NRCC_RptGenApp
 ENDRULE
-;    ReportGeneratorNRMF2025_git  ReportGeneratorNRMF2025.2.1.1
+;    ReportGeneratorNRMF2025_git  ReportGeneratorNRMF2025.2.0
 
 RULE NEW Proj:RptGenCheckURL
   DESCRIPTION

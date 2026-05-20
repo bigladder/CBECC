@@ -1242,10 +1242,7 @@ RULE AirSys:ClgCap
   REPORTPRECISION
     -3
   DEFAULT  
-    if( SumChildren( CoilClg:CapTotNetRtd ) > 0 )
-    then  SumChildren( CoilClg:CapTotNetRtd )
-    else  SumChildren( CoilClg:CapTotGrossRtd )
-    endif
+    SumChildren( CoilClg:CapTotNetRtd ) 
   CHECKSIM
     if( IfValidAnd( AirSys:BypassCheckSim > 0 ) )
     then  UNCHANGED
@@ -1274,10 +1271,7 @@ RULE ZnSys:ClgCap
   REPORTPRECISION
     -3
   DEFAULT 
-    if( SumChildren( CoilClg:CapTotNetRtd ) > 0 )
-    then  SumChildren( CoilClg:CapTotNetRtd )
-    else  SumChildren( CoilClg:CapTotGrossRtd )
-    endif
+    SumChildren( CoilClg:CapTotNetRtd ) 
   CHECKCODE
     if( IsHlthCareSys > 0 .AND. LocalCompAssigned( CtrlZnRef ) )
     then  if( ClgCap < 33000 .OR. ( ClgCap < 54000 .AND. IfValidAnd( CtrlZnRef:HasHtRcvryDOAS > 0 ) ) )
@@ -1415,13 +1409,8 @@ RULE AirSys:Type
           then  UNCHANGED
           else  "SZAC"// Regular NonRes system map
           endif endif endif endif endif
-    else if( Bldg:RelocPubSchoolBldg > 0 .AND. IsSchoolBaseSys > 0 )
-    then  if( Proj:CliZnNum >= 2 .AND. Proj:CliZnNum <= 15 )
-          then  "SZHP" // SZHP for CZ 2-15
-          else  "SZDFHP" // SZAC for CZ 1 & 16
-          endif
     else  UNCHANGED
-    endif endif
+    endif
 ENDRULE
 
 // Reset SysType for AirSys components
