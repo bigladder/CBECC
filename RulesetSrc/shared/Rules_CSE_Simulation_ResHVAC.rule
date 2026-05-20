@@ -3234,11 +3234,12 @@ RULELIST "SimPrep_CSE_AirNet_ResOtherZone" 0 0 0 1
 ;	"Set ResOtherZn:GrgWallAirNetIZXFERs[2]:izZN2"			ResOtherZn:GrgWallAirNetIZXFERs[2]:izZN2  	=	{	Global( ResGarage:CSE_ZONE )  }
 
 	"Setup AirNet ResOtherZn IZXFER objects"		ResOtherZn:Action	=        ; added rule to call ...Conditioned rules only for cons zones - SAC 05/24/23
-      {  EvalRulelist( "SimPrep_CSE_AirNet_ResOtherZone_VentSys", 1 )  }
+      {  if (Local( Type ) == 10) then  UNCHANGED		; Unconditioned
+         else  EvalRulelist( "SimPrep_CSE_AirNet_ResOtherZone_Conditioned", 1 )  endif  }
 END
 
 ;************************************************************************* ; extracted from above to ensure above is run for Uncond zones - SAC 05/24/23
-RULELIST "SimPrep_CSE_AirNet_ResOtherZone_VentSys" 0 0 0 1
+RULELIST "SimPrep_CSE_AirNet_ResOtherZone_Conditioned" 0 0 0 1
 ;*************************************************************************
  ;-----------------------
  ; AirNet for IAQ Ventilation
