@@ -2194,7 +2194,7 @@ RULELIST "ProposedModelSimulationCheck" 1 0 0 0
 	"Prevent invalid ResAttic:exConstruction assignments"		ResAttic:Action	= {
 						if (IfValidAnd( FloorArea > 0.1 )==0 .OR. Status != 2 .OR. IfValidAnd( IsVerified == 1 )==0) then  UNCHANGED
 						else if (LocalCompAssigned( exConstruction ) < 0.5) then				PostError( "Attic '%s' missing its existing exConstruction reference.", Name )
-						else if (IfValidAnd( exConstruction:CanAssignTo ==  1 )==0) then	PostError( "Attic '%s' references incompatible construction object '%s' (CanAssignTo = '%s').", Name, Construction:Name, EnumString( Construction:CanAssignTo ) )
+						else if (IfValidAnd( exConstruction:CanAssignTo ==  1 )==0) then	PostError( "Attic '%s' references incompatible existing construction object '%s' (CanAssignTo = '%s').", Name, exConstruction:Name, EnumString( exConstruction:CanAssignTo ) )
 						else if (IfValidAnd( exConstruction:DisplayInpErrMsg > 0 )) then  PostError( "Attic '%s' existing construction '%s':  %s", Name, exConstruction:Name, exConstruction:InputErrMsg )
 						else  UNCHANGED  endif endif endif endif  }
 
