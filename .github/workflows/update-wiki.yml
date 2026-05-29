@@ -2,7 +2,8 @@ name: Update CBECC Download Statistics Wiki (Accordion Style)
 
 on:
   schedule:
-    - cron: "0 */6 * * *"   # updates every 6 hours
+ #   - cron: "0 */6 * * *"   # updates every 6 hours
+    - cron: "0 8 * * *"      # runs daily at 8 AM
   workflow_dispatch:
 
 jobs:
