@@ -22,7 +22,8 @@ jobs:
         run: |
           echo "# Download Statistics" > CBECC-Download-Statistics.md
           echo "" >> CBECC-Download-Statistics.md
-          echo "Last updated: $(date -u +"%Y-%m-%d %H:%M UTC")" >> CBECC-Download-Statistics.md
+        #  echo "Last updated: $(date -u +"%Y-%m-%d %H:%M UTC")" >> CBECC-Download-Statistics.md
+          echo "Last updated: $(TZ='America/Los_Angeles' date +"%Y-%m-%d %H:%M %Z")" >> CBECC-Download-Statistics.md
           echo "" >> CBECC-Download-Statistics.md
 
           releases=$(jq length releases.json)
