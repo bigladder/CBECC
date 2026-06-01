@@ -1,8 +1,8 @@
 <%#INTERFACE
 parameter "zonename", :name => "Zone Name", :domain => String
 parameter "systemname", :name => "Zone System Name", :domain => String
-parameter "availability_schedule", :name => "HVAC Availability Schedule",
-  :domain => String, :default => "OfficeHVACAvail"  # building HVAC availability schedule; caller may override
+parameter "availabilityschedule", :name => "HVAC Availability Schedule",
+  :domain => String, :default => ""  # building HVAC availability schedule; caller may override
 
 parameter "type", :name => "Zone System Type",
   :domain => String, :default => "EvaporativeCooler"  # always EvaporativeCooler
@@ -85,7 +85,7 @@ fan_power_divisor = (primary_flow * rated_primary_pressure + secondary_flow * ra
 ! - Setting Mode 2 Minimum and Maximum Outside Air Fraction to 1 significantly cuts simulation run time.
 ZoneHVAC:HybridUnitaryHVAC,
   <%= system_name.upcase %>,  !- Name
-  <%= availability_schedule %>,  !- Availability Schedule Name
+  <%= availabilityschedule %>,  !- Availability Schedule Name
   ,                        !- Availability Manager List Name
   <%= system_name %> Min Supply Temp Schedule,  !- Minimum Supply Air Temperature Schedule Name
   <%= system_name %> Max Supply Temp Schedule,  !- Maximum Supply Air Temperature Schedule Name
