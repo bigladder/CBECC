@@ -1,6 +1,8 @@
 <%#INTERFACE
 parameter "zonename", :name => "Zone Name", :domain => String
 parameter "systemname", :name => "Zone System Name", :domain => String
+parameter "availability_schedule", :name => "HVAC Availability Schedule",
+  :domain => String, :default => "OfficeHVACAvail"  # building HVAC availability schedule; caller may override
 
 parameter "type", :name => "Zone System Type",
   :domain => String, :default => "EvaporativeCooler"  # always EvaporativeCooler
@@ -76,13 +78,14 @@ fan_power_divisor = (primary_flow * rated_primary_pressure + secondary_flow * ra
 
 ! NOTE: ZoneHVAC:HybridUnitaryHVAC has several issues to work around:
 ! - Object name must be all caps or else it fails with an error.
-! - Availability Schedule must be specified or unit does not operate.
+! - Availability Schedule drives the building HVAC availability (e.g., OfficeHVACAvail);
+!   when 0 the unit holds Mode 0 (Standby) - no cooling, no ventilation, no supply fan.
 ! - System Maximum Supply Air Flow Rate and External Static Pressure are not actually used by the object.
 ! - Mode 2 Maximum Outside Air Temperature must have a value otherwise cooling does not operate.
 ! - Setting Mode 2 Minimum and Maximum Outside Air Fraction to 1 significantly cuts simulation run time.
 ZoneHVAC:HybridUnitaryHVAC,
   <%= system_name.upcase %>,  !- Name
-  <%= system_name %> Operation Schedule,  !- Availability Schedule Name
+  <%= availability_schedule %>,  !- Availability Schedule Name
   ,                        !- Availability Manager List Name
   <%= system_name %> Min Supply Temp Schedule,  !- Minimum Supply Air Temperature Schedule Name
   <%= system_name %> Max Supply Temp Schedule,  !- Maximum Supply Air Temperature Schedule Name
@@ -166,14 +169,6 @@ ZoneHVAC:HybridUnitaryHVAC,
   1,                       !- Mode 2 Maximum Outside Air Fraction
   ,                        !- Mode 2 Minimum Supply Air Mass Flow Rate Ratio
   ;                        !- Mode 2 Maximum Supply Air Mass Flow Rate Ratio
-
-Schedule:Compact,
-  <%= system_name %> Operation Schedule,  !- Name
-  OnOff,                   !- Schedule Type Limits Name
-  Through: 12/31,          !- Field 1
-  For: AllDays,            !- Field 2
-  Until: 24:00,            !- Field 3
-  1;                       !- Field 4
 
 Schedule:Compact,
   <%= system_name %> Min Supply Temp Schedule,  !- Name
