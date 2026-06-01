@@ -2,7 +2,7 @@
 parameter "zonename", :name => "Zone Name", :domain => String
 parameter "systemname", :name => "Zone System Name", :domain => String
 parameter "availabilityschedule", :name => "HVAC Availability Schedule",
-  :domain => String, :default => ""  # building HVAC availability schedule; caller may override
+  :domain => String, :default => "OfficeHVACAvail"  # building HVAC availability schedule; caller may override (default to office until ruleset is updated to supply per-zone schedule)
 
 parameter "type", :name => "Zone System Type",
   :domain => String, :default => "EvaporativeCooler"  # always EvaporativeCooler

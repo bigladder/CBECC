@@ -45,7 +45,7 @@ RULELIST "ModekitPrep_HybridCooling" 1 0 0 0
    "Open Modelkit CSV file"      Proj:ModelkitCSVExportFileIdx =
       {  OpenExportFile( ProcessingPath + ModelFile + " - " + RunAbbrev + " - HybridHVAC.csv", "wt" )  }
    "Write Modelkit CSV header"   Proj:Action  =
-      {  WriteToExportFile( ModelkitCSVExportFileIdx, "ZoneName,SystemName,Type,SubType,Count,DirectEvap,EvapClrPriSupFlow,EvapClrPriSupStaticPress,AvailabilitySchedule\n" )  }
+      {  WriteToExportFile( ModelkitCSVExportFileIdx, "ZoneName,SystemName,Type,SubType,Count,DirectEvap,EvapClrPriSupFlow,EvapClrPriSupStaticPress\n" )  }
    ; removed final column, EvapClrSecExhFlow - SAC 12/19/23
    ;   {  WriteToExportFile( ModelkitCSVExportFileIdx, "ZoneName,SystemName,Type,SubType,Count,DirectEvap,EvapClrPriSupFlow,EvapClrPriSupStaticPress,EvapClrSecExhFlow\n" )  }
    "Write Modelkit CSV record for each EvaporativeCooler ZnSys"   ZnSys:Action =
@@ -64,11 +64,10 @@ END
 ;*************************************************************************
 RULELIST "ModekitPrep_HybridCooling_ZnSys" 1 0 0 0
    "Write Modelkit CSV record"   ZnSys:Action  =
-      {  WriteToExportFile( Proj:ModelkitCSVExportFileIdx, "%c%s%c,%c%s%c,%c%s%c,%c%s%c,%g,%g,%g,%g,%c%s%c\n",
+      {  WriteToExportFile( Proj:ModelkitCSVExportFileIdx, "%c%s%c,%c%s%c,%c%s%c,%c%s%c,%g,%g,%g,%g,\n",
                                     34, CtrlZnRef:Name, 34, 34, Name, 34, 34, Type, 34, 34, SubType, 34,
                                     Cnt, ValidOr( HasDirectEvap, 0 ), ValidOr( EvapClrPriSupFlow, 0 ),
-                                    ValidOr( EvapClrPriSupStaticPress, 0 ),
-                                    34, AvailSchRef:Name, 34 )  }
+                                    ValidOr( EvapClrPriSupStaticPress, 0 ) )  }
    ; removed final column, EvapClrSecExhFlow - SAC 12/19/23
    ;   {  WriteToExportFile( Proj:ModelkitCSVExportFileIdx, "%c%s%c,%c%s%c,%c%s%c,%c%s%c,%g,%g,%g,%g,%g,\n",
    ;                                 34, CtrlZnRef:Name, 34, 34, Name, 34, 34, Type, 34, 34, SubType, 34,
