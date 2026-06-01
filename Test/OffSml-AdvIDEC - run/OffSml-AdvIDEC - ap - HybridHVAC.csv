@@ -1,6 +1,0 @@
-ZoneName,SystemName,Type,SubType,Count,DirectEvap,EvapClrPriSupFlow,EvapClrPriSupStaticPress
-"Core_ZN Thermal Zone","Core ZnSys","EvaporativeCooler","Advanced IEC",1,1,1900,2.46463,
-"Perimeter_ZN_1 Thermal Zone","Perim1 ZnSys","EvaporativeCooler","Advanced IEC",1,1,1900,2.46463,
-"Perimeter_ZN_2 Thermal Zone","Perim2 ZnSys","EvaporativeCooler","Advanced IEC",1,1,1900,2.46463,
-"Perimeter_ZN_3 Thermal Zone","Perim3 ZnSys","EvaporativeCooler","Advanced IEC",1,1,1900,2.46463,
-"Perimeter_ZN_4 Thermal Zone","Perim4 ZnSys","EvaporativeCooler","Advanced IEC",1,1,1900,2.46463,
