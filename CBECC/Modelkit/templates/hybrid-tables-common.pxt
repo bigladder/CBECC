@@ -10,7 +10,7 @@ Table:IndependentVariableList,
 
 Table:IndependentVariable,
   Hybrid HVAC Outdoor Dry Bulb,  !- Name
-  Cubic,                   !- Interpolation Method
+  Linear,                   !- Interpolation Method
   Linear,                  !- Extrapolation Method
   -273.15,                        !- Minimum Value
   1000,                        !- Maximum Value
@@ -25,7 +25,7 @@ Table:IndependentVariable,
 
 Table:IndependentVariable,
   Hybrid HVAC Outdoor Humidity Ratio,  !- Name
-  Cubic,                   !- Interpolation Method
+  Linear,                   !- Interpolation Method
   Linear,                  !- Extrapolation Method
   0,                        !- Minimum Value
   0.03,                        !- Maximum Value
@@ -66,7 +66,7 @@ Table:IndependentVariable,
 
 Table:IndependentVariable,
   Hybrid HVAC Mass Flow Rate,  !- Name
-  Cubic,                   !- Interpolation Method
+  Linear,                   !- Interpolation Method
   Linear,                  !- Extrapolation Method
   0,                        !- Minimum Value
   99999,                        !- Maximum Value
