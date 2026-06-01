@@ -5,8 +5,8 @@
     <Name>020012-OffSml-CECStd22</Name>
     <BldgEngyModelVersion>17</BldgEngyModelVersion>
     <CreateDate>1762448914</CreateDate>
-    <ModDate>1780330764</ModDate>
-    <RunDate>1780330765</RunDate>
+    <ModDate>1780332185</ModDate>
+    <RunDate>1780332186</RunDate>
     <ZipCode>95814</ZipCode>
     <HVACAutoSizing>0</HVACAutoSizing>
     <AutoHardSize>1</AutoHardSize>
@@ -1057,23 +1057,23 @@
       <Enduse2 index="21">0.23</Enduse2>
       <Enduse2 index="22">0.23</Enduse2>
       <Enduse3 index="0">Indoor Fans</Enduse3>
-      <Enduse3 index="1">19.0</Enduse3>
+      <Enduse3 index="1">19.1</Enduse3>
       <Enduse3 index="2">--</Enduse3>
-      <Enduse3 index="3">18.93</Enduse3>
+      <Enduse3 index="3">19.02</Enduse3>
       <Enduse3 index="4">17.9</Enduse3>
       <Enduse3 index="5">--</Enduse3>
       <Enduse3 index="6">17.07</Enduse3>
-      <Enduse3 index="7">-1.86</Enduse3>
+      <Enduse3 index="7">-1.95</Enduse3>
       <Enduse3 index="8">2.1</Enduse3>
       <Enduse3 index="9">1.1</Enduse3>
-      <Enduse3 index="10">5.57</Enduse3>
+      <Enduse3 index="10">5.61</Enduse3>
       <Enduse3 index="11">4.58</Enduse3>
-      <Enduse3 index="12">-0.99</Enduse3>
-      <Enduse3 index="16">1.62</Enduse3>
-      <Enduse3 index="18">1.62</Enduse3>
+      <Enduse3 index="12">-1.03</Enduse3>
+      <Enduse3 index="16">1.63</Enduse3>
+      <Enduse3 index="18">1.63</Enduse3>
       <Enduse3 index="19">1.33</Enduse3>
       <Enduse3 index="21">1.33</Enduse3>
-      <Enduse3 index="22">-0.29</Enduse3>
+      <Enduse3 index="22">-0.30</Enduse3>
       <Enduse4 index="0">Heat Rejection</Enduse4>
       <Enduse4 index="1">--</Enduse4>
       <Enduse4 index="2">--</Enduse4>
@@ -1139,23 +1139,23 @@
       <Enduse7 index="21">0.36</Enduse7>
       <Enduse7 index="22">0.00</Enduse7>
       <Enduse8 index="0">Total Compliance</Enduse8>
-      <Enduse8 index="1">33.2</Enduse8>
+      <Enduse8 index="1">33.3</Enduse8>
       <Enduse8 index="2">0.0</Enduse8>
-      <Enduse8 index="3">33.81</Enduse8>
+      <Enduse8 index="3">33.90</Enduse8>
       <Enduse8 index="4">8.2</Enduse8>
       <Enduse8 index="5">0.0</Enduse8>
       <Enduse8 index="6">14.65</Enduse8>
-      <Enduse8 index="7">-19.16</Enduse8>
-      <Enduse8 index="8">4.1</Enduse8>
+      <Enduse8 index="7">-19.25</Enduse8>
+      <Enduse8 index="8">4.2</Enduse8>
       <Enduse8 index="9">1.9</Enduse8>
-      <Enduse8 index="10">10.94</Enduse8>
+      <Enduse8 index="10">10.98</Enduse8>
       <Enduse8 index="11">5.86</Enduse8>
-      <Enduse8 index="12">-5.08</Enduse8>
-      <Enduse8 index="16">3.18</Enduse8>
-      <Enduse8 index="18">3.18</Enduse8>
+      <Enduse8 index="12">-5.12</Enduse8>
+      <Enduse8 index="16">3.19</Enduse8>
+      <Enduse8 index="18">3.19</Enduse8>
       <Enduse8 index="19">1.70</Enduse8>
       <Enduse8 index="21">1.70</Enduse8>
-      <Enduse8 index="22">-1.48</Enduse8>
+      <Enduse8 index="22">-1.49</Enduse8>
       <Enduse9 index="0">Receptacle</Enduse9>
       <Enduse9 index="1">23.6</Enduse9>
       <Enduse9 index="2">--</Enduse9>
@@ -1249,41 +1249,41 @@
       <Enduse14 index="21">-0.14</Enduse14>
       <Enduse14 index="22">-0.14</Enduse14>
       <Enduse15 index="0">Project Total</Enduse15>
-      <Enduse15 index="1">56.8</Enduse15>
+      <Enduse15 index="1">56.9</Enduse15>
       <Enduse15 index="2">0.0</Enduse15>
-      <Enduse15 index="3">53.74</Enduse15>
+      <Enduse15 index="3">53.83</Enduse15>
       <Enduse15 index="4">31.8</Enduse15>
       <Enduse15 index="5">0.0</Enduse15>
       <Enduse15 index="6">34.58</Enduse15>
-      <Enduse15 index="7">-19.16</Enduse15>
+      <Enduse15 index="7">-19.25</Enduse15>
       <Enduse15 index="8">4.8</Enduse15>
       <Enduse15 index="9">2.6</Enduse15>
-      <Enduse15 index="10">15.15</Enduse15>
+      <Enduse15 index="10">15.19</Enduse15>
       <Enduse15 index="11">10.07</Enduse15>
-      <Enduse15 index="12">-5.08</Enduse15>
-      <Enduse15 index="16">4.41</Enduse15>
-      <Enduse15 index="18">4.41</Enduse15>
+      <Enduse15 index="12">-5.12</Enduse15>
+      <Enduse15 index="16">4.42</Enduse15>
+      <Enduse15 index="18">4.42</Enduse15>
       <Enduse15 index="19">2.93</Enduse15>
       <Enduse15 index="21">2.93</Enduse15>
-      <Enduse15 index="22">-1.48</Enduse15>
+      <Enduse15 index="22">-1.49</Enduse15>
       <Enduse16 index="0">Efficiency Compliance</Enduse16>
-      <Enduse16 index="1">33.2</Enduse16>
+      <Enduse16 index="1">33.3</Enduse16>
       <Enduse16 index="2">0.0</Enduse16>
-      <Enduse16 index="3">33.81</Enduse16>
+      <Enduse16 index="3">33.90</Enduse16>
       <Enduse16 index="4">35.1</Enduse16>
       <Enduse16 index="5">0.0</Enduse16>
       <Enduse16 index="6">32.90</Enduse16>
-      <Enduse16 index="7">-0.91</Enduse16>
-      <Enduse16 index="8">4.1</Enduse16>
+      <Enduse16 index="7">-1.00</Enduse16>
+      <Enduse16 index="8">4.2</Enduse16>
       <Enduse16 index="9">2.3</Enduse16>
-      <Enduse16 index="10">10.94</Enduse16>
+      <Enduse16 index="10">10.98</Enduse16>
       <Enduse16 index="11">8.47</Enduse16>
-      <Enduse16 index="12">-2.47</Enduse16>
-      <Enduse16 index="16">3.18</Enduse16>
-      <Enduse16 index="18">3.18</Enduse16>
+      <Enduse16 index="12">-2.51</Enduse16>
+      <Enduse16 index="16">3.19</Enduse16>
+      <Enduse16 index="18">3.19</Enduse16>
       <Enduse16 index="19">2.46</Enduse16>
       <Enduse16 index="21">2.46</Enduse16>
-      <Enduse16 index="22">-0.72</Enduse16>
+      <Enduse16 index="22">-0.73</Enduse16>
       <ZoneUMLHsLoaded index="0">0</ZoneUMLHsLoaded>
       <ZoneUMLHsLoaded index="1">1</ZoneUMLHsLoaded>
       <ZoneUMLHs index="0">clg: 0  htg: 0  'Attic Thermal Zone'
@@ -1309,18 +1309,18 @@ clg: 2  htg: 0  'Perimeter_ZN_4 Thermal Zone'</ZoneUMLHs>
       <AnalysisValid>0</AnalysisValid>
       <HideCompSmrySrc>0</HideCompSmrySrc>
       <HideCompSmryTot>0</HideCompSmryTot>
-      <PctSavingsSLCC>-55.4078</PctSavingsSLCC>
-      <PctSavingsEffSLCC>-2.76596</PctSavingsEffSLCC>
-      <PctSavingsCmpSLCC>-130.785</PctSavingsCmpSLCC>
-      <PctSavSLCCLbl>-55.4</PctSavSLCCLbl>
-      <PctSavEffSLCCLbl>-2.8</PctSavEffSLCCLbl>
-      <PctSavCmpSLCCLbl>-130.8</PctSavCmpSLCCLbl>
-      <PctSavingsSrc>-50.4469</PctSavingsSrc>
-      <PctSavingsEffSrc>-29.1617</PctSavingsEffSrc>
-      <PctSavingsCmpSrc>-86.6894</PctSavingsCmpSrc>
-      <PctSavSrcLbl>-50.4</PctSavSrcLbl>
-      <PctSavEffSrcLbl>-29.2</PctSavEffSrcLbl>
-      <PctSavCmpSrcLbl>-86.7</PctSavCmpSrcLbl>
+      <PctSavingsSLCC>-55.668</PctSavingsSLCC>
+      <PctSavingsEffSLCC>-3.03951</PctSavingsEffSLCC>
+      <PctSavingsCmpSLCC>-131.399</PctSavingsCmpSLCC>
+      <PctSavSLCCLbl>-55.7</PctSavSLCCLbl>
+      <PctSavEffSLCCLbl>-3.0</PctSavEffSLCCLbl>
+      <PctSavCmpSLCCLbl>-131.4</PctSavCmpSLCCLbl>
+      <PctSavingsSrc>-50.8441</PctSavingsSrc>
+      <PctSavingsEffSrc>-29.634</PctSavingsEffSrc>
+      <PctSavingsCmpSrc>-87.372</PctSavingsCmpSrc>
+      <PctSavSrcLbl>-50.8</PctSavSrcLbl>
+      <PctSavEffSrcLbl>-29.6</PctSavEffSrcLbl>
+      <PctSavCmpSrcLbl>-87.4</PctSavCmpSrcLbl>
       <MarginkW>-2.2</MarginkW>
       <PVBattResultsValid>1</PVBattResultsValid>
       <PropPV_Size>0</PropPV_Size>
