@@ -103,8 +103,8 @@ ZoneHVAC:HybridUnitaryHVAC,
   Electricity,             !- First Fuel Type
   None,                    !- Second Fuel Type
   None,                    !- Third Fuel Type
-  Electricity Use,         !- Objective Function to Minimize
-  ,                        !- Design Specification Outdoor Air Object Name
+  Supply Temperature,         !- Objective Function to Minimize
+  <%= zonename %> Design Specification Outdoor Air,                        !- Design Specification Outdoor Air Object Name
   Standby,                 !- Mode 0 Name
   ,                        !- Mode 0 Supply Air Temperature Lookup Table Name
   ,                        !- Mode 0 Supply Air Humidity Ratio Lookup Table Name
@@ -137,8 +137,8 @@ ZoneHVAC:HybridUnitaryHVAC,
   ,                        !- Mode 1 Maximum Return Air Humidity Ratio {kgWater/kgDryAir}
   ,                        !- Mode 1 Minimum Return Air Relative Humidity {percent}
   ,                        !- Mode 1 Maximum Return Air Relative Humidity {percent}
-  ,                        !- Mode 1 Minimum Outside Air Fraction
-  ,                        !- Mode 1 Maximum Outside Air Fraction
+  1,                        !- Mode 1 Minimum Outside Air Fraction
+  1,                        !- Mode 1 Maximum Outside Air Fraction
   ,                        !- Mode 1 Minimum Supply Air Mass Flow Rate Ratio
   ,                        !- Mode 1 Maximum Supply Air Mass Flow Rate Ratio
   Evaporative Cooling,     !- Mode 2 Name
@@ -151,7 +151,7 @@ ZoneHVAC:HybridUnitaryHVAC,
   ,                        !- Mode 2 System Third Fuel Consumption Lookup Table Name
   <%= system_name %> Water Use Lookup,  !- Mode 2 System Water Use Lookup Table Name
   ,                        !- Mode 2 Minimum Outside Air Temperature {C}
-  100,                     !- Mode 2 Maximum Outside Air Temperature {C}
+  ,                     !- Mode 2 Maximum Outside Air Temperature {C}
   ,                        !- Mode 2 Minimum Outside Air Humidity Ratio {kgWater/kgDryAir}
   ,                        !- Mode 2 Maximum Outside Air Humidity Ratio {kgWater/kgDryAir}
   ,                        !- Mode 2 Minimum Outside Air Relative Humidity {percent}
