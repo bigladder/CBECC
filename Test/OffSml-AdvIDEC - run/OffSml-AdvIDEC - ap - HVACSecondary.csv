@@ -1,0 +1,58 @@
+
+
+
+ZoneSystems
+,,,,Cooling,,,,Heating,,,Fan/Ventilation,,,Controls
+Name,Type,System Count,Floor Area Served,Net Capacity,Design Supply T,Capacity/Area,Supply Flow/Ton,Net Capacity,Design Supply T,Capacity/Area,Supply Flow,Supply Flow/Area,Design OA,OA/Area,Control Zone Name,Temp Control,Availability Schedule
+,,(#),(ft2),(Btu/hr),(degF),(Btu/ft2),(cfm/ton),(Btu/hr),(degF),(Btu/ft2),(cfm),(cfm/ft2),(cfm),( cfm/ft2),,,,,,,,,,
+"Core ZnSys","EvaporativeCooler",1,1610.9,0,-99996,0,0,0,-99996,0,0,0,241.635,0.15,"Core_ZN Thermal Zone","NoSATControl","AllOnHVACAvail"
+"Perim1 ZnSys","EvaporativeCooler",1,1221.17,0,-99996,0,0,0,-99996,0,0,0,183.175,0.15,"Perimeter_ZN_1 Thermal Zone","NoSATControl","AllOnHVACAvail"
+"Perim2 ZnSys","EvaporativeCooler",1,724.411,0,-99996,0,0,0,-99996,0,0,0,108.662,0.15,"Perimeter_ZN_2 Thermal Zone","NoSATControl","AllOnHVACAvail"
+"Perim3 ZnSys","EvaporativeCooler",1,1221.17,0,-99996,0,0,0,-99996,0,0,0,183.175,0.15,"Perimeter_ZN_3 Thermal Zone","NoSATControl","AllOnHVACAvail"
+"Perim4 ZnSys","EvaporativeCooler",1,724.411,0,-99996,0,0,0,-99996,0,0,0,108.662,0.15,"Perimeter_ZN_4 Thermal Zone","NoSATControl","AllOnHVACAvail"
+"Core TrimSys","PTHP",1,1610.9,42000,55,26.0724,428.571,44100,95,27.376,1500,0.931157,0,0,"Core_ZN Thermal Zone","NoSATControl","AllOnHVACAvail"
+"Perim1 TrimSys","PTHP",1,1221.17,42000,55,34.3933,428.571,44100,95,36.113,1500,1.22833,0,0,"Perimeter_ZN_1 Thermal Zone","NoSATControl","AllOnHVACAvail"
+"Perim2 TrimSys","PTHP",1,724.411,42000,55,57.9781,428.571,44100,95,60.877,1500,2.07065,0,0,"Perimeter_ZN_2 Thermal Zone","NoSATControl","AllOnHVACAvail"
+"Perim3 TrimSys","PTHP",1,1221.17,42000,55,34.3933,428.571,44100,95,36.113,1500,1.22833,0,0,"Perimeter_ZN_3 Thermal Zone","NoSATControl","AllOnHVACAvail"
+"Perim4 TrimSys","PTHP",1,724.411,42000,55,57.9781,428.571,44100,95,60.877,1500,2.07065,0,0,"Perimeter_ZN_4 Thermal Zone","NoSATControl","AllOnHVACAvail"
+
+
+
+Cooling Coils
+,,,,Relationships,,,Capacity,,,,ChilledWater,,,DirectExpansion
+Name,Type,Status,Fuel Src,System,System Qty,Zone,Total-Net,Total-Gross,FluidSegIn,FluidSegOut,Design Flow Rate,Condenser Type,Number Stages,SEER (rounded),CodeMin SEER,EER (rounded),CodeMin EER,IEER (roundded),CodeMin IEER,EIR,Sizing Ratio,SEER2 (rounded),CodeMin SEER2,EER2 (rounded), CodeMin EER2
+,,,,,(#),,(Btu/hr),(Btu/hr),(Btu/hr),(Btu/hr),( gpm)
+"Core TrimClgCoil","DirectExpansion","New","Electric","Core TrimSys",1,"Core_ZN Thermal Zone",42000,43819,"NONE","NONE",-99996,"Air",-99996,14,14,9.5,9.5,-99996,-99996,0.302736,-999,-99996,-99996,-99996,-99996
+"Perim1 TrimClgCoil","DirectExpansion","New","Electric","Perim1 TrimSys",1,"Perimeter_ZN_1 Thermal Zone",42000,43819,"NONE","NONE",-99996,"Air",-99996,14,14,9.5,9.5,-99996,-99996,0.302736,-999,-99996,-99996,-99996,-99996
+"Perim2 TrimClgCoil","DirectExpansion","New","Electric","Perim2 TrimSys",1,"Perimeter_ZN_2 Thermal Zone",42000,43819,"NONE","NONE",-99996,"Air",-99996,14,14,9.5,9.5,-99996,-99996,0.302736,-999,-99996,-99996,-99996,-99996
+"Perim3 TrimClgCoil","DirectExpansion","New","Electric","Perim3 TrimSys",1,"Perimeter_ZN_3 Thermal Zone",42000,43819,"NONE","NONE",-99996,"Air",-99996,14,14,9.5,9.5,-99996,-99996,0.302736,-999,-99996,-99996,-99996,-99996
+"Perim4 TrimClgCoil","DirectExpansion","New","Electric","Perim4 TrimSys",1,"Perimeter_ZN_4 Thermal Zone",42000,43819,"NONE","NONE",-99996,"Air",-99996,14,14,9.5,9.5,-99996,-99996,0.302736,-999,-99996,-99996,-99996,-99996
+
+
+
+Heating Coils
+,,,,Relationships,,,Capacity,,HotWater,,,HeatPump,,,,,,,,,Furnace
+Name,Type,Status,Fuel Src,System,System Qty,Zone,Total-Net,Total-Gross,FluidSeg In,FluidSeg Out,Design Flow Rate,Condenser Type,Number Stages,HSPF (rounded),CodeMin HSPF,COP (rounded),CodeMin COP,EIR,Comp Lockout Temp,Supp Htr Temp,AFUE,CodeMin AFUE,Thrml Eff,CodeMin Thrml Eff,SizingRatio,HSPF2 (rounded), CodeMin HSPF2
+,,,,,(#),,(Btu/hr),(Btu/hr),,,(gpm),,,,,,,,(?F),( ?F)
+"Core TrimHtgCoil","HeatPump","New","Electric","Core TrimSys",1,"Core_ZN Thermal Zone",44100,42281,"NONE","NONE",-99996,"Air",-99996,-99996,-99996,2.8,2.81,0.329485,35,-50,-99996,-99996,-99996,-99996,-999,-99996,-99996
+"Perim1 TrimHtgCoil","HeatPump","New","Electric","Perim1 TrimSys",1,"Perimeter_ZN_1 Thermal Zone",44100,42281,"NONE","NONE",-99996,"Air",-99996,-99996,-99996,2.8,2.81,0.329485,35,-50,-99996,-99996,-99996,-99996,-999,-99996,-99996
+"Perim2 TrimHtgCoil","HeatPump","New","Electric","Perim2 TrimSys",1,"Perimeter_ZN_2 Thermal Zone",44100,42281,"NONE","NONE",-99996,"Air",-99996,-99996,-99996,2.8,2.81,0.329485,35,-50,-99996,-99996,-99996,-99996,-999,-99996,-99996
+"Perim3 TrimHtgCoil","HeatPump","New","Electric","Perim3 TrimSys",1,"Perimeter_ZN_3 Thermal Zone",44100,42281,"NONE","NONE",-99996,"Air",-99996,-99996,-99996,2.8,2.81,0.329485,35,-50,-99996,-99996,-99996,-99996,-999,-99996,-99996
+"Perim4 TrimHtgCoil","HeatPump","New","Electric","Perim4 TrimSys",1,"Perimeter_ZN_4 Thermal Zone",44100,42281,"NONE","NONE",-99996,"Air",-99996,-99996,-99996,2.8,2.81,0.329485,35,-50,-99996,-99996,-99996,-99996,-999,-99996,-99996
+"HPSupp-Dummy CoilHtg","Resistance","New","Electric","Core TrimSys",1,"Core_ZN Thermal Zone",1,1,"NONE","NONE",-99996,"UNDEFINED",-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-999,-99996,-99996
+"HPSupp-Dummy CoilHtg-2","Resistance","New","Electric","Perim1 TrimSys",1,"Perimeter_ZN_1 Thermal Zone",1,1,"NONE","NONE",-99996,"UNDEFINED",-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-999,-99996,-99996
+"HPSupp-Dummy CoilHtg-3","Resistance","New","Electric","Perim2 TrimSys",1,"Perimeter_ZN_2 Thermal Zone",1,1,"NONE","NONE",-99996,"UNDEFINED",-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-999,-99996,-99996
+"HPSupp-Dummy CoilHtg-4","Resistance","New","Electric","Perim3 TrimSys",1,"Perimeter_ZN_3 Thermal Zone",1,1,"NONE","NONE",-99996,"UNDEFINED",-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-999,-99996,-99996
+"HPSupp-Dummy CoilHtg-5","Resistance","New","Electric","Perim4 TrimSys",1,"Perimeter_ZN_4 Thermal Zone",1,1,"NONE","NONE",-99996,"UNDEFINED",-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-99996,-999,-99996,-99996
+
+
+
+Fans
+,,,,,Relationships,,,Capacity,,,Power,,,,Motor
+Name,Control Method,Status,Class,Cent Type,System,System Qty,Zone,Maximum,Minimum,Efficiency,Modeling Method,Brake HP,Total Static,Power Index,Nameplate HP,Position,Efficiency
+,,,,,,(#),,(cfm),(cfm),,,(hp),(inH2O),(W/cfm),( hp)
+"Core TrimSysFan","ConstantVolume","New","Centrifugal","AirFoil","Core TrimSys",1,"Core_ZN Thermal Zone",1500,-99996,0.5,"StaticPressure",0.945547,2,0.549708,1,"InAirStream",0.855
+"Perim1 TrimSysFan","ConstantVolume","New","Centrifugal","AirFoil","Perim1 TrimSys",1,"Perimeter_ZN_1 Thermal Zone",1500,-99996,0.5,"StaticPressure",0.945547,2,0.549708,1,"InAirStream",0.855
+"Perim2 TrimSysFan","ConstantVolume","New","Centrifugal","AirFoil","Perim2 TrimSys",1,"Perimeter_ZN_2 Thermal Zone",1500,-99996,0.5,"StaticPressure",0.945547,2,0.549708,1,"InAirStream",0.855
+"Perim3 TrimSysFan","ConstantVolume","New","Centrifugal","AirFoil","Perim3 TrimSys",1,"Perimeter_ZN_3 Thermal Zone",1500,-99996,0.5,"StaticPressure",0.945547,2,0.549708,1,"InAirStream",0.855
+"Perim4 TrimSysFan","ConstantVolume","New","Centrifugal","AirFoil","Perim4 TrimSys",1,"Perimeter_ZN_4 Thermal Zone",1500,-99996,0.5,"StaticPressure",0.945547,2,0.549708,1,"InAirStream",0.855

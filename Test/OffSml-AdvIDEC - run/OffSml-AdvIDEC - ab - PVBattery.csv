@@ -1,0 +1,17 @@
+PV Array & Battery Report
+,"PV and Battery required based on Prescriptive tables:  17.2 kWdc PV  /  Battery Energy 30.5 kWh and Power 7.62 kW (Time of Use control)"
+,"Standard Design PV Capacity: 17.2 kWdc  /  Battery Capacity: 30.5 kWh  (power 7.62 kW, Time of Use control)"
+,"There is no PV or Battery equipment defined in this (proposed) model"
+
+Prescriptive PV/Battery Requirements:
+Space/ResOtherZn/ResZn,,,,,,NonRes & HiRiseRes Multiplied Areas by PVBattery Bldg Type,,,,,,,,,,,,,LowRiseRes,,Prescriptive Capacities:
+Name,Conditioning Type,Space Function,PV/Batt Bldg Type,Floor Area,Multiplier,"Events, Exhibits",Library,Hotel/Motel,"Office, Financial, Unleased, Med Office/Clinic",Restaurants,"Retail, Grocery",School,Warehouse,Religious Worship,"Sports, Recreation",Highrise Multifamily,none,# Res Dwellings,MultArea,,PV,Batt Energy,Batt Power
+,,,,(ft2),,(ft2),(ft2),(ft2),(ft2),(ft2),(ft2),(ft2),(ft2),(ft2),(ft2),(ft2),(ft2),,(ft2),,(kWdc),(kWh),(kW)
+"Perimeter_ZN_1","DirectlyConditioned","Office Area (>250 square feet)","Office, Financial, Unleased, Med Office/Clinic",1221.17,1,,,,1221.17,,,,,,,,,,,,3.82225,6.76141,1.69035,
+"Perimeter_ZN_2","DirectlyConditioned","Office Area (>250 square feet)","Office, Financial, Unleased, Med Office/Clinic",724.411,1,,,,724.411,,,,,,,,,,,,2.26741,4.01095,1.00274,
+"Perimeter_ZN_3","DirectlyConditioned","Office Area (>250 square feet)","Office, Financial, Unleased, Med Office/Clinic",1221.17,1,,,,1221.17,,,,,,,,,,,,3.82225,6.76141,1.69035,
+"Perimeter_ZN_4","DirectlyConditioned","Office Area (>250 square feet)","Office, Financial, Unleased, Med Office/Clinic",724.411,1,,,,724.411,,,,,,,,,,,,2.26741,4.01095,1.00274,
+"Core_ZN","DirectlyConditioned","Office Area (>250 square feet)","Office, Financial, Unleased, Med Office/Clinic",1610.9,1,,,,1610.9,,,,,,,,,,,,5.04212,8.9193,2.22982,
+"Attic","IndirectlyConditioned","Unoccupied-Exclude from Gross Floor Area","none",0,1,,,,,,,,,,,,0,,,,0,0,0,
+,,,,,Sums:,0,0,0,5502.05,0,0,0,0,0,0,0,0,0,0,,17.2214,30.464,7.616,
+,,Bldg Cond Area:,5502.05,,Pcts:,0.0,0.0,0.0,100.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,,0.0,
