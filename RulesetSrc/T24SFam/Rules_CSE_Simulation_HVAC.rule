@@ -1305,10 +1305,10 @@ RULELIST "HVACSys_SetupRSYS_VCHP3" 1 0 0 1
       ;   else  UNDEFINED  endif  }
 
 ;   "Set HVACSys:cseRSYS:rsCap95"       HVACSys:cseRSYS:rsCap95  =             ; SAC 09/22/21
-   "Set HVACSys:cseRSYS:rsCapC"        HVACSys:cseRSYS:rsCapC  =        ; replaced HtPumpSystem[1]:Cap95 w/ HPSysCap95 to ensure it accounts for HVACSys equip counts - SAC 04/08/26 (dev #825)
+   "Set HVACSys:cseRSYS:rsCapC"        HVACSys:cseRSYS:rsCapC  =              ; SAC 09/23/21
       {  if (IfValidAnd( AutoSizeCool[1] > 0 )==0 .AND.
-             IfValidAnd( HPSysCap95 > 0 ))
-         then  HPSysCap95
+             IfValidAnd( HtPumpSystem[1]:Cap95 > 0 ))
+         then  HtPumpSystem[1]:Cap95
          else  UNDEFINED  endif  }
       ;{  if (IfValidAnd( HtPumpSystem[1]:AutoSize > 0 )==0 .AND.
    "Set HVACSys:cseRSYS:rsCapRat9547_x" HVACSys:cseRSYS:rsCapRat9547_x  = {  UNDEFINED  }
@@ -1530,10 +1530,10 @@ RULELIST "HVACSys_SetupRSYS_SplitAirCondPM" 1 0 0 1
    "Set HVACSys:cseRSYS:rsCapRat11595" HVACSys:cseRSYS:rsCapRat11595  = {  UNDEFINED  }
 
 ;   "Set HVACSys:cseRSYS:rsCap95"       HVACSys:cseRSYS:rsCap95  =             ; SAC 09/22/21
-   "Set HVACSys:cseRSYS:rsCapC"        HVACSys:cseRSYS:rsCapC  =          ; replaced CoolSystem[1]:Cap95 w/ ClSysCapacity to ensure it accounts for HVACSys equip counts - SAC 04/08/26 (dev #825)
+   "Set HVACSys:cseRSYS:rsCapC"        HVACSys:cseRSYS:rsCapC  =              ; SAC 09/23/21
       {  if (IfValidAnd( CoolSystem[1]:AutoSize > 0 )==0 .AND.
-             IfValidAnd( ClSysCapacity > 0 ))
-         then  ClSysCapacity
+             IfValidAnd( CoolSystem[1]:Cap95 > 0 ))
+         then  CoolSystem[1]:Cap95
          else  UNDEFINED  endif  }
    "Set HVACSys:cseRSYS:rsCapRat9547_x" HVACSys:cseRSYS:rsCapRat9547_x  = {  UNDEFINED  }
    "Set HVACSys:cseRSYS:rsCapRat9547"  HVACSys:cseRSYS:rsCapRat9547  = {  UNDEFINED  }
