@@ -7,7 +7,7 @@ RULE NEW Proj:RuleRepoRev
   INPUTCLASS
     Prescribed
   DEFAULT
-                                 985
+                                 890
   SIZING
     u:RuleRepoRev
   ANNUAL
