@@ -52,4 +52,9 @@ Add README files as needed to any directory if there is specific information to 
 This file is used to track the files that are typically packaged within a release. Please reference the `Projects/release-package.json` for detail. **TODO:** Create and note the workflow noted in #772
 
 ## `pr-checks.json`
-This file is used to track the files that are typically checked for PRs. Please reference the `Projects/pr-checks.json` for detail. **TODO:** Create and note a workflow
+This file defines the sample models exercised by the **Test Small Sample Models** PR check (`.github/workflows/test_select_models.yml`).
+
+- **When it runs:** The workflow runs only when the PR modifies files under `RulesetSrc/`, or when triggered manually (`workflow_dispatch`).
+- **What it runs:** `prepare_and_run.py` reads each building-type section's `all` array (for example `nonres_multifam.all`) and runs those models through CBECC.
+- **Adding models:** Add paths under the appropriate building type's `all` list. Paths may be directories (all IBD files copied) or individual `.cibd##` / `.ribd##` files.
+- **`by_component`:** Reserved for future ruleset-component–specific model selection; not used by CI yet.
