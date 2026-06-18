@@ -575,7 +575,7 @@ class EnergyPlusVersion:
         self.ep_version_major = int("26")
         self.ep_version_minor = int("2")
         self.ep_version_patch = int("0")
-        self.ep_version_build = str("e34dc4614b")
+        self.ep_version_build = str("4aa67c0c4a")
 
     def __str__(self) -> str:
         """
