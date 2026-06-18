@@ -36298,22 +36298,70 @@
                             "note": "units in Schedule should be fraction applied to capacity of the baseboard heat equipment, generally (0.0 - 1.0)"
                         },
                         "capacity_at_low_temperature": {
-                            "type": "number",
                             "units": "W",
-                            "exclusiveMinimum": 0.0
+                            "default": "Autosize",
+                            "anyOf": [
+                                {
+                                    "type": "number",
+                                    "exclusiveMinimum": 0.0
+                                },
+                                {
+                                    "type": "string",
+                                    "enum": [
+                                        "",
+                                        "Autosize"
+                                    ]
+                                }
+                            ]
                         },
                         "low_temperature": {
-                            "type": "number",
-                            "units": "C"
+                            "units": "C",
+                            "default": "Autosize",
+                            "anyOf": [
+                                {
+                                    "type": "number"
+                                },
+                                {
+                                    "type": "string",
+                                    "enum": [
+                                        "",
+                                        "Autosize"
+                                    ]
+                                }
+                            ]
                         },
                         "capacity_at_high_temperature": {
-                            "type": "number",
                             "units": "W",
-                            "minimum": 0.0
+                            "default": "Autosize",
+                            "anyOf": [
+                                {
+                                    "type": "number",
+                                    "minimum": 0.0
+                                },
+                                {
+                                    "type": "string",
+                                    "enum": [
+                                        "",
+                                        "Autosize"
+                                    ]
+                                }
+                            ]
                         },
                         "high_temperature": {
-                            "type": "number",
-                            "units": "C"
+                            "units": "C",
+                            "default": "Autosize",
+                            "anyOf": [
+                                {
+                                    "type": "number"
+                                },
+                                {
+                                    "type": "string",
+                                    "enum": [
+                                        "",
+                                        "Autosize"
+                                    ]
+                                }
+                            ]
                         },
                         "fraction_radiant": {
                             "type": "number",
@@ -36326,15 +36374,16 @@
                             "note": "Any text may be used here to categorize the end-uses in the ABUPS End Uses by Subcategory table.",
                             "retaincase": true,
                             "default": "General"
+                        },
+                        "design_zone_heating_setpoint": {
+                            "type": "number",
+                            "units": "C",
+                            "default": 20.0
                         }
                     },
                     "required": [
                         "zone_or_zonelist_or_space_or_spacelist_name",
-                        "schedule_name",
-                        "capacity_at_low_temperature",
-                        "low_temperature",
-                        "capacity_at_high_temperature",
-                        "high_temperature"
+                        "schedule_name"
                     ]
                 }
             },
@@ -36381,6 +36430,10 @@
                     "end_use_subcategory": {
                         "field_name": "End-Use Subcategory",
                         "field_type": "a"
+                    },
+                    "design_zone_heating_setpoint": {
+                        "field_name": "Design Zone Heating Setpoint",
+                        "field_type": "n"
                     }
                 },
                 "fields": [
@@ -36392,7 +36445,8 @@
                     "capacity_at_high_temperature",
                     "high_temperature",
                     "fraction_radiant",
-                    "end_use_subcategory"
+                    "end_use_subcategory",
+                    "design_zone_heating_setpoint"
                 ],
                 "alphas": {
                     "fields": [
@@ -36408,7 +36462,8 @@
                         "low_temperature",
                         "capacity_at_high_temperature",
                         "high_temperature",
-                        "fraction_radiant"
+                        "fraction_radiant",
+                        "design_zone_heating_setpoint"
                     ]
                 }
             },
@@ -72829,7 +72884,7 @@
                         },
                         "method_to_choose_controlled_inputs_and_part_runtime_fraction": {
                             "type": "string",
-                            "note": "Select the method that will be used to choose operating mode(s), supply air flow rate(s), outdoor air fraction(s) and part runtime fraction(s) in each time step. \"Automatic\" = chooses controlled inputs and part runtime fraction(s) to optimize resource use within each time step while best satisfying requested sensible cooling, dehumidification and ventilation, and subject to constraints. \"User Defined\" = EMS will be used to choose controlled inputs and part runtime fraction(s) in each time step. If this field is blank, default to \"Automatic\".",
+                            "note": "Select the method that will be used to choose operating mode(s), supply air flow rate(s), outdoor air fraction(s) and part runtime fraction(s) in each time step. \"Automatic\" = chooses controlled inputs and part runtime fraction(s) to minimize resource use within each time step while best satisfying requested sensible cooling, dehumidification and ventilation, and subject to constraints. \"User Defined\" = EMS will be used to choose controlled inputs and part runtime fraction(s) in each time step. If this field is blank, default to \"Automatic\".",
                             "enum": [
                                 "",
                                 "Automatic",
@@ -72971,17 +73026,16 @@
                             "note": "Select the fuel type associated with field: \"System Third Fuel Consumption Lookup Table\" in each mode. If this field is blank, default third fuel type = None.",
                             "default": "None"
                         },
-                        "objective_function_to_optimize": {
+                        "objective_function_to_minimize": {
                             "type": "string",
                             "enum": [
                                 "",
                                 "Electricity Use",
                                 "Second Fuel Use",
-                                "Supply Temperature",
                                 "Third Fuel Use",
                                 "Water Use"
                             ],
-                            "note": "In each time step, controlled variables will be chosen to optimize the selection in this field, subject to constraints. If this field is blank, the default objective function to optimize is Electricity Use.",
+                            "note": "In each time step, controlled variables will be chosen to minimize the selection in this field, subject to constraints. If this field is blank, the objective function will minimize electricity use.",
                             "default": "Electricity Use"
                         },
                         "design_specification_outdoor_air_object_name": {
@@ -73372,8 +73426,8 @@
                         "field_name": "Third Fuel Type",
                         "field_type": "a"
                     },
-                    "objective_function_to_optimize": {
-                        "field_name": "Objective Function to Optimize",
+                    "objective_function_to_minimize": {
+                        "field_name": "Objective Function to Minimize",
                         "field_type": "a"
                     },
                     "design_specification_outdoor_air_object_name": {
@@ -73548,7 +73602,7 @@
                     "first_fuel_type",
                     "second_fuel_type",
                     "third_fuel_type",
-                    "objective_function_to_optimize",
+                    "objective_function_to_minimize",
                     "design_specification_outdoor_air_object_name",
                     "mode_0_name",
                     "mode_0_supply_air_temperature_lookup_table_name",
@@ -73581,7 +73635,7 @@
                         "first_fuel_type",
                         "second_fuel_type",
                         "third_fuel_type",
-                        "objective_function_to_optimize",
+                        "objective_function_to_minimize",
                         "design_specification_outdoor_air_object_name",
                         "mode_0_name",
                         "mode_0_supply_air_temperature_lookup_table_name",
@@ -85034,8 +85088,8 @@
                             "type": "string",
                             "data_type": "object_list",
                             "object_list": [
-                                "FansCVandVAV",
-                                "FansComponentModel"
+                                "FansCVandOnOffandVAV",
+                                "FansZoneExhaust"
                             ]
                         },
                         "fan_total_efficiency": {
@@ -85136,7 +85190,7 @@
                 }
             },
             "type": "object",
-            "memo": "Specifies an alternate set of performance parameters for a fan. These alternate parameters are used when a system manager (such as AvailabilityManager:NightVentilation) sets a specified flow rate. May be used with Fan:ConstantVolume, Fan:VariableVolume and Fan:ComponentModel. If the fan model senses that a fixed flow rate has been set, it will use these alternate performance parameters. It is assumed that the fan will run at a fixed speed in the alternate mode."
+            "memo": "Specifies an alternate set of performance parameters for a fan. These alternate parameters are used when a system manager (such as AvailabilityManager:NightVentilation) sets a specified flow rate. May be used with Fan:ConstantVolume, Fan:VariableVolume, Fan:ZoneExhaust, and Fan:OnOff (not Fan:ComponentModel). Fan:SystemModel has its own night ventilation settings. If the fan model senses that a fixed flow rate has been set, it will use these alternate performance parameters. It is assumed that the fan will run at a fixed speed in the alternate mode."
         },
         "Fan:ComponentModel": {
             "patternProperties": {

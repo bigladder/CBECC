@@ -1,2 +1,2 @@
-NAME = 'energyplus_transition_tools'
-VERSION = '2.1.4'
+NAME = "energyplus_transition_tools"
+__version__ = "3.0.0"

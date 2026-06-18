@@ -1,0 +1,6 @@
+[console_scripts]
+energyplus_transition = energyplus_transition.cli:main
+energyplus_transition_configure = energyplus_transition.configure:configure_cli
+
+[gui_scripts]
+energyplus_transition_gui = energyplus_transition.runner:main_gui
