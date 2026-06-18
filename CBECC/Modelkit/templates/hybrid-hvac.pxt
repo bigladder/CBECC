@@ -106,7 +106,7 @@ ZoneHVAC:HybridUnitaryHVAC,
   Electricity,             !- First Fuel Type
   None,                    !- Second Fuel Type
   None,                    !- Third Fuel Type
-  Supply Temperature,         !- Objective Function to Minimize
+  Electricity Use,            !- Objective Function to Minimize
   <%= zonename %> Design Specification Outdoor Air,                        !- Design Specification Outdoor Air Object Name
   Standby,                 !- Mode 0 Name
   ,                        !- Mode 0 Supply Air Temperature Lookup Table Name
