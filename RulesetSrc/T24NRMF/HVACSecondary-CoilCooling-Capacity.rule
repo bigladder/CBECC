@@ -1409,13 +1409,8 @@ RULE AirSys:Type
           then  UNCHANGED
           else  "SZAC"// Regular NonRes system map
           endif endif endif endif endif
-    else if( Bldg:RelocPubSchoolBldg > 0 .AND. IsSchoolBaseSys > 0 )
-    then  if( Proj:CliZnNum >= 2 .AND. Proj:CliZnNum <= 15 )
-          then  "SZHP" // SZHP for CZ 2-15
-          else  "SZDFHP" // SZAC for CZ 1 & 16
-          endif
     else  UNCHANGED
-    endif endif
+    endif
 ENDRULE
 
 // Reset SysType for AirSys components
