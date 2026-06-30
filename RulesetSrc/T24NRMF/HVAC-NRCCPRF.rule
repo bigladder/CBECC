@@ -5305,10 +5305,14 @@ RULE nrcctblRowVentNR:Vent04_VentSystemOA
   ANNUAL_PROPOSED
     if (LocalCompAssigned(noXMLoutput_ThrmlZnRef)) 
     then atof( Format( "%.2f", noXMLoutput_ThrmlZnRef:VentFlow ) )
-    else if (LocalCompAssigned(noXMLoutput_ResOtherZnRef))   ; RJH 5/8/26 CBECC-user-support Issue 499
-    then atof( Format( "%.2f", noXMLoutput_ResOtherZnRef:TotalSupOACFM ) )
-    else UNDEFINED
-    endif endif
+    else  if (LocalCompAssigned(noXMLoutput_ResOtherZnRef))   ; RJH 5/8/26 CBECC-user-support Issue 499
+          then  if (noXMLoutput_ResOtherZnRef:IAQBalCFM == 0)
+                then atof( Format( "%.2f", noXMLoutput_ResOtherZnRef:IAQCFM_Supply ) )
+                else atof( Format( "%.2f", noXMLoutput_ResOtherZnRef:IAQBalCFM ) )
+                endif
+          else UNDEFINED
+          endif
+    endif
 ENDRULE
 RULE nrcctblRowVentNR:Vent05_ExhaustFlowRate
   ANNUAL_PROPOSED
@@ -5318,9 +5322,13 @@ RULE nrcctblRowVentNR:Vent05_ExhaustFlowRate
          else atof( Format( "%.2f", noXMLoutput_ThrmlZnRef:ExhFlow ) ) 
          endif
     else if (LocalCompAssigned(noXMLoutput_ResOtherZnRef))   ; RJH 5/8/26 CBECC-user-support Issue 499 
-    then atof( Format( "%.2f", noXMLoutput_ResOtherZnRef:TotalExhCFM ) )
-    else UNDEFINED
-    endif endif
+          then  if (noXMLoutput_ResOtherZnRef:IAQBalCFM == 0)
+                then atof( Format( "%.2f", noXMLoutput_ResOtherZnRef:IAQCFM_Exhaust ) )
+                else atof( Format( "%.2f", noXMLoutput_ResOtherZnRef:IAQBalCFM ) )
+                endif
+          else UNDEFINED
+          endif
+    endif
 ENDRULE
 RULE nrcctblRowVentNR:Vent06_ThermalZoneFloorArea
   ANNUAL_PROPOSED
