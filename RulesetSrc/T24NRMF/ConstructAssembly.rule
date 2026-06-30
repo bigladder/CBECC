@@ -694,6 +694,32 @@ RULE ConsAssm:FrmMat
 ENDRULE
 
 
+// -----------------------------------------------------------------------------
+RULE NEW ConsAssm:FrmDepth
+  DATATYPE
+    Float
+  LONGFORM
+    FramingDepth
+  UNITS
+    in
+  DESCRIPTION
+    "Depth (in inches) of the framing layer in this construction assembly, derived from composite material layers"
+  INPUTCLASS
+    NotInput
+  DEFAULT
+    ValidOr( MatRef[1]:FrmDepthVal, 0) +
+    ValidOr( MatRef[2]:FrmDepthVal, 0) +
+    ValidOr( MatRef[3]:FrmDepthVal, 0) +
+    ValidOr( MatRef[4]:FrmDepthVal, 0) +
+    ValidOr( MatRef[5]:FrmDepthVal, 0) +
+    ValidOr( MatRef[6]:FrmDepthVal, 0) +
+    ValidOr( MatRef[7]:FrmDepthVal, 0) +
+    ValidOr( MatRef[8]:FrmDepthVal, 0) +
+    ValidOr( MatRef[9]:FrmDepthVal, 0) +
+    ValidOr( MatRef[10]:FrmDepthVal, 0)
+ENDRULE
+
+
 // ----------------------------------------------------------------------------- SAC 02/10/22 (MFam)
 RULE NEW ConsAssm:FramingFactor
   RULESETS
