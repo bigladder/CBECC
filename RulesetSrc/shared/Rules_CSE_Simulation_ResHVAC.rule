@@ -2257,11 +2257,9 @@ RULELIST "Default_CSE_AirNet_ELA" 0 0 0 1
 ;   "Set ResProj:NResLeakageRatio - ratio of NRes surface leakage (per ft2) / Res surface leakage"     ResProj:NResLeakageRatio =    ; SAC 7/12/20
 
    ; SAC 7/12/20 - revised following rules for new Zonal vent control mechanism
-   ; fix divide by zero issue that can arise in Com - SAC 10/21/21 (MFam)
-   "Set ResProj:BldgELA_CeilSF"        ResProj:BldgELA_CeilSF       =      ; revise logic for new MFam/NRes infiltration - SAC 07/30/26 (dev #679)
-      {  if( IfValidAnd( Proj:AnalysisVersion < 250300 )==0 ) then  0.000166
-         else if ((  BldgClgBlwAtticArea +   BldgCathCeilingArea +   BldgExtFloorArea + BldgZnAdjUZnArea +   BldgExtWallArea +
-                   BldgOZClgBlwAtticArea + BldgOZCathCeilingArea + BldgOZExtFloorArea + BldgOZAdjUZnArea + BldgOZExtWallArea) < 0.1) then  0
+   "Set ResProj:BldgELA_CeilSF"        ResProj:BldgELA_CeilSF       =      ; fix divide by zero issue that can arise in Com - SAC 10/21/21 (MFam)
+      {  if ((  BldgClgBlwAtticArea +   BldgCathCeilingArea +   BldgExtFloorArea + BldgZnAdjUZnArea +   BldgExtWallArea +
+              BldgOZClgBlwAtticArea + BldgOZCathCeilingArea + BldgOZExtFloorArea + BldgOZAdjUZnArea + BldgOZExtWallArea) < 0.1) then  0
          else if (CSEVentAvailZonal)
          then  EffLeakageArea / (BldgClgBlwAtticArea + BldgCathCeilingArea + BldgExtFloorArea + BldgZnAdjUZnArea + BldgExtWallArea +
                                  (NResLeakageRatio * (BldgOZClgBlwAtticArea + BldgOZCathCeilingArea + BldgOZExtFloorArea + BldgOZAdjUZnArea + BldgOZExtWallArea)))
@@ -2269,7 +2267,7 @@ RULELIST "Default_CSE_AirNet_ELA" 0 0 0 1
                   BldgOZClgBlwAtticArea < 0.0001 .AND. BldgOZCathCeilingArea < 0.0001) then  0
          else  EffLeakageArea * (0.4 + (0.1 * SlabRatio)) /
                (BldgClgBlwAtticArea + BldgCathCeilingArea + BldgOZClgBlwAtticArea + BldgOZCathCeilingArea)
-         endif endif endif endif  }
+         endif endif endif  }
    "Set ResProj:BldgELA_RaisedFlrSF"   ResProj:BldgELA_RaisedFlrSF  =
       {  if (CSEVentAvailZonal) then  BldgELA_CeilSF
          else if (BldgExtFloorArea < 0.0001 .AND. BldgOZExtFloorArea < 0.0001) then  0
@@ -3236,11 +3234,12 @@ RULELIST "SimPrep_CSE_AirNet_ResOtherZone" 0 0 0 1
 ;	"Set ResOtherZn:GrgWallAirNetIZXFERs[2]:izZN2"			ResOtherZn:GrgWallAirNetIZXFERs[2]:izZN2  	=	{	Global( ResGarage:CSE_ZONE )  }
 
 	"Setup AirNet ResOtherZn IZXFER objects"		ResOtherZn:Action	=        ; added rule to call ...Conditioned rules only for cons zones - SAC 05/24/23
-      {  EvalRulelist( "SimPrep_CSE_AirNet_ResOtherZone_VentSys", 1 )  }
+      {  if (Local( Type ) == 10) then  UNCHANGED		; Unconditioned
+         else  EvalRulelist( "SimPrep_CSE_AirNet_ResOtherZone_Conditioned", 1 )  endif  }
 END
 
 ;************************************************************************* ; extracted from above to ensure above is run for Uncond zones - SAC 05/24/23
-RULELIST "SimPrep_CSE_AirNet_ResOtherZone_VentSys" 0 0 0 1
+RULELIST "SimPrep_CSE_AirNet_ResOtherZone_Conditioned" 0 0 0 1
 ;*************************************************************************
  ;-----------------------
  ; AirNet for IAQ Ventilation

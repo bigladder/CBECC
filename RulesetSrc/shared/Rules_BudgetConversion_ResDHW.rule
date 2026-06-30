@@ -283,11 +283,6 @@ RULELIST  "BudgetConversion_DHW" 1 0 1 0
 	"Reset DHWSys:RecircPipeLoc[6]"	DHWSys:RecircPipeLoc[6]	= {	if (Proj:SimulateStdDHW < 0.5 .OR. IfValidAnd( StdEqProp > 0.5 ) .OR. IfValidAnd( IsExisting > 0.5 )) then  UNCHANGED
                                                                   else  0  endif  }
 
-  "set ResDHWSys:MasterMixingValve to Mechanical for new/alt, central, recirc systems"    ResDHWSys:MasterMixingValve =     ; SAC 08/01/26 (dev #942)
-    { if( Proj:SimulateStdDHW < 0.5 .OR. IfValidAnd( StdEqProp > 0.5 ) .OR. IfValidAnd( IsExisting > 0.5 ) .OR.
-          IfValidAnd( CentralDHW < 0.5 ) .OR. MFamDistType == 0 ) then  UNCHANGED
-      else  "Mechanical"  endif  }
-
 ; SAC 9/30/15 - rules to reset DHWSys:SolFracType for new and altered systems
 	"Reset DHWSys:SolFracType"		DHWSys:SolFracType	= {	if (Proj:SimulateStdDHW < 0.5 .OR. IfValidAnd( StdEqProp > 0.5 ) .OR. IfValidAnd( IsExisting > 0.5 )) then  UNCHANGED
 																				else	0  endif  }

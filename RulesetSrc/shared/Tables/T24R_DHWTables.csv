@@ -1,68 +1,32 @@
-;,CEC Title-24 Residential Compliance Ruleset,,,,,
-;,Collection of DHW tables based on the Residential ACM,,,,,
-;,Separate Tables based on topic (to minimize duplicate data),,,,,
-;,Created:,,10/22/15 - SAC,,,
-;,Last modified:,,08/01/26 - SAC - added T24MFDHW_CHPWH_MMVCorrectionFactor table (dev #942),,,
-;,,,,,,
-;,Source Data:,,Residential ACM (Alternative Calculation Method),,,
-;,,,,,,
-;,Mod history:,,,,,
-;,,,,,,
-;,Independents:,,(vary by individual table),,,
-;,,1,"CodeBase - year of energy standard (2013, 2016…)",,,
-;,,2,Nunit - Number of dwelling units served,,,
-;,,,(other topic-specific properties),,,
-;,,,,,,
-;,,,,,,
-;,"Res ACM DHW, related to method WH_LOOPSZ, currently App B, table B-5 for SUPPLY loop sizes",,,,,
-,TABLE  T24RDHW_LoopPipeSize,,,,,
-,,CodeBase,Nunit,IsBranch,PipeDiam,
-,,*,<2,No,1.5,
-,,*,<2,Yes,1,
-,,*,<8,*,1.5,
-,,*,<21,*,2,
-,,*,<42,*,2.5,
-,,*,<68,*,3,
-,,*,<101,*,3.5,
-,,*,<145,*,4,
-,,*,<198,*,5,
-,,*,*,*,6,
-,ENDTABLE,,,,,
-;,,,,,,
-;,,,,,,
-;,NRMF 2025 ACM Table 47: HPWH System MMV (master mixing valve) Correction Factor,,,,,
-,TABLE  T24MFDHW_CHPWH_MMVCorrectionFactor,,,,,
-,,CodeBase,SystemDescrip,OutletReturnDT,MMVType,CorrectFactor
-,,*,MPassInteg,<7,Digital,1
-,,*,MPassInteg,<7,Mechanical,1
-,,*,MPassInteg,<7,*,1.15
-,,*,MPassInteg,>=7,Digital,1
-,,*,MPassInteg,>=7,Mechanical,1
-,,*,MPassInteg,>=7,*,1.12
-,,*,SPassPrim-PrimTank,<7,Digital,0.96
-,,*,SPassPrim-PrimTank,<7,Mechanical,1
-,,*,SPassPrim-PrimTank,<7,*,1.14
-,,*,SPassPrim-PrimTank,>=7,Digital,1
-,,*,SPassPrim-PrimTank,>=7,Mechanical,1
-,,*,SPassPrim-PrimTank,>=7,*,1.09
-,,*,MPassPrim-PrimTank,<7,Digital,0.96
-,,*,MPassPrim-PrimTank,<7,Mechanical,1
-,,*,MPassPrim-PrimTank,<7,*,1.15
-,,*,MPassPrim-PrimTank,>=7,Digital,0.98
-,,*,MPassPrim-PrimTank,>=7,Mechanical,1
-,,*,MPassPrim-PrimTank,>=7,*,1.12
-,,*,SPassPrim-SResist,<7,Digital,0.96
-,,*,SPassPrim-SResist,<7,Mechanical,1
-,,*,SPassPrim-SResist,<7,*,1.08
-,,*,SPassPrim-SResist,>=7,Digital,0.99
-,,*,SPassPrim-SResist,>=7,Mechanical,1
-,,*,SPassPrim-SResist,>=7,*,1.05
-,,*,SPassPrim-Parallel,<7,Digital,0.96
-,,*,SPassPrim-Parallel,<7,Mechanical,1
-,,*,SPassPrim-Parallel,<7,*,1.1
-,,*,SPassPrim-Parallel,>=7,Digital,0.96
-,,*,SPassPrim-Parallel,>=7,Mechanical,1
-,,*,SPassPrim-Parallel,>=7,*,1.1
-,,*,*,*,*,1
-,ENDTABLE,,,,,
-;,,,,,,
+;,CEC Title-24 Residential Compliance Ruleset,,,,
+;,Collection of DHW tables based on the Residential ACM,,,,
+;,Separate Tables based on topic (to minimize duplicate data),,,,
+;,Created:,,10/22/15 - SAC,,
+;,Last modified:,,,,
+;,,,,,
+;,Source Data:,,Residential ACM (Alternative Calculation Method),,
+;,,,,,
+;,Mod history:,,,,
+;,,,,,
+;,Independents:,,(vary by individual table),,
+;,,1,"CodeBase - year of energy standard (2013, 2016…)",,
+;,,2,Nunit - Number of dwelling units served,,
+;,,,(other topic-specific properties),,
+;,,,,,
+;,,,,,
+;,"Res ACM DHW, related to method WH_LOOPSZ, currently App B, table B-5 for SUPPLY loop sizes",,,,
+,TABLE  T24RDHW_LoopPipeSize,,,,
+,,CodeBase,Nunit,IsBranch,PipeDiam
+,,*,<2,No,1.5
+,,*,<2,Yes,1
+,,*,<8,*,1.5
+,,*,<21,*,2
+,,*,<42,*,2.5
+,,*,<68,*,3
+,,*,<101,*,3.5
+,,*,<145,*,4
+,,*,<198,*,5
+,,*,*,*,6
+,ENDTABLE,,,,
+;,,,,,
+;,,,,,
