@@ -624,6 +624,15 @@ RULE ResOtherZn:CentralSupplyCFM
     then  SupplyIAQCFM ; Use CentralVentSys to model individual fans
     else  0
     endif endif
+  SIZING_PROPOSED
+    if( IAQOption = "Central Supply / Central Exhaust" .OR.
+        IAQOption = "Central Supply / Individual Exhaust" .OR.
+        IAQOption = "Central Supply" )
+    then  UNCHANGED
+    else if( IAQOption = "Central Exhaust / Individual Supply" )
+    then  SupplyIAQCFM ; Use CentralVentSys to model individual fans
+    else  0
+    endif endif
   SIZING_BASELINE
     if( IAQOption = "Central Supply / Central Exhaust" .OR.
         IAQOption = "Central Supply / Individual Exhaust" .OR.
@@ -642,6 +651,15 @@ RULE ResOtherZn:CentralExhaustCFM
         IAQOption = "Central Exhaust / Individual Supply" .OR.
         IAQOption = "Central Exhaust" )
     then  MinIAQCFM
+    else if( IAQOption = "Central Supply / Individual Exhaust" )
+    then  ExhaustIAQCFM
+    else  0
+    endif endif
+  SIZING_PROPOSED
+    if( IAQOption = "Central Supply / Central Exhaust" .OR.
+        IAQOption = "Central Exhaust / Individual Supply" .OR.
+        IAQOption = "Central Exhaust" )
+    then  UNCHANGED
     else if( IAQOption = "Central Supply / Individual Exhaust" )
     then  ExhaustIAQCFM
     else  0
@@ -665,7 +683,7 @@ RULE NEW ResOtherZn:CentralSupplyCFMWithMult
     NotInput
   DEFAULT
     CentralSupplyCFM * Mult
-  SIZING_BASELINE
+  SIZING
     CentralSupplyCFM * Mult
 ENDRULE
 
@@ -678,7 +696,7 @@ RULE NEW ResOtherZn:CentralExhaustCFMWithMult
     NotInput
   DEFAULT
     CentralExhaustCFM * Mult
-  SIZING_BASELINE
+  SIZING
     CentralExhaustCFM * Mult
 ENDRULE
 
