@@ -101,12 +101,15 @@ ENDRULE
 RULE Proj:Bldg:RelocPubSchoolBldg
   RULESETS
     T24N
-  REFERENCE 
-
   INPUTCLASS 
     Optional
   DEFAULT
     0
+  CHECKCODE
+    if( Bldg:RelocPubSchoolBldg > 0 .AND. Proj:CompOptExist > 0 )
+    then  PostError( "EAA is not permitted for relocatable school buildings." )
+    else  UNCHANGED
+    endif
   SIZING
     u:RelocPubSchoolBldg
   ANNUAL
