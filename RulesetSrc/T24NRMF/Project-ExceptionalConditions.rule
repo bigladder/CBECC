@@ -1756,7 +1756,7 @@ RULE ProjVar:ExcptCondG36Lib
   DEFAULT
     if ( Proj:IsNewMech > 0 .OR. Proj:IsAddMech > 0 .OR. Proj:IsPartMech > 0  )
     then 
-       if ( SumChildren( AirSys:UseCertG36Lib) > 0 )
+       if ( SumAll( AirSys:UseCertG36Lib ) > 0 )
        then "Yes"
        else "No"
        endif
