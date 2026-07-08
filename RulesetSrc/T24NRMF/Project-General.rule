@@ -2317,7 +2317,7 @@ RULE NEW Proj:UnmetLdHrsFAQLink
   INPUTCLASS 
     NotInput  
   DEFAULT
-    "https://bees.noresco.com/faq_hvac.html#umlh"
+    "https://github.com/california-energy-commission/CBECC/wiki/Unmet-Load-Hours-%28UMLH%29"
 ENDRULE
 ; prior to 06/10/22 was: "http://bees.archenergy.com/faq_hvac.html#umlh"  - SAC 06/10/22
 

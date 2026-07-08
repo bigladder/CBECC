@@ -691,6 +691,13 @@ RULELIST "Default_AllHVAC" 0 0 0 0
    "Set default HVACHtPump:TempLabels[2]"     HVACHtPump:TempLabels[2] = {  "@ 35°F:"  }
    "Set default HVACHtPump:TempLabels[3]"     HVACHtPump:TempLabels[3] = {  "@ 17°F:"  }
 
+  "Remove user-specification of IncludesCooling for HP system types it doesn't apply to"    HVACHtPump:Action =       ; SAC 05/20/26 (dev #925)
+    { if( LocalStatus( IncludesCooling ) < 5 ) then  UNCHANGED
+      else  switch( Type )
+            case 35 :  UNCHANGED                ; leave in place for Type = "HeatPumpDHWCombo - Combined heating and DHW split heat pump"
+            default :  EvalRulelist( "BlastUserInput_HVACHtPump_IncludesCooling", 1 )    ; remove user input here
+            endswitch
+      endif  }
    "Default HVACHtPump:IncludesCooling"   HVACHtPump:IncludesCooling = {  1  }      ; SAC 04/05/23 (tic #1349)
 
    "Blast HVACHtPump:PerfDetailsErrMsg prior to defaulting"    HVACHtPump:PerfDetailsErrMsg = {  UNDEFINED  }   ; SAC 09/23/21
@@ -11322,6 +11329,12 @@ RULELIST "Blast_Zone_HVACSys_Assignments" 1 0 0 1
    "Blast Zone:AltHVACSystem"     Zone:AltHVACSystem     = {  UNDEFINED  }
    "Blast Zone:exHVACSystem"      Zone:exHVACSystem      = {  UNDEFINED  }
    "Blast Zone:ActiveHVACSystem"  Zone:ActiveHVACSystem  = {  UNDEFINED  }
+END
+;*************************************************************************
+
+;************************************************************************* SAC 05/20/26 (dev #925)
+RULELIST "BlastUserInput_HVACHtPump_IncludesCooling" 1 0 0 1
+  "Blast HVACHtPump:IncludesCooling"  HVACHtPump:IncludesCooling  = {  UNDEFINED  } 
 END
 ;*************************************************************************
 
