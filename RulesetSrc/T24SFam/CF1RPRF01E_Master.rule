@@ -478,13 +478,13 @@ RULELIST "CF1RPRF01E_Proposed"  1 0 0 1
                                   else UNCHANGED
                                   endif  }  
 
-
+; RJH 5/6/26 CBECC-user-support Issue 585 - remove output of Section_Umlh
   ; Section_Umlh 
-   "Create & initialize new cf1rSection_Umlh object"
-      cf1rCF1RPRF01E:Action  = {  if ( Proj:AnalysisVersion > 220000 ) 
-                                  then CreateChildren( cf1rSection_Umlh, 1, "Section_Umlh" )
-                                  else UNCHANGED
-                                  endif  }  
+;   "Create & initialize new cf1rSection_Umlh object"
+;      cf1rCF1RPRF01E:Action  = {  if ( Proj:AnalysisVersion > 220000 ) 
+;                                  then CreateChildren( cf1rSection_Umlh, 1, "Section_Umlh" )
+;                                  else UNCHANGED
+;                                  endif  }  
 
 
       ; SAC 5/1/19 - moved creation of Da & Db to here (from ...Final rules) to ensure proper output order
@@ -8797,9 +8797,9 @@ RULELIST "CF1RPRF01E_Section_ComplianceSummary_SingleOrientation_Populate"  1 0 
                                                                                                                         then UNDEFINED 
                                                                                                                         else  if(Proj:AnalysisVersion < 250000) 
                                                                                                                               then Proj:ResultSummary[1]:StdPeakCoolElec 
-                                                                                                                              else Proj:ResultSummary[1]:StdPeakCoolElecLimit 
+                                                                                                                              else int( Proj:ResultSummary[1]:StdPeakCoolElecLimit + 0.5 )
                                                                                                                               endif 
-                                                                                                                        endif  }   ; RJH 10/26/25 2025-CBECC-Res-Schema Issue 65
+                                                                                                                        endif  }   ; RJH 10/26/25 2025-CBECC-Res-Schema Issue 65  ; rounded std peak clg - SAC 05/14/26 (dev #757)
    "Set cf1rLscStandardDesign:Lsc05_LSC_NotApplicableMessage"  cf1rLscStandardDesign:Lsc05_LSC_NotApplicableMessage = { if ( (LocalStatus ( Lsc05_LSC_StandardPeakCooling ) < 1) ) then "n/a" else UNDEFINED endif  }   ; RJH 3/5/26 2025-CBECC-Res-Schema Issue 68 - add all NotApplicable elements
 
   ; Create cf1rLscProposedDesign object
@@ -8812,7 +8812,7 @@ RULELIST "CF1RPRF01E_Section_ComplianceSummary_SingleOrientation_Populate"  1 0 
    "Set cf1rLscProposedDesign:Lsc03_LSC_NotApplicableMessage"  cf1rLscProposedDesign:Lsc03_LSC_NotApplicableMessage = { if ( (LocalStatus ( Lsc03_LSC_ProposedTotal ) < 1) ) then "n/a" else UNDEFINED endif  }   ; RJH 3/5/26 2025-CBECC-Res-Schema Issue 68 - add all NotApplicable elements
    "Set cf1rLscProposedDesign:Lsc04_LSC_ProposedSourceEnergy"  cf1rLscProposedDesign:Lsc04_LSC_ProposedSourceEnergy = {  if( Proj:RunScope == 2 .OR. Proj:IsAddAlone == 1 ) then UNDEFINED else atof( Proj:ResultSummary[1]:Enduse10[31] ) endif  }
    "Set cf1rLscProposedDesign:Lsc04_LSC_NotApplicableMessage"  cf1rLscProposedDesign:Lsc04_LSC_NotApplicableMessage = { if ( (LocalStatus ( Lsc04_LSC_ProposedSourceEnergy ) < 1) ) then "n/a" else UNDEFINED endif  }   ; RJH 3/5/26 2025-CBECC-Res-Schema Issue 68 - add all NotApplicable elements
-   "Set cf1rLscProposedDesign:Lsc05_LSC_ProposedPeakCooling"   cf1rLscProposedDesign:Lsc05_LSC_ProposedPeakCooling  = {  if( Proj:RunScope == 2 .OR. Proj:IsAddAlone == 1 ) then UNDEFINED else Proj:ResultSummary[1]:PropPeakCoolElec endif  }
+   "Set cf1rLscProposedDesign:Lsc05_LSC_ProposedPeakCooling"   cf1rLscProposedDesign:Lsc05_LSC_ProposedPeakCooling  = {  if( Proj:RunScope == 2 .OR. Proj:IsAddAlone == 1 ) then UNDEFINED else int( Proj:ResultSummary[1]:PropPeakCoolElec + 0.5 ) endif  }  ; rounded std peak clg - SAC 05/14/26 (dev #757)
    "Set cf1rLscProposedDesign:Lsc05_LSC_NotApplicableMessage"  cf1rLscProposedDesign:Lsc05_LSC_NotApplicableMessage = { if ( (LocalStatus ( Lsc05_LSC_ProposedPeakCooling ) < 1) ) then "n/a" else UNDEFINED endif  }   ; RJH 3/5/26 2025-CBECC-Res-Schema Issue 68 - add all NotApplicable elements
 
   ; Create cf1rLscComplianceMargin object
@@ -8864,7 +8864,8 @@ RULELIST "CF1RPRF01E_Section_ComplianceSummary_SingleOrientation_Populate"  1 0 
                                                                                                                         endif  }   ; RJH 10/27/25 - updated msg options 2025-CBECC-Res-Schema Issue 56
 
    "Set cf1rLscSingleOrientation:afterchildren_LscEndNote1"   cf1rLscSingleOrientation:afterchildren_LscEndNote1  = { "* Building complies when the Proposed Design is equal to or less than the Standard Design in all compliance categories." }
-   "Set cf1rLscSingleOrientation:afterchildren_LscEndNote2"   cf1rLscSingleOrientation:afterchildren_LscEndNote2  = { "** Peak cooling target represents 120% of the standard design building peak cooling energy use." }
+   "Set cf1rLscSingleOrientation:afterchildren_LscEndNote2"   cf1rLscSingleOrientation:afterchildren_LscEndNote2  = { Proj:ResultSummary[1]:PeakCoolElecFtnote }    ; SAC 05/13/26 (dev #757)
+   ;"Set cf1rLscSingleOrientation:afterchildren_LscEndNote2"   cf1rLscSingleOrientation:afterchildren_LscEndNote2  = { "** Peak cooling target represents 120% of the standard design building peak cooling energy use." }
 
    "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[1]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[1]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[1], "" )  }
    "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[2]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[2]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[2], "" )  }
@@ -8967,7 +8968,8 @@ RULELIST "CF1RPRF01E_Section_ComplianceSummary_MultipleOrientations_Populate"  1
                                                                                                                               endif  }   ; RJH 10/30/25 - updated msg options 2025-CBECC-Res-Schema Issue 13
 
    "Set cf1rLscMultipleOrientations:afterchildren_LscEndNote1"   cf1rLscMultipleOrientations:afterchildren_LscEndNote1  = { "* Building complies when the Proposed Design is equal to or less than the Standard Design in all compliance categories." }
-   "Set cf1rLscMultipleOrientations:afterchildren_LscEndNote2"   cf1rLscMultipleOrientations:afterchildren_LscEndNote2  = { "** Peak cooling target represents 120% of the standard design building peak cooling energy use." }
+   "Set cf1rLscMultipleOrientations:afterchildren_LscEndNote2"   cf1rLscMultipleOrientations:afterchildren_LscEndNote2  = { Proj:ResultSummary[1]:PeakCoolElecFtnote }    ; SAC 05/13/26 (dev #757)
+   ;"Set cf1rLscMultipleOrientations:afterchildren_LscEndNote2"   cf1rLscMultipleOrientations:afterchildren_LscEndNote2  = { "** Peak cooling target represents 120% of the standard design building peak cooling energy use." }
 
    "Set cf1rLscMultipleOrientations:afterchildren_LscResultNotes_LSC_ComplianceNotes[1]"    cf1rLscMultipleOrientations:afterchildren_LscResultNotes_LSC_ComplianceNotes[1]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[1], "" )  }
    "Set cf1rLscMultipleOrientations:afterchildren_LscResultNotes_LSC_ComplianceNotes[2]"    cf1rLscMultipleOrientations:afterchildren_LscResultNotes_LSC_ComplianceNotes[2]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[2], "" )  }
