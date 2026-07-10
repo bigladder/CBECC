@@ -61,3 +61,68 @@ This file defines the sample models exercised by the **Test Small Sample Models*
 - **What it runs:** `prepare_and_run.py` reads each building-type section's `all` array (for example `nonres_multifam.all`) and runs those models through CBECC.
 - **Adding models:** Add paths under the appropriate building type's `all` list. Paths may be directories (all IBD files copied) or individual `.cibd##` / `.ribd##` files.
 - **`by_component`:** Reserved for future ruleset-component–specific model selection; not used by CI yet.
+
+## `test-suites.json`
+This file defines named groups of model files that developers can copy into
+explicit destination layouts. Preparing a suite does not run CBECC or decide
+whether a model should pass, fail, or comply.
+
+Run the suite tool from the repository root:
+
+```powershell
+# Discover available suites
+python TestingCBECC/workflows/prepare_test_suite.py list
+
+# Inspect a copy plan without writing files
+python TestingCBECC/workflows/prepare_test_suite.py preview sensitivity C:\CBECC-Tests\Sensitivity
+
+# Prepare a suite (the destination must be empty)
+python TestingCBECC/workflows/prepare_test_suite.py prepare pre-release-nr-mf C:\CBECC-Tests\PreRelease-NR-MF
+
+# Explicitly replace an existing destination
+python TestingCBECC/workflows/prepare_test_suite.py prepare pre-release-nr-mf C:\CBECC-Tests\PreRelease-NR-MF --clean
+```
+
+Each suite has a description, a default `content` selection, and one or more
+source-to-destination `mappings`. Source paths may use `{year}`; select another
+year with `--year`. Only `.cibd##` and `.ribd##` model files are copied, and
+their paths beneath each mapped source are preserved.
+
+```json
+{
+  "version": 1,
+  "suites": {
+    "example-suite": {
+      "description": "Example regular and not-for-release models.",
+      "content": ["regular", "not-for-release"],
+      "mappings": [
+        {
+          "source": "Projects/{year}/non-residential/examples",
+          "destination": "OtherTests"
+        }
+      ]
+    }
+  }
+}
+```
+
+The available content categories are:
+
+- `regular`: models outside either special directory.
+- `not-for-release`: models beneath `~not-for-release`.
+- `intentional-failures`: models beneath `~intentional-failures`.
+
+Suite defaults can be overridden by repeating `--content`. For example:
+
+```powershell
+# Add not-for-release models to the pre-release NR/MF suite
+python TestingCBECC/workflows/prepare_test_suite.py prepare pre-release-nr-mf C:\CBECC-Tests\PreRelease-NR-MF-All --content regular --content not-for-release
+
+# Preview only the not-for-release portion of NR/MF
+python TestingCBECC/workflows/prepare_test_suite.py preview pre-release-nr-mf C:\CBECC-Tests\PreRelease-NR-MF-NFR --content not-for-release
+```
+
+The tool validates every source and destination before copying. It rejects
+duplicate destination paths, refuses to write under `Projects/`, and refuses a
+non-empty destination unless `--clean` is supplied. Files in `Projects/` are
+never moved or modified.
