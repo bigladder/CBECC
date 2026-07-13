@@ -22,6 +22,7 @@
       "content": [
         "regular"
       ],
+      "options_csv": "BypassOpenStudio_zb,1,BypassOpenStudio_ab,1,AnalysisThruStep,7",
       "mappings": [
         {
           "source": "Projects/{year}/non-residential/sensitivity/detailed-geometry",

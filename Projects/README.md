@@ -71,22 +71,29 @@ Run the suite tool from the repository root:
 
 ```powershell
 # Discover available suites
-python TestingCBECC/workflows/prepare_test_suite.py list
+python TestingCBECC/workflows/test_suites/prepare_test_suite.py list
 
 # Inspect a copy plan without writing files
-python TestingCBECC/workflows/prepare_test_suite.py preview sensitivity C:\CBECC-Tests\Sensitivity
+python TestingCBECC/workflows/test_suites/prepare_test_suite.py preview sensitivity C:\CBECC-Tests\Sensitivity
 
 # Prepare a suite (the destination must be empty)
-python TestingCBECC/workflows/prepare_test_suite.py prepare pre-release-nr-mf C:\CBECC-Tests\PreRelease-NR-MF
+python TestingCBECC/workflows/test_suites/prepare_test_suite.py prepare pre-release-nr-mf C:\CBECC-Tests\PreRelease-NR-MF
 
 # Explicitly replace an existing destination
-python TestingCBECC/workflows/prepare_test_suite.py prepare pre-release-nr-mf C:\CBECC-Tests\PreRelease-NR-MF --clean
+python TestingCBECC/workflows/test_suites/prepare_test_suite.py prepare pre-release-nr-mf C:\CBECC-Tests\PreRelease-NR-MF --clean
+
+# Prepare and run (prompts for destination; confirms overwrite and model count)
+python TestingCBECC/workflows/test_suites/sensitivity.py
 ```
 
 Each suite has a description, a default `content` selection, and one or more
-source-to-destination `mappings`. Source paths may use `{year}`; select another
-year with `--year`. Only `.cibd##` and `.ribd##` model files are copied, and
-their paths beneath each mapped source are preserved.
+source-to-destination `mappings`. An optional `options_csv` string is passed
+through to CBECC when the suite is run (omit the field to use CBECC defaults).
+Source paths may use `{year}`; prepare/preview can select another year with
+`--year` (run workflows use `DEFAULT_YEAR` from
+`TestingCBECC/workflows/test_suites/_suite_cli.py`). Only `.cibd##` and
+`.ribd##` model files are copied, and their paths beneath each mapped source
+are preserved.
 
 ```json
 {
@@ -116,10 +123,10 @@ Suite defaults can be overridden by repeating `--content`. For example:
 
 ```powershell
 # Add not-for-release models to the pre-release NR/MF suite
-python TestingCBECC/workflows/prepare_test_suite.py prepare pre-release-nr-mf C:\CBECC-Tests\PreRelease-NR-MF-All --content regular --content not-for-release
+python TestingCBECC/workflows/test_suites/prepare_test_suite.py prepare pre-release-nr-mf C:\CBECC-Tests\PreRelease-NR-MF-All --content regular --content not-for-release
 
 # Preview only the not-for-release portion of NR/MF
-python TestingCBECC/workflows/prepare_test_suite.py preview pre-release-nr-mf C:\CBECC-Tests\PreRelease-NR-MF-NFR --content not-for-release
+python TestingCBECC/workflows/test_suites/prepare_test_suite.py preview pre-release-nr-mf C:\CBECC-Tests\PreRelease-NR-MF-NFR --content not-for-release
 ```
 
 The tool validates every source and destination before copying. It rejects
