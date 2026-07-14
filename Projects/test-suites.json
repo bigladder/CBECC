@@ -42,6 +42,23 @@
         }
       ]
     },
+    "ruleset-implementation": {
+      "description": "All ruleset-implementation models from non-residential and multi-family, including intentional failures.",
+      "content": [
+        "regular",
+        "intentional-failures"
+      ],
+      "mappings": [
+        {
+          "source": "Projects/{year}/non-residential/ruleset-implementation",
+          "destination": "non-res"
+        },
+        {
+          "source": "Projects/{year}/multi-family/ruleset-implementation",
+          "destination": "multi-fam"
+        }
+      ]
+    },
     "release-nr-mf": {
       "description": "Regular non-residential, multi-family, and release-compliance models.",
       "content": [
