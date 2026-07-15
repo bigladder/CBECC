@@ -1299,131 +1299,6 @@ RULE Proj:AnalysisType
 ENDRULE
 
 
-; added to facilitate CHECCODE for Proj:CliZnGrouping - SAC 08/10/26 (dev #903)
-RULE NEW AnalysisAction:TypeVal
-  DATATYPE
-    Integer
-  LONGFORM
-    TypeValue
-  DESCRIPTION
-    ""
-  INPUTCLASS
-    NotInput
-  DEFAULT
-    EnumValue( Type )
-ENDRULE
-
-
-// ********** Project/Facility Type ******************************************** SAC 06/15/26 (dev #903)
-RULE Proj:FacilityType
-  DESCRIPTION
-    "Type of project/facility being analyzed."
-  INPUTCLASS
-    Default
-  RESETS
-    ResetTheFollowingWhenThisIsModified
-      Proj:MultiOrientation
-  DEFAULT 
-    "Nonresidential"
-ENDRULE
-
-RULE Proj:MultiOrientation
-  DESCRIPTION
-    "Whether or not multiple-orientation analysis is to be performed."
-  INPUTCLASS
-    Default
-  RESETS
-    ResetTheFollowingWhenThisIsModified
-      Proj:CliZnGrouping
-  DEFAULT 
-    0
-ENDRULE
-
-; switched logic to base CliZnGroupingActive on Range of FacilityType enum value - SAC 07/31/26 (dev #903)
-RULE Proj:CliZnGroupingActive
-  DESCRIPTION
-    "whether CliZnGrouping input is relevant to the analysis."
-  INPUTCLASS 
-    NotInput
-  DEFAULT
-    if( EnumValue( FacilityType ) >= 10 .AND. MultiOrientation > 0 )
-    then  1
-    else  0  endif
-ENDRULE
-
-TABLE ClimateZoneGroupingtData
-    CliZnVal   CZGroupName                             SimCliZnVal 
-    1          Group A ( CZ1, CZ16* )                  16   
-    2          Group B ( CZ2, CZ3, CZ4*, CZ5 )         4    
-    3          Group B ( CZ2, CZ3, CZ4*, CZ5 )         4    
-    4          Group B ( CZ2, CZ3, CZ4*, CZ5 )         4    
-    5          Group B ( CZ2, CZ3, CZ4*, CZ5 )         4    
-    6          Group C ( CZ6, CZ7, CZ8, CZ9, CZ10* )   10   
-    7          Group C ( CZ6, CZ7, CZ8, CZ9, CZ10* )   10   
-    8          Group C ( CZ6, CZ7, CZ8, CZ9, CZ10* )   10   
-    9          Group C ( CZ6, CZ7, CZ8, CZ9, CZ10* )   10   
-    10         Group C ( CZ6, CZ7, CZ8, CZ9, CZ10* )   10   
-    11         Group D ( CZ11, CZ12, CZ13, CZ14* )     14   
-    12         Group D ( CZ11, CZ12, CZ13, CZ14* )     14   
-    13         Group D ( CZ11, CZ12, CZ13, CZ14* )     14   
-    14         Group D ( CZ11, CZ12, CZ13, CZ14* )     14   
-    15         Climate Zone (CZ) 15                    15   
-    16         Group A ( CZ1, CZ16* )                  16   
-    *          - select CZ grouping -                  0    
-ENDTABLE
-
-; added CHECKCODE expression to prevent certain AnalysisActions when CliZnGrouping activated - SAC 08/10/26 (dev #903)
-RULE Proj:CliZnGrouping
-  DESCRIPTION
-    "Climate zone grouping (used in multiple-orientation analysis)."
-  INPUTCLASS
-    Default
-  CHECKCODE
-    if( CliZnGroupingActive > 0 .AND. ComponentCount( AnalysisAction ) > 0 .AND.
-        EnumValue( CliZnGrouping ) > 0 .AND. EnumValue( CliZnGrouping ) <= 16 )
-    then  if( SumAcrossIf( AnalysisAction:TypeVal, AnalysisAction:ObjPropertyName == "Proj:CliZn"                   ) > 0 .OR.
-              SumAcrossIf( AnalysisAction:TypeVal, AnalysisAction:ObjPropertyName == "Proj:CliZnCounty"             ) > 0 .OR.
-              SumAcrossIf( AnalysisAction:TypeVal, AnalysisAction:ObjPropertyName == "Proj:CliZnNum"                ) > 0 .OR.
-              SumAcrossIf( AnalysisAction:TypeVal, AnalysisAction:ObjPropertyName == "Proj:WeatherFileSet"          ) > 0 .OR.
-              SumAcrossIf( AnalysisAction:TypeVal, AnalysisAction:ObjPropertyName == "Proj:WeatherPathSub"          ) > 0 .OR.
-              SumAcrossIf( AnalysisAction:TypeVal, AnalysisAction:ObjPropertyName == "Proj:WeatherStationNum"       ) > 0 .OR.
-              SumAcrossIf( AnalysisAction:TypeVal, AnalysisAction:ObjPropertyName == "Proj:WeatherStation"          ) > 0 .OR.
-              SumAcrossIf( AnalysisAction:TypeVal, AnalysisAction:ObjPropertyName == "Proj:WeatherStationFileBase"  ) > 0 .OR.
-              SumAcrossIf( AnalysisAction:TypeVal, AnalysisAction:ObjPropertyName == "Proj:DDWeatherFile"           ) > 0 .OR.
-              SumAcrossIf( AnalysisAction:TypeVal, AnalysisAction:ObjPropertyName == "Proj:AnnualWeatherFile"       ) > 0 .OR.
-              SumAcrossIf( AnalysisAction:TypeVal, AnalysisAction:ObjPropertyName == "Proj:AnnualWeatherFileNoPath" ) > 0 .OR.
-              SumAcrossIf( AnalysisAction:TypeVal, AnalysisAction:ObjPropertyName == "Proj:WeatherFileDownloadURL"  ) > 0 )
-          then  PostError( "AnalysisAction objects impacting climate zone or weather station settings
-                            are not permitted when climate zone grouping (CliZnGrouping) is activated." )
-          else  UNCHANGED  endif
-    else  UNCHANGED  endif
-  DEFAULT 
-    if( CliZnGroupingActive < 1 )
-    then  0
-    else if( LocalStatus( CliZn ) > 4 .AND.
-             EnumValue(   CliZn ) > 0 .AND.
-             LocalStatus( CliZnGrouping ) < 5 )
-    then  EvalRulelist( "Set_Proj_CliZnGrouping_from_CliZn" )
-    else if( EnumValue( CliZn ) > 0 )
-    then  ClimateZoneGroupingtData:CZGroupName( "CliZnVal", EnumValue( CliZn ) )
-    else  100    ; switch to 'No Climate Zone Group'
-    endif endif endif
-ENDRULE
-
-; added to enable user access to CliZn when CliZnGrouping active and not set to a specific group - SAC 08/04/26 (dev #903)
-RULE Proj:CliZnEditable
-  DESCRIPTION
-    "whether CliZn input is editable by the user."
-  INPUTCLASS 
-    NotInput
-  DEFAULT
-    if( EnumValue( FacilityType ) >= 10 .AND. MultiOrientation > 0 .AND.
-        EnumValue( CliZnGrouping ) > 0 .AND. EnumValue( CliZnGrouping ) <= 16 )
-    then  0
-    else  1  endif
-ENDRULE
-
-
 // ********** Ventilation Standard *********************************************
 RULE Proj:VentStd
   DESCRIPTION
@@ -1698,7 +1573,6 @@ ENDRULE
 
 // -----------------------------------------------------------------------------
 //     Heathcare Facility
-      ; switched from Default to Prescribed and now set based on FacilityType - SAC 06/15/26 (dev #903)
 RULE Proj:HlthCareFacility
   DESCRIPTION
     "A flag that indicates that the entire project meets the definition of a
@@ -1710,11 +1584,9 @@ RULE Proj:HlthCareFacility
      An error will be posted if this option is checked and 'IsHealthCare' is not
      selected for all Spaces."
   INPUTCLASS
-    Prescribed
+    Default
   DEFAULT 
-    if( FacilityType == "Healthcare Facility" )
-    then  1
-    else  0  endif
+    0
 ENDRULE
 
 
@@ -3875,14 +3747,6 @@ RULE Proj:NumResultsSets
   DEFAULT
     1
 ENDRULE
-; SAC 06/04/26 (dev #903)
-RULE Proj:NumResultsSets
-  DEFAULT
-    if( NumResultsSets != 1 ) then  UNCHANGED
-    else if( ComponentCount( EUseSummary ) > 1 )
-    then     ComponentCount( EUseSummary )
-    else  UNCHANGED  endif endif
-ENDRULE
 
 ; SAC 3/22/20 - no real benefit to allowing access to PrimResultSet, so remove until/unless TDV data in each set different enough to cause changes in battery charge/discharge pattern
 ;RULE Proj:PrimResultSet
@@ -3998,26 +3862,6 @@ RULE EUseSummary:HideCompSmryTot
     if (LocalStatus( HideCompSmryTot ) < 1)
     then  0
     else  UNCHANGED  endif
-ENDRULE
-RULE EUseSummary:NumUIDialogTabs
-  DEFAULT
-    if( Proj:AnalysisVersion >= 250300 )
-    then  5
-    else  UNDEFINED
-    endif
-ENDRULE
-RULE NEW Proj:NumEUseSummaryDlgTabs
-  DATATYPE
-    Integer
-  LONGFORM
-    NumberEUseSummaryDialogTabs
-  INPUTCLASS 
-    NotInput  
-  DEFAULT
-    if( AnalysisVersion >= 250300 )
-    then  5
-    else  UNDEFINED
-    endif
 ENDRULE
 
 // T24NResultSetData:NumSets("CodeVint", EngyCodeYearNum, "Sector", ResultSetSector, "SetID", #)   - This Table uses 15 year gas and other CO2 factors.

@@ -234,11 +234,11 @@ RULELIST "ProposedModelCodeCheck" 1 0 0 0
   ; JP 8/27/25 (issue #199)   ; revise logic to only apply to New/Alt-assigned DUTs and to first check for IAQOption = 5 (Minimum Exhaust IAQ Fan (existing only)) - SAC 02/12/26 (dev #710)
   "Check for multifamily IAQ ventilation type valid"  DwellUnitType:Action =     ; add logic to prevent error when doing CUAC - SAC 03/10/26 (dev #741)
     { if( IfValidAnd( Proj:AnalysisVersion >= 250000 ) .AND. IfValidAnd( Proj:CUACReportID > 0 )==0 .AND.
-          ( IfValidAnd( ResProj:RunScope = 1 ) .OR. SumRevRef( DwellUnit:DwellUnitTypeRef, DwellUnit:NewHVACFlrAreaWithMult ) > 1 ) )
+          ( IfValidAnd( ResProj:RunScope = 1 ) .OR. SumRevRef( DwellUnit:DwellUnitTypeRef, DwellUnit:NewOrAltHVACFlrAreaWithMult ) > 1 ) )
       then  if( IAQOption == 5 )
-            then  PostError( "DwellUnitType '%s' IAQ type '%s' is not permitted for New IAQ systems. Please update the design to use a balanced or supply-only system to proceed.", Name, EnumString( IAQOption ) )
+            then  PostError( "DwellUnitType '%s' IAQ type '%s' is not permitted for New or Altered dwellings. Please update the design to use a balanced or supply-only system to proceed.", Name, EnumString( IAQOption ) )
             else if( IfValidAnd( IAQCFMIsBalanced > 0 ) = 0 .AND. IfValidAnd( MostIAQ_Exhaust > 0 ) )
-            then  PostError( "DwellUnitType '%s' IAQ type Exhaust is no longer permitted for New IAQ systems. Please update the design to use a balanced or supply-only system to proceed.", Name )
+            then  PostError( "DwellUnitType '%s' IAQ type Exhaust is no longer permitted. Please update the design to use a balanced or supply-only system to proceed.", Name )
             else  UNCHANGED
             endif endif
       else  UNCHANGED
@@ -248,8 +248,7 @@ RULELIST "ProposedModelCodeCheck" 1 0 0 0
       {  if ( Proj:IsSFamResRuleset .OR. IfValidAnd( NumAssigningDUs > 0 )==0 .OR. IfValidAnd( Proj:CUACReportID > 0 )) then  UNCHANGED
          else if ( ( ResProj:MostDUIAQ_Balanced > 0 .AND. IAQCFMIsBalanced > 0) .OR.
                    ( ResProj:MostDUIAQ_Exhaust  > 0 .AND. IfValidAnd( MostIAQ_Exhaust > 0 )) .OR.
-                   ( ResProj:MostDUIAQ_Supply   > 0 .AND. IfValidAnd( MostIAQ_Supply  > 0 )) .OR.
-                   SumRevRef( DwellUnit:DwellUnitTypeRef, DwellUnit:NewHVACFlrAreaWithMult ) < 0.5 ) then  UNCHANGED
+                   ( ResProj:MostDUIAQ_Supply   > 0 .AND. IfValidAnd( MostIAQ_Supply  > 0 )) ) then  UNCHANGED
          else if (GlobalStatus( ResProj:MostDUIAQ_Type ) > 0)
          then  if (                 IAQCFMIsBalanced > 0 ) then  PostError( "DwellUnitType '%s' IAQ type Balanced must be consistent w/ predominant project IAQ type of %s", Name, ResProj:MostDUIAQ_Type )
                else if (IfValidAnd( MostIAQ_Exhaust > 0 )) then  PostError( "DwellUnitType '%s' IAQ type Exhaust must be consistent w/ predominant project IAQ type of %s" , Name, ResProj:MostDUIAQ_Type )
@@ -3394,14 +3393,6 @@ RULELIST "SetIndirectOutsideConnection"  1 0 0 0
 END
 ;*************************************************************************
 
-;*************************************************************************  SAC 06/10/22   ; moved from Multifam-BackwardCompatRuleLists.rule to here - SAC 06/15/26 (dev #903)
-RULELIST "ModelErrorCheck_SpcFunc_HighRiseRes"  1 0 0 0
-   "Post error for Spc w/ invalid highrise res SpcFunc"    Spc:Action =
-      {  if (IfValidAnd( SpcFunc = "High-Rise Residential Living Spaces" ))
-         then  PostError( "Space '%s' space function (SpcFunc): 'High-Rise Residential Living Spaces' is no longer supported. %cResidential dwellings now must be defined via DwellUnitType and residential zones (ResZn). Search for 'Creating a Dwelling Unit Type' in CBECC user manual.", Name, 13 )
-         else  UNCHANGED  endif  }
-END
-;*************************************************************************
 
 
 
