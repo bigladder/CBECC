@@ -723,7 +723,7 @@ Cons   "T24-2013 2x4 Altered Wall-SynthStuc"
    SheathInsulLayer = "- no sheathing/insul. -"
    WallExtFinishLayer = "Synthetic Stucco"
    T24AltConsUValue = 0.095
-   ; DVK - raised CavityLayer from R-13/U-0.102 to R-15/U-0.095 to mirror 160.1(c)3
+   ; DVK - raised CavityLayer from R-13/U-0.102 to R-15/U-0.095 to mirror 160.1(b)3
    ..
 Cons   "T24-2013 2x4 Altered Wall-WoodSid"  
    CanAssignTo = "Exterior Walls"
@@ -735,7 +735,7 @@ Cons   "T24-2013 2x4 Altered Wall-WoodSid"
    SheathInsulLayer = "- no sheathing/insul. -"
    WallExtFinishLayer = "Wood Siding/sheathing/decking"
    T24AltConsUValue = 0.095
-   ; DVK - raised CavityLayer from R-13/U-0.102 to R-15/U-0.095 to mirror 160.1(c)3
+   ; DVK - raised CavityLayer from R-13/U-0.102 to R-15/U-0.095 to mirror 160.1(b)3
    ..
 Cons   "T24-2013 2x4 Altered Wall-OtherSid"  
    CanAssignTo = "Exterior Walls"
@@ -747,7 +747,7 @@ Cons   "T24-2013 2x4 Altered Wall-OtherSid"
    SheathInsulLayer = "- no sheathing/insul. -"
    WallExtFinishLayer = "All Other Siding"
    T24AltConsUValue = 0.095
-   ; DVK - raised CavityLayer from R-13/U-0.102 to R-15/U-0.095 to mirror 160.1(c)3
+   ; DVK - raised CavityLayer from R-13/U-0.102 to R-15/U-0.095 to mirror 160.1(b)3
    ..
 Cons   "T24-2013 2x6 Altered Wall-SynthStuc"  
    CanAssignTo = "Exterior Walls"
@@ -760,7 +760,7 @@ Cons   "T24-2013 2x6 Altered Wall-SynthStuc"
    WallExtFinishLayer = "Synthetic Stucco"
    T24AltConsUValue = 0.069
    ; DVK - renamed from "-SynthStu" to "-SynthStuc" to match RuleLibrary lookup in Rules_BudgetConversion_Res.rule:1089
-   ; DVK - raised CavityLayer from R-19/U-0.074 to R-21/U-0.069 to meet 160.1(c)3.
+   ; DVK - raised CavityLayer from R-19/U-0.074 to R-21/U-0.069 to meet 160.1(b)3.
    ..
 Cons   "T24-2013 2x6 Altered Wall-WoodSid"  
    CanAssignTo = "Exterior Walls"
@@ -772,7 +772,7 @@ Cons   "T24-2013 2x6 Altered Wall-WoodSid"
    SheathInsulLayer = "- no sheathing/insul. -"
    WallExtFinishLayer = "Wood Siding/sheathing/decking"
    T24AltConsUValue = 0.069
-   ; DVK - raised CavityLayer from R-19/U-0.070 to R-21/U-0.069 to meet 160.1(c)3.
+   ; DVK - raised CavityLayer from R-19/U-0.070 to R-21/U-0.069 to meet 160.1(b)3.
    ..
 Cons   "T24-2013 2x6 Altered Wall-OtherSid"  
    CanAssignTo = "Exterior Walls"
@@ -784,7 +784,7 @@ Cons   "T24-2013 2x6 Altered Wall-OtherSid"
    SheathInsulLayer = "- no sheathing/insul. -"
    WallExtFinishLayer = "All Other Siding"
    T24AltConsUValue = 0.069
-   ; DVK - raised CavityLayer from R-19/U-0.074 to R-21/U-0.069 to meet 160.1(c)3.
+   ; DVK - raised CavityLayer from R-19/U-0.074 to R-21/U-0.069 to meet 160.1(b)3.
    ..
 
 ;-------------------------------------------------------------------------
