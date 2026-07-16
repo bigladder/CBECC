@@ -71,19 +71,19 @@ Run the test-set tool from the repository root:
 
 ```powershell
 # Discover available sets
-python TestingCBECC/workflows/test_sets/prepare/prepare_test_set.py list
+python TestingCBECC/workflows/test_sets/prepare_test_set.py list
 
 # Inspect a copy plan without writing files
-python TestingCBECC/workflows/test_sets/prepare/prepare_test_set.py preview sensitivity-simplified C:\CBECC-Tests\Sensitivity
+python TestingCBECC/workflows/test_sets/prepare_test_set.py preview sensitivity-simplified C:\CBECC-Tests\Sensitivity
 
 # Prepare a set
-python TestingCBECC/workflows/test_sets/prepare/prepare_test_set.py prepare pre-release-nr-mf C:\CBECC-Tests\PreRelease-NR-MF
+python TestingCBECC/workflows/test_sets/prepare_test_set.py prepare pre-release-nr-mf C:\CBECC-Tests\PreRelease-NR-MF
 
 # Explicitly replace an existing destination
-python TestingCBECC/workflows/test_sets/prepare/prepare_test_set.py prepare pre-release-nr-mf C:\CBECC-Tests\PreRelease-NR-MF --clean
+python TestingCBECC/workflows/test_sets/prepare_test_set.py prepare pre-release-nr-mf C:\CBECC-Tests\PreRelease-NR-MF --clean
 
 # Prepare and run (prompts for destination; confirms overwrite and model count)
-python TestingCBECC/workflows/test_sets/prepare/prepare_test_set.py run sensitivity-simplified
+python TestingCBECC/workflows/test_sets/prepare_test_set.py run sensitivity-simplified
 ```
 
 Each set has a description, a default `content` selection, and one or more
@@ -123,10 +123,10 @@ Set defaults can be overridden by repeating `--content`. For example:
 
 ```powershell
 # Add not-for-release models to the pre-release NR/MF set
-python TestingCBECC/workflows/test_sets/prepare/prepare_test_set.py prepare pre-release-nr-mf C:\CBECC-Tests\PreRelease-NR-MF-All --content regular --content not-for-release
+python TestingCBECC/workflows/test_sets/prepare_test_set.py prepare pre-release-nr-mf C:\CBECC-Tests\PreRelease-NR-MF-All --content regular --content not-for-release
 
 # Preview only the not-for-release portion of NR/MF
-python TestingCBECC/workflows/test_sets/prepare/prepare_test_set.py preview pre-release-nr-mf C:\CBECC-Tests\PreRelease-NR-MF-NFR --content not-for-release
+python TestingCBECC/workflows/test_sets/prepare_test_set.py preview pre-release-nr-mf C:\CBECC-Tests\PreRelease-NR-MF-NFR --content not-for-release
 ```
 
 The tool validates every source and destination before copying. It rejects
