@@ -74,7 +74,7 @@ Run the test-set tool from the repository root:
 python TestingCBECC/workflows/test_sets/prepare_test_set.py list
 
 # Inspect a copy plan without writing files
-python TestingCBECC/workflows/test_sets/prepare_test_set.py preview sensitivity-simplified C:\CBECC-Tests\Sensitivity
+python TestingCBECC/workflows/test_sets/prepare_test_set.py preview sensitivity C:\CBECC-Tests\Sensitivity
 
 # Prepare a set
 python TestingCBECC/workflows/test_sets/prepare_test_set.py prepare pre-release-nr-mf C:\CBECC-Tests\PreRelease-NR-MF
@@ -83,7 +83,7 @@ python TestingCBECC/workflows/test_sets/prepare_test_set.py prepare pre-release-
 python TestingCBECC/workflows/test_sets/prepare_test_set.py prepare pre-release-nr-mf C:\CBECC-Tests\PreRelease-NR-MF --clean
 
 # Prepare and run (prompts for destination; confirms overwrite and model count)
-python TestingCBECC/workflows/test_sets/prepare_test_set.py run sensitivity-simplified
+python TestingCBECC/workflows/test_sets/prepare_test_set.py run sensitivity
 ```
 
 Each set has a description, a default `content` selection, and one or more

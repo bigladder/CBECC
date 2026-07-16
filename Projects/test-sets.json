@@ -17,25 +17,8 @@
         }
       ]
     },
-    "sensitivity-detailed": {
-      "description": "Non-residential and multi-family detailed-geometry sensitivity models.",
-      "content": [
-        "regular"
-      ],
-      "options_csv": "BypassOpenStudio_zb,1,BypassOpenStudio_ab,1,AnalysisThruStep,7",
-      "mappings": [
-        {
-          "source": "Projects/{year}/non-residential/sensitivity/detailed-geometry",
-          "destination": "detailed"
-        },
-        {
-          "source": "Projects/{year}/multi-family/sensitivity/detailed-geometry",
-          "destination": "detailed"
-        }
-      ]
-    },
-    "sensitivity-simplified": {
-      "description": "Non-residential and multi-family simplified-geometry sensitivity models.",
+    "sensitivity": {
+      "description": "Non-residential and multi-family simplified- and detailed-geometry sensitivity models.",
       "content": [
         "regular"
       ],
@@ -48,6 +31,14 @@
         {
           "source": "Projects/{year}/multi-family/sensitivity/simplified-geometry",
           "destination": "simplified"
+        },
+        {
+          "source": "Projects/{year}/non-residential/sensitivity/detailed-geometry",
+          "destination": "detailed"
+        },
+        {
+          "source": "Projects/{year}/multi-family/sensitivity/detailed-geometry",
+          "destination": "detailed"
         }
       ]
     },
