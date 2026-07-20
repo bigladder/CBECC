@@ -7666,6 +7666,41 @@
 ;------------------------------------------------------------------------------------------------
 
 
+;------- RJH 7/19/26 2025-CBECC-Schema Issue 65 -----------------------------------------------------------------------------------------
+;                        LName                 Template            MD  MR  AC   Parent1        P2  P3  P4  P5  P6  P7  P8  P9  P10 P11 P12 P13 P14 P15 P16 P17 P18 P19 P20  MC  MS  bP  CF  SR  IN     HI 
+;                       --------------------------------------------------------------------------------------------------------------------------------------------------------
+0,  "nrccSection_Proj1", "nrccSection_Proj1",   "Section_Proj1 <i>",   1,  0,  0, "nrccnRCCPRF",  "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",  -1,  1,  0,  0,  0,  1,   1000
+;
+;                                                   VType     NV  WA  SP    US    UL                 UT  NO  OC            CV  CP         HI    LName                  
+;                                                  -------------------------------------------------------------------------------------------
+1,           "Proj01_PerfENV",                     BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "Proj01_PerfENV",              "map from: Proj:CompPathEnv"
+1,           "Proj01mf_PerfENV",                   BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "Proj01mf_PerfENV",            "map from: Proj:ResCompPathEnv"
+1,           "Proj02_PerfMCH",                     BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "Proj02_PerfMCH",              "map from: Proj:CompPathMech"
+1,           "Proj02mf_PerfMCH",                   BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "Proj02mf_PerfMCH",            "map from: Proj:ResCompPathMech"
+1,           "Proj03_PerfDHW",                     BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "Proj03_PerfDHW",              "map from: Proj:CompPathDHW"
+1,           "Proj03mf_PerfDHW",                   BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "Proj03mf_PerfDHW",            "map from: Proj:ResCompPathDHW"
+1,           "Proj04_PerfCondLTI",                 BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "Proj04_PerfCondLTI",          "map from: Proj:CompPathLtg"
+1,           "Proj04mf_PerfCondLTI",               BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "Proj04mf_PerfCondLTI",        "map from: Proj:ResCompPathLtg"
+1,           "Proj05_PerfSolarWH",                 BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "Proj05_PerfSolarWH",          "map from: Proj:SolThrmlComp"
+1,           "Proj06_PerfKitchenPRC",              BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "Proj06_PerfKitchenPRC",       "map from: Proj:CompPathKit"
+;1,           "Proj07_PerfComputerPRC",            BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "Proj07_PerfComputerPRC",      "map from: Proj:CompPathComputerRm"
+1,           "Proj08_PerfLabPRC",                  BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "Proj08_PerfLabPRC",           "map from: Proj:CompPathLab"
+1,           "Proj09_PerfPV",                      BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "Proj09_PerfPV",               "map from: Proj:PVComp"
+1,           "Proj10_PerfBattery",                 BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "Proj10_PerfBattery",          "map from: Proj:BattComp"
+;------------------------------------------------------------------------------------------------
+
+
+;------- RJH 7/19/26 2025-CBECC-Schema Issue 65 -----------------------------------------------------------------------------------------
+;                        LName                 Template            MD  MR  AC   Parent1        P2  P3  P4  P5  P6  P7  P8  P9  P10 P11 P12 P13 P14 P15 P16 P17 P18 P19 P20  MC  MS  bP  CF  SR  IN     HI 
+;                       --------------------------------------------------------------------------------------------------------------------------------------------------------
+0,  "nrccSection_Proj2", "nrccSection_Proj2",   "Section_Proj2 <i>",   1,  0,  0, "nrccnRCCPRF",  "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",  -1,  1,  0,  0,  0,  1,   1000
+;
+;                                                   VType     NV  WA  SP    US    UL                 UT  NO  OC            CV  CP         HI    LName                  
+;                                                  -------------------------------------------------------------------------------------------
+
+;------------------------------------------------------------------------------------------------
+
+
 ;  ...
 ;  ...
 
