@@ -665,10 +665,18 @@
 2,				3,	"CFI (Central Fan Integrated) Cool Vent"
 1,    Proj:Ruleset,   -1002,  1   ; Backward compatibility
 2,				2,	"Whole House Fan exhausting to outside"
+1,    Proj:StdWHFan,      0,  0   ; SAC 06/23/26 (dev #926)
+1,    Proj:LimitedClVent, 1,  0   ; added to enable new 'Whole House Fan exhausting to outside' option (tic #1040)
+2,				0,	"- none -"
+2,				2,	"Specify Individual Whole House Fans"
 1,    Proj:LimitedClVent, 1,  0   ; added to enable new 'Whole House Fan exhausting to outside' option (tic #1040)
 2,				0,	"- none -"
 2,				5,	"Default WHF Exhausting to Outside"
 2,				2,	"Specify Individual Whole House Fans"
+1,    Proj:StdWHFan,      0,  0   ; SAC 06/23/26 (dev #926)
+2,				0,	"- none -"
+2,				2,	"Specify Individual Whole House Fans"
+2,				3,	"Central Fan Ventilation Cooling System"
 1,    Proj:Ruleset,    -999,  1   ; Current selections
 2,				0,	"- none -"
 2,				1,	"Default Prescriptive Whole House Fan"

@@ -922,7 +922,9 @@
 1,           "ClVentFanUI",       BEMP_Int,  1,  0,  0,  Pres,  "",                 0,  0,                           1080, "flag indicating when to display cooling vent Fan assignment UI",  ""  ; SAC 1/19/19 (tic #1040)
 1,           "MaxClVentFlow",     BEMP_Flt,  1,  0,  0,  Pres,  "CFM/ft2",          0,  0,                           8005, "Maximum cooling vent flow (CFM/ft2)",  ""    ; SAC 6/29/20 (tic #1236)
 1,           "ClVentErrMsg",      BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                           8005, "Cooling vent error message",  ""             ; SAC 6/29/20 (tic #1236)
+1,           "StdWHFan",          BEMP_Int,  1,  0,  0,  NInp,  "",                 0,  0,                           1080, "flag indicating whether NewCons Std design includes a WHF",  ""  ; SAC 06/23/26 (dev #926)
 1,           "UnitClVentOption",  BEMP_Sym,  1,  0,  0,  Pres,  "",                 0,  0,                           8005, "",  "" 
+1,           "PropClVentOption",  BEMP_Int,  1,  0,  0,  NInp,  "",                 0,  0,                           8005, "",  ""     ; SAC 06/08/26 (dev #956)
 1,           "UnitClVentLowArea", BEMP_Int,  1,  0,  0,  Pres,  "",                 0,  0,                           8005, "Whether or not there is reduced attic relief vent free area",  "" 
 1,           "UnitClVentAreaMult",BEMP_Flt,  1,  0,  0,  Pres,  "",                 0,  0,                           8005, "Multiplier on attic relief vent free area",  "" 
 1,           "ClVentCFMDivisor",  BEMP_Flt,  1,  0,  0,  Pres,  "",                 0,  0,                           8005, "Divisor on cooling vent CFM (T24RClimateZoneCodeBase:WHFcfmdivisor)",  ""   ; SAC 07/16/25
@@ -1643,7 +1645,8 @@
 1,           "StdPeakCoolElec",      BEMP_Flt,  1,  0,  0,  Pres,  "kWh",           0,  0,             39110, "Standard run Peak Cooling Electric Energy",  "" 
 1,           "StdPeakCoolElecLimit", BEMP_Flt,  1,  0,  0,  Pres,  "kWh",           0,  0,             39110, "Standard run Peak Cooling Electric Energy Limit (for compliance)",  "" 
 1,           "PeakCoolElecMargin",   BEMP_Flt,  1,  0,  0,  Pres,  "kWh",           0,  0,             39110, "Peak Cooling Electric Energy Compliance Margin",  "" 
-1,           "PeakCoolElecLabels",   BEMP_Str,  4,  0,  0,  Pres,  "",              0,  0,             39110, "Peak Cooling Electric Energy Compliance Labels (Prop, Std, Marg, Pass/Fail)",  "" 
+1,           "PeakCoolElecLabels",   BEMP_Str,  4,  1,  0,  Pres,  "",              0,  0,             39110, "Peak Cooling Electric Energy Compliance Labels (Prop, Std, Marg, Pass/Fail)",  "" 
+1,           "PeakCoolElecFtnote",   BEMP_Str,  1,  0,  0,  Pres,  "",              0,  0,             39110, "Peak Cooling Electric Energy Compliance Labels (footnote)",  ""      ; SAC 05/13/26 (dev #757)
 
 1,           "PropMixedFuelkWh",  BEMP_Flt,  1,  0,  0,  Pres,  "kWh",              0,  0,                      7010, "retained for backward compatibility - Electric kWh use of proposed mixed fuel simulation (2019 and later codes)",  ""  ; SAC 4/6/17
 1,           "PropMixedFuelPV",   BEMP_Flt,  1,  0,  0,  Pres,  "kWh",              0,  0,                      7010, "retained for backward compatibility - PV electric generation (kWh) from the proposed mixed fuel simulation (2019 and later codes)",  ""  ; SAC 4/6/17
@@ -3906,6 +3909,7 @@
 1,           "RoofUvalXOverCondArea", BEMP_Flt,  1,  0,  0,  Pres,  "",             0,  0,                        3212, "roof deck FloorAreaOverCond * Construction:WinterDesUValue",  "" ; RJH 7/31/25 - SF tic #1311
 1,           "CBAUvalXOverCondArea",  BEMP_Flt,  1,  0,  0,  Pres,  "",             0,  0,                        3212, "CeilingBelowAttic FloorAreaOverCond * Construction:WinterDesUValue",  "" ; RJH 9/18/25 - Issue #381
 1,           "AvgCBAUval",        BEMP_Flt,  1,  0,  0,  Pres,  "",                 0,  0,                        3212, "NEW Attic Average CeilingBelowAttic Uval",  "" ; RJH 9/19/25 - Issue #381
+1,           "PropTypeVentilated", BEMP_Int, 1,  0,  0,  NInp,  "",                 0,  0,                        8005, "Proposed model Attic of Type Ventilated",  ""     ; SAC 06/09/26 (dev #956)
 
 			; SAC 10/14/14 - added properties needed to enable multiple Attic objects per model
 1,           "StdCathClgAtticArea_Steep", BEMP_Flt, 1, 0,  0,  NInp,  "ft2",        0,  0,                            3208, "Floor area of steep-sloped attic that can be used to assign ceilings created for std design from proposed CathedralCeilings",  ""    ; split into 2 separate properties by steep vs. low-sloped - SAC 02/19/24 (tic #1346)
