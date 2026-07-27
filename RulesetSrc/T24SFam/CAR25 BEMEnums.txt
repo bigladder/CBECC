@@ -804,6 +804,9 @@
 1,     Proj:ClimateZone,    12,  0     ; CommunitySolarProject's available in CZ 12
 2,              0,    "- select CS project -"
 2,              1,    "SMUD Neighborhood SolarShares - Wildflower"
+1,     Proj:ClimateZone,    16,  0     ; CommunitySolarProject's available in CZ 16 - SAC 07/23/26 (dev #859)
+2,              0,    "- select CS project -"
+2,              2,    "PSREC T24 Community Solar Program - SIAD"
 1,     Proj:ClimateZone,  -999,  0     ; CommunitySolarProject's available in all other CZs
 2,              0,    "- select CS project -"
 
@@ -9430,6 +9433,9 @@
 1,     Proj:ClimateZone,    12,  0     ; CommunitySolarProject's available in CZ 12
 2,              0,    "- select CS project -"
 2,              1,    "SMUD Neighborhood SolarShares - Wildflower"
+; 1,     Proj:ClimateZone,    16,  0     ; CommunitySolarProject's available in CZ 16 - SAC 07/24/26 (dev #859)
+; 2,              0,    "- select CS project -"
+; 2,              2,    "PSREC T24 Community Solar Program - SIAD"
 1,     Proj:ClimateZone,  -999,  0     ; CommunitySolarProject's available in all other CZs
 2,              0,    "- select CS project -"
 ;--------------------------------------------

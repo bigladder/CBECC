@@ -84,10 +84,6 @@ RULELIST "ProposedInput_CoolVent_IAQ_IntGains" 0 0 0 0
       then  1     ; Default Prescriptive Whole House Fan
       else  0     ; none 
       endif  }
-   "Set Proj:PropClVentOption iff user or proposed model"   Proj:PropClVentOption =         ; SAC 06/08/26 (dev #956)
-    { if (Proj:RunAbbrev == "p" .OR. Proj:RunAbbrev == "p-N" .OR. Proj:RunAbbrev == "p-E" .OR. 
-          Proj:RunAbbrev == "u" .OR. Proj:RunAbbrev == "p-S" .OR. Proj:RunAbbrev == "p-W")
-      then  UnitClVentOption  else  UNCHANGED  endif  }
 
    "Set Proj:ClVentFanUI"     Proj:ClVentFanUI  =        ; SAC 1/19/19 (tic #1040)
       {  if (ClVentUI > 0 .AND. UnitClVentOption = 2)

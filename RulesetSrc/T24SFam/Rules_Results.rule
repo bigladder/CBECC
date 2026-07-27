@@ -290,8 +290,8 @@ RULELIST "CARes_ProcessResults" 1 0 0 1
                   case  "p-E"   :  EvalRulelist( "CARes_ProposedSrcEnergyResults_E" )
                   case  "p-S"   :  EvalRulelist( "CARes_ProposedSrcEnergyResults_S" )
                   case  "p-W"   :  EvalRulelist( "CARes_ProposedSrcEnergyResults_W" )
-; TO DO - restore check of AnalysisVersion > 250000 to avoid Src energy retrieval for 2025 's' run
-                  case  "s"     :  if (Proj:AnalysisVersion > 990000) then  UNCHANGED
+                                                ; restored check of AnalysisVersion > 250000 (was 990000) to avoid Src energy retrieval for 2025 's' run - SAC 07/27/26 (dev #859)
+                  case  "s"     :  if (Proj:AnalysisVersion > 250000) then  UNCHANGED
                                    else if (AllOrientations < 0.5)
                                    then   EvalRulelist( "CARes_StandardSrcEnergyResults" )
                                    else   EvalRulelist( "CARes_StandardSrcEnergyResults_NESW" )  endif endif
@@ -2582,15 +2582,8 @@ RULELIST "CARes_PeakCoolElec" 1 0 1 1
 END
 ;************************************************************************* SAC 08/08/23 (2025)
 RULELIST "CARes_ProposedPeakCoolElec" 1 0 1 1
-  "Calculate & set PropPeakCoolElec"        Proj:ResultSummary[1]:PropPeakCoolElec = 
-    {	ApplyHourlyResultMultipliers( "none", "PeakCoolingElecEnergyTable", 1, 1, "none", 0, 0, RunID, "MtrElec",   "Clg", "FanC" ) / 3.412  }
-
-  "Calculate & set PropPeakCoolBattElec"    Proj:ResultSummary[1]:PropPeakCoolBattElec =     ; SAC 07/08/26 (dev #989)
-    {	if( IfValidAnd( PropPeakCoolBattCreditLimit > 0.0001 )==0 .OR. IfValidAnd( SimulateBattery > 0 )==0 ) then  UNDEFINED
-      else  ApplyHourlyResultMultipliers( "none", "PeakCoolingElecEnergyTable", 1, 1, "none", 0, 0, RunID, "MtrElec",   "BT" ) / 3.412  endif  }
-  ;"set PropPeakCoolBattElecCredit"          Proj:ResultSummary[1]:PropPeakCoolBattElecCredit =     ; removed - SAC 07/27/26 (dev #989)
-  ;  { if( IfValidAnd( PropPeakCoolBattCreditLimit > 0.0001 )==0 .OR. LocalStatus( ResultSummary[1]:PropPeakCoolBattElec ) < 1 ) then  UNDEFINED
-  ;    else  max( ResultSummary[1]:PropPeakCoolBattElec, -1 * PropPeakCoolBattCreditLimit * ResultSummary[1]:PropPeakCoolElec )  endif  }
+   "Calculate & set PropPeakCoolElec"        Proj:ResultSummary[1]:PropPeakCoolElec = 
+      {	ApplyHourlyResultMultipliers( "none", "PeakCoolingElecEnergyTable", 1, 1, "none", 0, 0, RunID, "MtrElec",   "Clg", "FanC" ) / 3.412  }
 END
 ;************************************************************************* SAC 11/14/23 (2025)
 RULELIST "CARes_ProposedPeakCoolElec_N" 1 0 1 1
@@ -2622,11 +2615,6 @@ RULELIST "CARes_StandardPeakCoolElec" 1 0 1 1
    "Set StdPeakCoolElecLimit"    Proj:ResultSummary[1]:StdPeakCoolElecLimit =       ; mods for StdPeakCoolElecLimitMult = 0 - SAC 08/14/23
       {  if (IfValidAnd( Proj:StdPeakCoolElecLimitMult = 0.0 )) then  ResultSummary[1]:StdPeakCoolElec
          else  ResultSummary[1]:StdPeakCoolElec * ValidOr( Proj:StdPeakCoolElecLimitMult, 1.2 )  endif  }
-
-  ; switched from calculating PropPeakCoolBattElecCredit using PropPeakCoolBattElec to using StdPeakCoolElecLimit - SAC 07/27/26 (dev #989)
-  "set PropPeakCoolBattElecCredit"          Proj:ResultSummary[1]:PropPeakCoolBattElecCredit =    ; added logic to prevent negative overall PropPeakCoolElec - SAC 07/28/26 (dev #989)
-    { if( IfValidAnd( PropPeakCoolBattCreditLimit > 0.0001 )==0 .OR. LocalStatus( ResultSummary[1]:PropPeakCoolBattElec ) < 1 ) then  UNDEFINED
-      else  max( max( ResultSummary[1]:PropPeakCoolBattElec, -1 * PropPeakCoolBattCreditLimit * ResultSummary[1]:StdPeakCoolElecLimit ), -1 * ResultSummary[1]:PropPeakCoolElec )  endif  }
 
    "Set PeakCoolElecMargin"      Proj:ResultSummary[1]:PeakCoolElecMargin =
       {  if (IfValidAnd( Proj:StdPeakCoolElecLimitMult = 0.0 )) then  0
@@ -7326,6 +7314,19 @@ RULELIST "CARes_StandardTDVResults_PVonly" 1 0 0 1
 	"Calculate TDV - TOTAL  - Total"		Proj:RunResults[10]:StandardTDV			= {	RunResults[11]:StandardTDV   + RunResults[6]:StandardTDV   + RunResults[7]:StandardTDV   + RunResults[8]:StandardTDV   + RunResults[9]:StandardTDV   + RunResults[13]:StandardTDV   + RunResults[14]:StandardTDV    }
 	"Calculate Elec Demand  - Total"		Proj:RunResults[10]:StdElecDemand		= {	RunResults[11]:StdElecDemand + RunResults[6]:StdElecDemand + RunResults[7]:StdElecDemand + RunResults[8]:StdElecDemand + RunResults[9]:StdElecDemand + RunResults[13]:StdElecDemand + RunResults[14]:StdElecDemand  }
 
+  ; PV - copy Standard to Proposed PV LSC for CommunitySolarProjID = 2 (PSREC) - SAC 07/27/26 (dev #859)
+  "Adjust Prop TDV - Elec   - PV for PSREC CommunitySolar"      Proj:RunResults[13]:PropElecTDV[1]  =
+    { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResults[13]:StdElecTDV < 0 )) then  RunResults[13]:StdElecTDV
+      else  UNCHANGED  endif  }
+  "Adjust Prop TDV - TOTAL  - PV for PSREC CommunitySolar"      Proj:RunResults[13]:ProposedTDV[1]  =
+    {	if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResults[13]:StdElecTDV < 0 )) then  RunResults[13]:ProposedTDV[1] + RunResults[13]:StdElecTDV
+      else  UNCHANGED  endif  }
+  "Adjust Prop TDV - Elec   - Total for PSREC CommunitySolar"   Proj:RunResults[10]:PropElecTDV[1]  =
+    {	if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResults[13]:StdElecTDV < 0 )) then  RunResults[10]:PropElecTDV[1] + RunResults[13]:StdElecTDV
+      else  UNCHANGED  endif  }
+  "Adjust Prop TDV - TOTAL  - Total for PSREC CommunitySolar"   Proj:RunResults[10]:ProposedTDV[1]  =
+    {	if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResults[13]:StdElecTDV < 0 )) then  RunResults[10]:ProposedTDV[1] + RunResults[13]:StdElecTDV
+      else  UNCHANGED  endif  }
 
 ; not applicable to 2019+ vintages...
 ;	; SAC 4/2/14 - moved PV credit calcs into subordinate rulelist
@@ -8429,6 +8430,28 @@ RULELIST "CARes_StandardTDVResults_PVonly_NESW" 1 0 0 1
 	"Calculate TDV - Other  - W-Total"		Proj:RunResultsW[10]:StdOtherTDV			= {	RunResultsN[10]:StdOtherTDV      }
 	"Calculate TDV - TOTAL  - W-Total"		Proj:RunResultsW[10]:StandardTDV			= {	RunResultsN[10]:StandardTDV      }
 	"Calculate Elec Demand  - W-Total"     Proj:RunResultsW[10]:StdElecDemand		= {	RunResultsN[10]:StdElecDemand    }
+
+
+  ; PV - copy Standard to Proposed PV LSC for CommunitySolarProjID = 2 (PSREC) - SAC 07/27/26 (dev #859)
+  "Adjust Prop TDV - Elec   - N-PV for PSREC CommunitySolar"      Proj:RunResultsN[13]:PropElecTDV[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsN[13]:StdElecTDV < 0 )) then  RunResultsN[13]:StdElecTDV  else  UNCHANGED  endif  }
+  "Adjust Prop TDV - TOTAL  - N-PV for PSREC CommunitySolar"      Proj:RunResultsN[13]:ProposedTDV[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsN[13]:StdElecTDV < 0 )) then  RunResultsN[13]:ProposedTDV[1] + RunResultsN[13]:StdElecTDV  else  UNCHANGED  endif  }
+  "Adjust Prop TDV - Elec   - N-Total for PSREC CommunitySolar"   Proj:RunResultsN[10]:PropElecTDV[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsN[13]:StdElecTDV < 0 )) then  RunResultsN[10]:PropElecTDV[1] + RunResultsN[13]:StdElecTDV  else  UNCHANGED  endif  }
+  "Adjust Prop TDV - TOTAL  - N-Total for PSREC CommunitySolar"   Proj:RunResultsN[10]:ProposedTDV[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsN[13]:StdElecTDV < 0 )) then  RunResultsN[10]:ProposedTDV[1] + RunResultsN[13]:StdElecTDV  else  UNCHANGED  endif  }
+
+  "Adjust Prop TDV - Elec   - E-PV for PSREC CommunitySolar"      Proj:RunResultsE[13]:PropElecTDV[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsE[13]:StdElecTDV < 0 )) then  RunResultsE[13]:StdElecTDV  else  UNCHANGED  endif  }
+  "Adjust Prop TDV - TOTAL  - E-PV for PSREC CommunitySolar"      Proj:RunResultsE[13]:ProposedTDV[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsE[13]:StdElecTDV < 0 )) then  RunResultsE[13]:ProposedTDV[1] + RunResultsE[13]:StdElecTDV  else  UNCHANGED  endif  }
+  "Adjust Prop TDV - Elec   - E-Total for PSREC CommunitySolar"   Proj:RunResultsE[10]:PropElecTDV[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsE[13]:StdElecTDV < 0 )) then  RunResultsE[10]:PropElecTDV[1] + RunResultsE[13]:StdElecTDV  else  UNCHANGED  endif  }
+  "Adjust Prop TDV - TOTAL  - E-Total for PSREC CommunitySolar"   Proj:RunResultsE[10]:ProposedTDV[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsE[13]:StdElecTDV < 0 )) then  RunResultsE[10]:ProposedTDV[1] + RunResultsE[13]:StdElecTDV  else  UNCHANGED  endif  }
+
+  "Adjust Prop TDV - Elec   - S-PV for PSREC CommunitySolar"      Proj:RunResultsS[13]:PropElecTDV[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsS[13]:StdElecTDV < 0 )) then  RunResultsS[13]:StdElecTDV  else  UNCHANGED  endif  }
+  "Adjust Prop TDV - TOTAL  - S-PV for PSREC CommunitySolar"      Proj:RunResultsS[13]:ProposedTDV[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsS[13]:StdElecTDV < 0 )) then  RunResultsS[13]:ProposedTDV[1] + RunResultsS[13]:StdElecTDV  else  UNCHANGED  endif  }
+  "Adjust Prop TDV - Elec   - S-Total for PSREC CommunitySolar"   Proj:RunResultsS[10]:PropElecTDV[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsS[13]:StdElecTDV < 0 )) then  RunResultsS[10]:PropElecTDV[1] + RunResultsS[13]:StdElecTDV  else  UNCHANGED  endif  }
+  "Adjust Prop TDV - TOTAL  - S-Total for PSREC CommunitySolar"   Proj:RunResultsS[10]:ProposedTDV[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsS[13]:StdElecTDV < 0 )) then  RunResultsS[10]:ProposedTDV[1] + RunResultsS[13]:StdElecTDV  else  UNCHANGED  endif  }
+
+  "Adjust Prop TDV - Elec   - W-PV for PSREC CommunitySolar"      Proj:RunResultsW[13]:PropElecTDV[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsW[13]:StdElecTDV < 0 )) then  RunResultsW[13]:StdElecTDV  else  UNCHANGED  endif  }
+  "Adjust Prop TDV - TOTAL  - W-PV for PSREC CommunitySolar"      Proj:RunResultsW[13]:ProposedTDV[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsW[13]:StdElecTDV < 0 )) then  RunResultsW[13]:ProposedTDV[1] + RunResultsW[13]:StdElecTDV  else  UNCHANGED  endif  }
+  "Adjust Prop TDV - Elec   - W-Total for PSREC CommunitySolar"   Proj:RunResultsW[10]:PropElecTDV[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsW[13]:StdElecTDV < 0 )) then  RunResultsW[10]:PropElecTDV[1] + RunResultsW[13]:StdElecTDV  else  UNCHANGED  endif  }
+  "Adjust Prop TDV - TOTAL  - W-Total for PSREC CommunitySolar"   Proj:RunResultsW[10]:ProposedTDV[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsW[13]:StdElecTDV < 0 )) then  RunResultsW[10]:ProposedTDV[1] + RunResultsW[13]:StdElecTDV  else  UNCHANGED  endif  }
 
 
   ; Compliance Margins - NORTH
@@ -10922,6 +10945,30 @@ RULELIST "CARes_StandardSummary" 1 0 1 1
 																													else  FltToStr( (int( (RunResults[11]:PropElecEnergy[1] * Proj:CondFloorArea / 3.413) + 0.5 )), 0 )  endif  }
 	"Set ResultSummary[1]:Enduse12[2]"			Proj:ResultSummary[1]:Enduse12[2]	= {	if (LocalCompAssigned( RunResults[12] ) == 0 .OR. RunResults[12]:PropElecEnergy[1] < 0.00001) then  UNDEFINED  
 																													else  FltToStr( (int( (RunResults[12]:PropElecEnergy[1] * Proj:CondFloorArea / 3.413) + 0.5 )), 0 )  endif  }
+
+  ; track PV requiring community solar offset & project 'value' - SAC 07/27/26 (dev #859)
+  "Set ResultSummary[1]:CmntySlrStdEnergy"    Proj:ResultSummary[1]:CmntySlrStdEnergy	=
+    {	if( LocalCompAssigned( RunResults[13] ) < 1 .OR. CommunitySolarProjID < 1 ) then  UNDEFINED
+      else  -1 * int( (RunResults[13]:StdElecEnergy * Proj:CondFloorArea / 3.413) + 0.5 )   endif  }
+  "Set ResultSummary[1]:CmntySlrProjVal"      Proj:ResultSummary[1]:CmntySlrProjVal	  =
+    {	if( IfValidAnd( ResultSummary[1]:CmntySlrStdEnergy > 0.01 )==0 ) then  UNDEFINED
+      else if( CommunitySolarProjID == 2 )
+      then  int( (( ResultSummary[1]:CmntySlrStdEnergy / 12 ) * 4 / 100) + 0.99999 ) / 4
+      else  UNDEFINED  endif endif  }
+  "revise ResultSummary[1]:ResultsNotes[1] to include CmntySlrProjVal"    Proj:ResultSummary[1]:ResultsNotes[1] =
+    { if( CommunitySolarProjID == 2 .AND. IfValidAnd( ResultSummary[1]:CmntySlrProjVal > 0 ) )
+      then  Format( "%g blocks must be reserved from Community Solar project '%s'  (based on Std PV gen of %g kWh/month)", ResultSummary[1]:CmntySlrProjVal, EnumString( CommunitySolarProject ), (ResultSummary[1]:CmntySlrStdEnergy / 12) )
+      else  UNCHANGED  endif  }
+  "reset ResultSummary[1]:HaveResultsNotesPV[1] related to PV scaling"    Proj:ResultSummary[1]:HaveResultsNotesPV[1]  =
+    { if (LocalStatus( ResultSummary[1]:ResultsNotes[1] ) < 1) then  0
+      else if (strlen( ResultSummary[1]:ResultsNotes[1] ) > 2) then  1  else  0  endif endif  }
+        ;"dbg log msg" Proj:Action = { if (ResultSummary[1]:HaveResultsNotesPV[1]) then  PostMessageToLog( "   ResultSummary[1]:ResultsNotes[1] = '%s'", ResultSummary[1]:ResultsNotes[1] )
+        ;   else  PostMessageToLog( "   ResultSummary[1]:ResultsNotes[1] undefined" )  endif  }
+  "reset ResultSummary[1]:ResultsNotes[4] to report PV scaling"           Proj:ResultSummary[1]:ResultsNotes[4]  =
+    { if (ResultSummary[1]:HaveResultsNotesPV[1] < 1) then  UNDEFINED  else  ResultSummary[1]:ResultsNotes[1]  endif  }
+  "reset ResultSummary[1]:HaveResultsNotesPV[4] to report PV scaling"     Proj:ResultSummary[1]:HaveResultsNotesPV[4] =
+    { if (ResultSummary[1]:HaveResultsNotesPV[1] < 1) then  0  else  1  endif  }
+      ; "dbg" Proj:Action = { if( CommunitySolarProjID == 2 .AND. IfValidAnd( ResultSummary[1]:CmntySlrProjVal > 0 ) ) then  PostMessageToLog( "setting UserPVScalingMsg in CARes_StandardSummary rulelist:  %s", ResultSummary[1]:UserPVScalingMsg )  else  UNCHANGED  endif }
 
   ; Standard Site Natural Gas Use
 	"Set ResultSummary[1]:Title1[6]"				Proj:ResultSummary[1]:Title1[6]		= {	if (EnergyCodeYearNum < 2022) then  "Standard"       else  UNDEFINED   endif  }

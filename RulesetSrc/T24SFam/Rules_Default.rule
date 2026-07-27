@@ -330,8 +330,8 @@ RULELIST "ProposedInput" 0 0 0 0
 	"Blast Proj:MultiFamilyType if not set to 'Other' - pending final implementation plans/design"		; SAC 4/28/15 - disable initial duplex/townhome options (issue 508/365)
 			Proj:Action		= {	if (MultiFamilyType != 3) then  EvalRulelist( "ForceReset_MultiFamilyType" )  else  UNCHANGED  endif  }
 
-; 	"Set Proj:IsMFamDuplex"			Proj:IsMFamDuplex			= {	if (IsMultiFamily > 0.5 .AND.  MultiFamilyType == 1) then  1  else  0  endif  }
-; 	"Set Proj:IsMFamTownhm"			Proj:IsMFamTownhm			= {	if (IsMultiFamily > 0.5 .AND.  MultiFamilyType == 2) then  1  else  0  endif  }  
+	"Set Proj:IsMFamDuplex"			Proj:IsMFamDuplex			= {	if (IsMultiFamily > 0.5 .AND.  MultiFamilyType == 1) then  1  else  0  endif  }
+	"Set Proj:IsMFamTownhm"			Proj:IsMFamTownhm			= {	if (IsMultiFamily > 0.5 .AND.  MultiFamilyType == 2) then  1  else  0  endif  }  
 	"Set Proj:IsMFamDupOrTownhm"	Proj:IsMFamDupOrTownhm	= {	if (IsMultiFamily > 0.5 .AND. (MultiFamilyType == 1 .OR. MultiFamilyType == 2)) then  1  else  0  endif  }  
 
 	"Set Proj:BuildingTypeRpt"		Proj:BuildingTypeRpt		= {	if (IsMultiFamily < 0.5) then  "Single Family"
@@ -1090,8 +1090,6 @@ RULELIST "ProposedInput" 0 0 0 0
    "Default Proj:StdPeakCoolElecLimitMult - mult on StdPeakCoolElec to determine compliance margin"      ; revised for IncludePeakCooling - SAC 03/20/24 (2025)
       Proj:StdPeakCoolElecLimitMult  = {  if (IfValidAnd( IncludePeakCooling > 0 )==0) then  0.0
                                           else  T24RClimateZoneCodeBase:StdPkCoolElecLimitMult( "ClimateZone", Proj:ClimateZone, "CodeBase", Proj:StdDesignBase, "BldgType", Proj:BldgTypeTblStr )  endif  }   ; updated to look-up table - SAC 08/14/23
-
-  "set Proj:PropPeakCoolBattCreditLimit"    Proj:PropPeakCoolBattCreditLimit = { 0.2 }    ; SAC 07/08/26 (dev #989)
 
    ;--------------------------------------------------------------------
    ; ProposedInput: Determine whether Standard Mixed Fuel run is required during analysis
@@ -2133,15 +2131,6 @@ RULELIST "LoadModelAdjustments" 1 0 0 0
 	"Set Proj:RuleRepoRev"		                        Proj:Action	= {	EvalRulelist( "Set_RuleRepoRev" )  }
 	"Set various Code & Program Version properties"		Proj:Action	= {	EvalRulelist( "Default_CodeVersion" )  }
 
-  "prevent use of StdFenInclSkyltsAndWInp (at least for the time being)"    Proj:Action =     ; SAC 07/28/26 (dev #1004)
-    { if( IfValidAnd( StdFenInclSkyltsAndWInp > 0 ) ) 
-      then  EvalRulelist( "DisableFeature_StdFenInclSkyltsAndWInp" )
-      else  UNCHANGED  endif  }
-  "prevent use of PropOrientStdPeakCooling (at least for the time being)"   Proj:Action =     ; SAC 07/28/26 (dev #983)
-    { if( IfValidAnd( PropOrientStdPeakCooling > 0 ) ) 
-      then  EvalRulelist( "DisableFeature_PropOrientStdPeakCooling" )
-      else  UNCHANGED  endif  }
-
    "Warn user if reduced PV req inputs are specified but DefaultReducedPVReq is undefined"   Proj:Action =     ; SAC 04/30/24 (tic #1352)
       {  if (LocalStatus( DefaultReducedPVReq ) < 1 .AND. LocalStatus( ReducedPVReq ) > 4)
          then  EvalRulelist( "BackwardCompat_DefaultReducedPVReq" )  else  UNCHANGED  endif  }
@@ -2760,19 +2749,6 @@ END
 ;************************************************************************* SAC 08/08/23 (2025)
 RULELIST  "Blast_Proj_StdPeakCoolElecLimitMult"  1 0 0 0
    "Blast Proj:StdPeakCoolElecLimitMult"    Proj:StdPeakCoolElecLimitMult  = {  UNDEFINED  }
-END
-;*************************************************************************
-
-
-;************************************************************************* SAC 07/28/26 (dev #1004)
-RULELIST  "DisableFeature_StdFenInclSkyltsAndWInp"  1 0 0 1
-  "post msg re: blasting StdFenInclSkyltsAndWInp"   Proj:Action = {  PostMessageToLog( "Disabling user input setting StdFenInclSkyltsAndWInp (was = %g)", StdFenInclSkyltsAndWInp )  }
-  "blast Proj:StdFenInclSkyltsAndWInp"              Proj:StdFenInclSkyltsAndWInp = {  UNDEFINED  }
-END
-;************************************************************************* SAC 07/28/26 (dev #983)
-RULELIST  "DisableFeature_PropOrientStdPeakCooling"  1 0 0 1
-  "post msg re: blasting PropOrientStdPeakCooling"  Proj:Action = {  PostMessageToLog( "Disabling user input setting PropOrientStdPeakCooling (was = %g)", PropOrientStdPeakCooling )  }
-  "blast Proj:PropOrientStdPeakCooling"             Proj:PropOrientStdPeakCooling = {  UNDEFINED  }
 END
 ;*************************************************************************
 
