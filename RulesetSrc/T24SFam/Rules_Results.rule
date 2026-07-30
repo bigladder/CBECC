@@ -2582,15 +2582,8 @@ RULELIST "CARes_PeakCoolElec" 1 0 1 1
 END
 ;************************************************************************* SAC 08/08/23 (2025)
 RULELIST "CARes_ProposedPeakCoolElec" 1 0 1 1
-  "Calculate & set PropPeakCoolElec"        Proj:ResultSummary[1]:PropPeakCoolElec = 
-    {	ApplyHourlyResultMultipliers( "none", "PeakCoolingElecEnergyTable", 1, 1, "none", 0, 0, RunID, "MtrElec",   "Clg", "FanC" ) / 3.412  }
-
-  "Calculate & set PropPeakCoolBattElec"    Proj:ResultSummary[1]:PropPeakCoolBattElec =     ; SAC 07/08/26 (dev #989)
-    {	if( IfValidAnd( PropPeakCoolBattCreditLimit > 0.0001 )==0 .OR. IfValidAnd( SimulateBattery > 0 )==0 ) then  UNDEFINED
-      else  ApplyHourlyResultMultipliers( "none", "PeakCoolingElecEnergyTable", 1, 1, "none", 0, 0, RunID, "MtrElec",   "BT" ) / 3.412  endif  }
-  ;"set PropPeakCoolBattElecCredit"          Proj:ResultSummary[1]:PropPeakCoolBattElecCredit =     ; removed - SAC 07/27/26 (dev #989)
-  ;  { if( IfValidAnd( PropPeakCoolBattCreditLimit > 0.0001 )==0 .OR. LocalStatus( ResultSummary[1]:PropPeakCoolBattElec ) < 1 ) then  UNDEFINED
-  ;    else  max( ResultSummary[1]:PropPeakCoolBattElec, -1 * PropPeakCoolBattCreditLimit * ResultSummary[1]:PropPeakCoolElec )  endif  }
+   "Calculate & set PropPeakCoolElec"        Proj:ResultSummary[1]:PropPeakCoolElec = 
+      {	ApplyHourlyResultMultipliers( "none", "PeakCoolingElecEnergyTable", 1, 1, "none", 0, 0, RunID, "MtrElec",   "Clg", "FanC" ) / 3.412  }
 END
 ;************************************************************************* SAC 11/14/23 (2025)
 RULELIST "CARes_ProposedPeakCoolElec_N" 1 0 1 1
@@ -2622,11 +2615,6 @@ RULELIST "CARes_StandardPeakCoolElec" 1 0 1 1
    "Set StdPeakCoolElecLimit"    Proj:ResultSummary[1]:StdPeakCoolElecLimit =       ; mods for StdPeakCoolElecLimitMult = 0 - SAC 08/14/23
       {  if (IfValidAnd( Proj:StdPeakCoolElecLimitMult = 0.0 )) then  ResultSummary[1]:StdPeakCoolElec
          else  ResultSummary[1]:StdPeakCoolElec * ValidOr( Proj:StdPeakCoolElecLimitMult, 1.2 )  endif  }
-
-  ; switched from calculating PropPeakCoolBattElecCredit using PropPeakCoolBattElec to using StdPeakCoolElecLimit - SAC 07/27/26 (dev #989)
-  "set PropPeakCoolBattElecCredit"          Proj:ResultSummary[1]:PropPeakCoolBattElecCredit =    ; added logic to prevent negative overall PropPeakCoolElec - SAC 07/28/26 (dev #989)
-    { if( IfValidAnd( PropPeakCoolBattCreditLimit > 0.0001 )==0 .OR. LocalStatus( ResultSummary[1]:PropPeakCoolBattElec ) < 1 ) then  UNDEFINED
-      else  max( max( ResultSummary[1]:PropPeakCoolBattElec, -1 * PropPeakCoolBattCreditLimit * ResultSummary[1]:StdPeakCoolElecLimit ), -1 * ResultSummary[1]:PropPeakCoolElec )  endif  }
 
    "Set PeakCoolElecMargin"      Proj:ResultSummary[1]:PeakCoolElecMargin =
       {  if (IfValidAnd( Proj:StdPeakCoolElecLimitMult = 0.0 )) then  0
