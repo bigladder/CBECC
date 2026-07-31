@@ -1379,6 +1379,10 @@ RULE nrccWaterCHPWH02:WaterCHPWH02_CentralHPWHCompressorType
                 case	"Rheem HPHD-60VNU (vertical MP, 12kW cap @ 45F)"  :	"RheemHPHD60VNUMP"
                 case	"Rheem HPHD-135HNU (horiz MP, 30kW cap @ 45F)"	  :	"RheemHPHD135HNUMP"
                 case	"Rheem HPHD-135VNU (vertical MP, 30kW cap @ 45F)" :	"RheemHPHD135VNUMP"
+                case	"Rheem HPHD-60HNU  (horiz MP, 12kW cap @ 45F)"	  :	"RheemHPHD60HNUMP"    ; RJH CBECC-user-support Issue 654 
+                case	"Rheem HPHD-60VNU  (vertical MP, 12kW cap @ 45F)"  :	"RheemHPHD60VNUMP"
+                case	"Rheem HPHD-135HNU  (horiz MP, 30kW cap @ 45F)"	  :	"RheemHPHD135HNUMP"
+                case	"Rheem HPHD-135VNU  (vertical MP, 30kW cap @ 45F)" :	"RheemHPHD135VNUMP"
                 case	"Nyle C60A  (MP, 11kW cap @ 40F)"	:	"NyleC60AMP"
                 case	"Nyle C90A  (MP, 20kW cap @ 40F)"	:	"NyleC90AMP"
                 case	"Nyle C125A  (MP, 26kW cap @ 40F)"	:	"NyleC125AMP"
