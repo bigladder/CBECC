@@ -2159,12 +2159,12 @@ MAINSCREEN,  15
 	 CTRL, "Status",            2030, TDCT_Combo,  160,  85, 300,  80, 12, FNT_STD, "Air Leakage Status:",                        TA_LEFT,  -140, 4,     0, TA_LEFT, 0, 0,  None,  RunScope = 2,       0,  0,  ""
 ;	 CTRL, "IsVerified",        2031, TDCT_Check,  270,  52,  22, 195,  0, FNT_STD, "Verify Existing Air Leakage",                TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,  RunScope = 2 And Status = 2 And IsMultiFamily < 1,         0,  0,  "Whether or not altered wall has a verifiable existing wall"  
 ;     	 CTRL, "exACH50",           2007, TDCT_Edit,   470,  50,  25,  50, 11, FNT_STD, "",                                           TA_LEFT,     0, 4,     1, TA_LEFT, 4, 4,  None,  IsMultiFamily < 1 And RunScope = 2 And IsVerified > 0.5,   0, 95,  "Existing Air infiltration"                  
-; SAC 7/13/20 - expose ACH50 for MFam models and also access to AirNet Details dialog (w/o activating BypassRuleLimits)
-;	 CTRL, "ACH50",             2006, TDCT_Edit,   180,  80,  25,  50, 11, FNT_STD, "Air Leakage:",                               TA_LEFT,  -160, 4,     1, TA_LEFT, 4, 4,  None,       IsMultiFamily < 1,  -162, 95,  "Air infiltration"                  
-	 CTRL, "ACH50",             2006, TDCT_Edit,   180, 115,  25,  50, 11, FNT_STD, "Residential Air Leakage:",                   TA_LEFT,  -160, 4,     1, TA_LEFT, 4, 4,  UseDefaultACH50 = 0,   None,  -142, 95,  "Air infiltration"                  
-	 CTRL, "UseDefaultACH50",   2032, TDCT_Check,  340, 117,  22, 150,  0, FNT_STD, "Use Default ACH50",                          TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,                  None,     0,  0,  "Whether or not to use the default air changes per hour setting in analysis"     ; SAC 06/27/21 (tic #1274)
-    CTRL, "",                  2033, TDCT_Button, 500, 115,  22,  30, 129, FNT_STD, "...",                                       TA_CENTER,   0, 0,     0, TA_LEFT, 0, 0,  None,       Proj:EnableResearchMode > 0.5,    0,  0,  "access information related to AirNet effective leakage areas"
-;    CTRL, "",                  2033, TDCT_Button, 500, 115,  22,  30, 129, FNT_STD, "...",                                       TA_CENTER,   0, 0,     0, TA_LEFT, 0, 0,  None,       None,    0,  0,  "access information related to AirNet leakage areas"
+   ; SAC 7/13/20 - expose ACH50 for MFam models and also access to AirNet Details dialog (w/o activating BypassRuleLimits)
+   ; CTRL, "ACH50",             2006, TDCT_Edit,   180,  80,  25,  50, 11, FNT_STD, "Air Leakage:",                               TA_LEFT,  -160, 4,     1, TA_LEFT, 4, 4,  None,       IsMultiFamily < 1,  -162, 95,  "Air infiltration"                  
+   ; hide ACH50 input for AnalysisVersion >= 250300 since it no longer impacts infiltration settings - SAC 07/30/26 (dev #679)
+	 CTRL, "ACH50",             2006, TDCT_Edit,   180, 115,  25,  50, 11, FNT_STD, "Residential Air Leakage:",                   TA_LEFT,  -160, 4,     1, TA_LEFT, 4, 4,  UseDefaultACH50 = 0,   Proj:AnalysisVersion < 250300,  -142, 95,  "Air infiltration"                  
+	 CTRL, "UseDefaultACH50",   2032, TDCT_Check,  340, 117,  22, 150,  0, FNT_STD, "Use Default ACH50",                          TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,                  Proj:AnalysisVersion < 250300,     0,  0,  "Whether or not to use the default air changes per hour setting in analysis"     ; SAC 06/27/21 (tic #1274)
+    CTRL, "",                  2033, TDCT_Button, 500, 115,  22, 100,129, FNT_STD, "Infiltration...",                            TA_CENTER,   0, 0,     0, TA_LEFT, 0, 0,  None,       Proj:EnableResearchMode > 0.5,    0,  0,  "access information related to AirNet leakage areas"
 
 	 CTRL, "InsulConsQuality",  2008, TDCT_Combo,  180, 145, 300,  80, 25, FNT_STD, "Quality Insul. Installation:",               TA_LEFT,  -160, 4,     0, TA_LEFT, 0, 0,  None,        Bldg:TotStoryCnt <= 3,     0,  0,  "Quality Insulation Installation (QII)"   
 
@@ -2486,23 +2486,27 @@ MAINSCREEN,  15
 ;      BDBase      Page                                               
 ;      Component    ID   Module(s)   Caption                          
 ;----------------------------------------------------------------
- TAB, "ResProj",   129,      15,    "  AirNet Leakage Area Multipliers  "
+ TAB, "ResProj",   129,      15,    "  AirNet Leakage Area Data  "
 
    ;-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
    ;       BDBase                    Ctrl                                                 | Control Label                                       | Units Label         | Editable        | Display      Erase X | 
    ;       Parameter                  ID   Ctrl Type     X    Y    Ht   Wd   Val  Font    | Label                            Justif.     DX  DY | Disp  Just    DX DY | Condition       | Condition    Lft Rgt | Status Bar Msg
    ;-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    CTRL, "BldgELA_CeilSF",         18801, TDCT_Edit,   140,  40,   25, 100,   8, FNT_STD, "Ceiling:",                      TA_LEFT,   -100, 4,     0, TA_LEFT,  4, 4,  None,             None,          0,  0,  ""
-    CTRL, "BldgELA_RaisedFlrSF",    18802, TDCT_Edit,   140,  70,   25, 100,   8, FNT_STD, "Raised Floor:",                 TA_LEFT,   -100, 4,     0, TA_LEFT,  4, 4,  None,             None,          0,  0,  ""
-    CTRL, "BldgELA_GarageSF",       18803, TDCT_Edit,   140, 100,   25, 100,   8, FNT_STD, "Uncond Zone:",                  TA_LEFT,   -100, 4,     0, TA_LEFT,  4, 4,  None,             None,          0,  0,  ""
-    CTRL, "BldgELA_WallSF",         18804, TDCT_Edit,   140, 130,   25, 100,   8, FNT_STD, "Exterior Wall:",                TA_LEFT,   -100, 4,     0, TA_LEFT,  4, 4,  None,             None,          0,  0,  ""
-	 CTRL, "",                       18815, TDCT_Label,  255,  22,   18,   0,   0, FNT_STD, "Surface Areas:",                TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,             None,          0,  0,  ""
-	 CTRL, "BldgELA_Msg[1]",         18811, TDCT_Label,  255,  44,   18,   0,   0, FNT_STD, "",                              TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,             None,          0,  0,  ""
-	 CTRL, "BldgELA_Msg[2]",         18812, TDCT_Label,  255,  74,   18,   0,   0, FNT_STD, "",                              TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,             None,          0,  0,  ""
-	 CTRL, "BldgELA_Msg[3]",         18813, TDCT_Label,  255, 104,   18,   0,   0, FNT_STD, "",                              TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,             None,          0,  0,  ""
-	 CTRL, "BldgELA_Msg[4]",         18814, TDCT_Label,  255, 134,   18,   0,   0, FNT_STD, "",                              TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,             None,          0,  0,  ""
+   ; move ACH50 inputs here from ResProj dialog - which impact reference values but no longer impacts infiltration settings in simulation - SAC 07/30/26 (dev #679)
+	 CTRL, "ACH50",                  18701, TDCT_Edit,   140,  28,   25,  50,  11, FNT_STD, "Res Air Leakage:",              TA_LEFT,   -105, 4,     1, TA_LEFT,  4, 4,  UseDefaultACH50 = 0,   Proj:AnalysisVersion >= 250300,  -107, 95,  "Air infiltration (for reference - NOT directly used in model simulation)"                  
+	 CTRL, "UseDefaultACH50",        18702, TDCT_Check,  300,  30,   22, 150,   0, FNT_STD, "Use Default ACH50",             TA_LEFT,      0, 4,     0, TA_LEFT,  0, 0,  None,                  Proj:AnalysisVersion >= 250300,     0,  0,  "Whether or not to use the default air changes per hour setting" 
 
-	 CTRL, "BldgELA_Msg[5]",         18805, TDCT_Label,   60, 165,   18,   0,   0, FNT_STD, "",                              TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,             None,          0,  0,  ""
+    CTRL, "BldgELA_CeilSF",         18801, TDCT_Edit,   140,  70,   25, 100,   8, FNT_STD, "Ceiling:",                      TA_LEFT,   -100, 4,     0, TA_LEFT,  4, 4,  None,             None,          0,  0,  ""
+    CTRL, "BldgELA_RaisedFlrSF",    18802, TDCT_Edit,   140, 100,   25, 100,   8, FNT_STD, "Raised Floor:",                 TA_LEFT,   -100, 4,     0, TA_LEFT,  4, 4,  None,             None,          0,  0,  ""
+    CTRL, "BldgELA_GarageSF",       18803, TDCT_Edit,   140, 130,   25, 100,   8, FNT_STD, "Uncond Zone:",                  TA_LEFT,   -100, 4,     0, TA_LEFT,  4, 4,  None,             None,          0,  0,  ""
+    CTRL, "BldgELA_WallSF",         18804, TDCT_Edit,   140, 160,   25, 100,   8, FNT_STD, "Exterior Wall:",                TA_LEFT,   -100, 4,     0, TA_LEFT,  4, 4,  None,             None,          0,  0,  ""
+	 CTRL, "",                       18815, TDCT_Label,  255,  52,   18,   0,   0, FNT_STD, "Surface Areas:",                TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,             None,          0,  0,  ""
+	 CTRL, "BldgELA_Msg[1]",         18811, TDCT_Label,  255,  74,   18,   0,   0, FNT_STD, "",                              TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,             None,          0,  0,  ""
+	 CTRL, "BldgELA_Msg[2]",         18812, TDCT_Label,  255, 104,   18,   0,   0, FNT_STD, "",                              TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,             None,          0,  0,  ""
+	 CTRL, "BldgELA_Msg[3]",         18813, TDCT_Label,  255, 134,   18,   0,   0, FNT_STD, "",                              TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,             None,          0,  0,  ""
+	 CTRL, "BldgELA_Msg[4]",         18814, TDCT_Label,  255, 164,   18,   0,   0, FNT_STD, "",                              TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,             None,          0,  0,  ""
+
+	 CTRL, "BldgELA_Msg[5]",         18805, TDCT_Label,   60, 195,   18,   0,   0, FNT_STD, "",                              TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,             None,          0,  0,  ""
 
 ;   Proj:BldgELA_CeilSF			
 ;   Proj:BldgELA_RaisedFlrSF	
@@ -2521,7 +2525,7 @@ MAINSCREEN,  15
 ;	 CTRL, "",                           18821, TDCT_Label,   40, 200,   18,   0,   0, FNT_BOLD, "Zonal Vent Control Inputs",       TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,       CSEVentAvailZonal > 0,          0,  0,  ""
 ;	 CTRL, "",                           18822, TDCT_Line,   215, 208,  450, 208,  -1, FNT_STD, "",                                 TA_CENTER,    0, 0,     0, TA_LEFT,  0, 0,  None,       CSEVentAvailZonal > 0,          0,  0,  ""
 ;    CTRL, "NResLeakageRatio",           18823, TDCT_Edit,   275, 225,   25, 100,  11, FNT_STD, "Nonres/Res Exterior Hole Ratio:",  TA_LEFT,   -220, 4,     0, TA_LEFT,  4, 4,  None,       CSEVentAvailZonal > 0,          0,  0,  "ratio of Nonres surface leakage (per ft2) / Residential surface leakage"
-    CTRL, "NResLeakageRatio",           18823, TDCT_Edit,   240, 195,   25,  50,  11, FNT_STD, "Nonres/Res Exterior Hole Ratio:",  TA_LEFT,   -200, 4,     0, TA_LEFT,  4, 4,  None,       CSEVentAvailZonal > 0,          0,  0,  "ratio of Nonres (OtherZone) surface leakage (per ft2) / Residential (Zone) surface leakage"
+    CTRL, "NResLeakageRatio",           18823, TDCT_Edit,   240, 225,   25,  50,  11, FNT_STD, "Nonres/Res Exterior Hole Ratio:",  TA_LEFT,   -200, 4,     0, TA_LEFT,  4, 4,  None,       CSEVentAvailZonal > 0,          0,  0,  "ratio of Nonres (OtherZone) surface leakage (per ft2) / Residential (Zone) surface leakage"
 	 CTRL, "",                           18824, TDCT_Label,   55, 259,   18,   0,   0, FNT_STD, "Ratio of Hole Size / Surface Size for Interior Surfaces:", TA_LEFT,  0, 0,  0, TA_LEFT, -1, 0,  None,  CSEVentAvailZonal > 0,          0,  0,  ""
     CTRL, "IntSurfHoleSzRatio[1]",      18825, TDCT_Edit,   275, 280,   25, 100,   8, FNT_STD, "Between Residential Units:",       TA_RIGHT,    -5, 4,     0, TA_LEFT,  4, 4,  None,       CSEVentAvailZonal > 0,          0,  0,  "ratio of hole size / surface size for interior surfaces between residential units"
     CTRL, "IntSurfHoleSzRatio[2]",      18826, TDCT_Edit,   275, 310,   25, 100,   8, FNT_STD, "Other Interior Surfaces:",         TA_RIGHT,    -5, 4,     0, TA_LEFT,  4, 4,  None,       CSEVentAvailZonal > 0,          0,  0,  "ratio of hole size / surface size for interior surfaces NOT between residential units"

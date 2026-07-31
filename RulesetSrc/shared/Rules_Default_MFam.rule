@@ -1633,6 +1633,10 @@ RULELIST  "RemoveInput_ResProj_NatVentWindPresCoefMult"  1 0 0 0
    "Blast ResProj:NatVentWindPresCoefMult[3]"   ResProj:NatVentWindPresCoefMult[3] = {  UNDEFINED  }
    "Blast ResProj:NatVentWindPresCoefMult[4]"   ResProj:NatVentWindPresCoefMult[4] = {  UNDEFINED  }
 END
+;************************************************************************* SAC 07/30/26 (dev #679)
+RULELIST  "RemoveInput_ResProj_NResLeakageRatio"  1 0 0 0
+   "Blast ResProj:NResLeakageRatio"  ResProj:NResLeakageRatio = {  UNDEFINED  }
+END
 ;*************************************************************************
 
 
