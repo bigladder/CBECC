@@ -6497,7 +6497,10 @@ ENDRULE
 
 RULE nrcctblRowZone:Zone08_AirFlowMinimum
   ANNUAL_PROPOSED
-    if (LocalCompAssigned(noXMLoutput_TrmlUnitRef)) then atof( Format( "%.2f", noXMLoutput_TrmlUnitRef:PriAirFlowMin ) ) 
+    if (LocalCompAssigned(noXMLoutput_TrmlUnitRef)) then  if (IfValidAnd(noXMLoutput_TrmlUnitRef:User_PriAirFlowMin > 0))     ; RJH 8/5/26 CBECC-user-support Issue 626
+                                                          then atof( Format( "%.2f", noXMLoutput_TrmlUnitRef:User_PriAirFlowMin ) ) 
+                                                          else UNDEFINED
+                                                          endif
     else if (LocalCompAssigned(noXMLoutput_ZnSysRef:RptFanRef)) then atof( Format( "%.2f", noXMLoutput_ZnSysRef:RptFanRef:FlowMin ) ) 
     else UNDEFINED
     endif endif
