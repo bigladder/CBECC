@@ -10959,6 +10959,10 @@ RULELIST "CARes_StandardSummary" 1 0 1 1
     { if( CommunitySolarProjID == 2 .AND. IfValidAnd( ResultSummary[1]:CmntySlrProjVal > 0 ) )
       then  Format( "%g blocks must be reserved from Community Solar project '%s'  (based on Std PV gen of %g kWh/month)", ResultSummary[1]:CmntySlrProjVal, EnumString( CommunitySolarProject ), (ResultSummary[1]:CmntySlrStdEnergy / 12) )
       else  UNCHANGED  endif  }
+  "replace ResultSummary[1]:ResultsNotes[5] w/ ResultsNotes[5] when CmntySlrProjVal"    Proj:ResultSummary[1]:ResultsNotes[5] =     ; SAC 08/05/26 (dev #859)
+    { if( CommunitySolarProjID == 2 .AND. IfValidAnd( ResultSummary[1]:CmntySlrProjVal > 0 ) .AND. LocalStatus( ResultSummary[1]:ResultsNotes[1] ) > 0 )
+      then  ResultSummary[1]:ResultsNotes[1]
+      else  UNCHANGED  endif  }
   "reset ResultSummary[1]:HaveResultsNotesPV[1] related to PV scaling"    Proj:ResultSummary[1]:HaveResultsNotesPV[1]  =
     { if (LocalStatus( ResultSummary[1]:ResultsNotes[1] ) < 1) then  0
       else if (strlen( ResultSummary[1]:ResultsNotes[1] ) > 2) then  1  else  0  endif endif  }
@@ -10968,6 +10972,8 @@ RULELIST "CARes_StandardSummary" 1 0 1 1
     { if (ResultSummary[1]:HaveResultsNotesPV[1] < 1) then  UNDEFINED  else  ResultSummary[1]:ResultsNotes[1]  endif  }
   "reset ResultSummary[1]:HaveResultsNotesPV[4] to report PV scaling"     Proj:ResultSummary[1]:HaveResultsNotesPV[4] =
     { if (ResultSummary[1]:HaveResultsNotesPV[1] < 1) then  0  else  1  endif  }
+  "reset ResultSummary[1]:HaveResultsNotesPV[5]"     Proj:ResultSummary[1]:HaveResultsNotesPV[5] =
+    { if (ResultSummary[1]:HaveResultsNotesPV[5] < 1) then  0  else  1  endif  }
       ; "dbg" Proj:Action = { if( CommunitySolarProjID == 2 .AND. IfValidAnd( ResultSummary[1]:CmntySlrProjVal > 0 ) ) then  PostMessageToLog( "setting UserPVScalingMsg in CARes_StandardSummary rulelist:  %s", ResultSummary[1]:UserPVScalingMsg )  else  UNCHANGED  endif }
 
   ; Standard Site Natural Gas Use
