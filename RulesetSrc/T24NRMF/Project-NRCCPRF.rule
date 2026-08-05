@@ -99,12 +99,10 @@ RULE nrccSection_Info:Info09_Azimuth
     atof( Format( "%.2f", Bldg:BldgAz ) )
 ENDRULE
 ; RJH 5/26/23 Added Healthcare and LowRiseResidential enumerations per GitHub 2022-CBECC-NonRes-PRF-Schema Issue #71 
-; updated old w/ new reloc classrm Bldg:BldgType selection - SAC 08/04/26 (dev #903)
 RULE nrccSection_Info:Info10_TopLevelOccupancy
   ANNUAL_PROPOSED
     switch (Bldg:BldgType)
-        case "Relocatable Pre-checked Public School Building" : "RelocableSchoolBuildingAllZones"
-      ;  case "Permanent Pre-checked Public School Building"   : ???
+        case "Relocatable Public School Building" : "RelocableSchoolBuildingAllZones"
         case "Hotel-Motel"                        : "HotelMotel"
         case "High-Rise Residential"              : "HighRiseResidential"
         case "Nonresidential"                     : "Nonresidential"
@@ -194,107 +192,77 @@ ENDRULE
 // nrccSection_Info end
 
 
-// nrccSection_Proj   ; RJH 7/19/26 2025-CBECC-Schema Issue 65
+// nrccSection_Proj
 RULE nrccSection_Proj:Proj01_PerfENV
   ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion < 250300) 
-    then  if (Proj:CompPathEnv == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
+    if (Proj:CompPathEnv == "Performance")
+    then "true"
+    else "false"
     endif
 ENDRULE
 RULE nrccSection_Proj:Proj01mf_PerfENV
   ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion < 250300) 
-    then  if (Proj:ResCompPathEnv == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
+    if (Proj:ResCompPathEnv == "Performance")
+    then "true"
+    else "false"
     endif
 ENDRULE
 RULE nrccSection_Proj:Proj02_PerfMCH
   ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion < 250300) 
-    then  if (Proj:CompPathMech == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
+    if (Proj:CompPathMech == "Performance")
+    then "true"
+    else "false"
     endif
 ENDRULE
 RULE nrccSection_Proj:Proj02mf_PerfMCH
   ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion < 250300) 
-    then  if (Proj:ResCompPathMech == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
+    if (Proj:ResCompPathMech == "Performance")
+    then "true"
+    else "false"
     endif
 ENDRULE
 RULE nrccSection_Proj:Proj03_PerfDHW
   ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion < 250300) 
-    then  if (Proj:CompPathDHW == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
+    if (Proj:CompPathDHW == "Performance")
+    then "true"
+    else "false"
     endif
 ENDRULE
 RULE nrccSection_Proj:Proj03mf_PerfDHW
   ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion < 250300) 
-    then  if (Proj:ResCompPathDHW == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
+    if (Proj:ResCompPathDHW == "Performance")
+    then "true"
+    else "false"
     endif
 ENDRULE
 RULE nrccSection_Proj:Proj04_PerfCondLTI
   ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion < 250300) 
-    then  if (Proj:CompPathLtg == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
+    if (Proj:CompPathLtg == "Performance")
+    then "true"
+    else "false"
     endif
 ENDRULE
 RULE nrccSection_Proj:Proj04mf_PerfCondLTI
   ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion < 250300) 
-    then  if (Proj:ResCompPathLtg == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
+    if (Proj:ResCompPathLtg == "Performance")
+    then "true"
+    else "false"
     endif
 ENDRULE
 
 RULE nrccSection_Proj:Proj05_PerfSolarWH
   ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion < 250300) 
-    then  if (Proj:SolThrmlComp == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
+    if (Proj:SolThrmlComp == "Performance")
+    then "true"
+    else "false"
     endif
 ENDRULE
 
 RULE nrccSection_Proj:Proj06_PerfKitchenPRC
   ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion < 250300) 
-    then  if (Proj:CompPathKit == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
+    if (Proj:CompPathKit == "Performance")
+    then "true"
+    else "false"
     endif
 ENDRULE
 ;RULE nrccSection_Proj:Proj07_PerfComputerPRC
@@ -306,168 +274,23 @@ ENDRULE
 ;ENDRULE
 RULE nrccSection_Proj:Proj08_PerfLabPRC
   ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion < 250300) 
-    then  if (Proj:CompPathLab == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
+    if (Proj:CompPathLab == "Performance")
+    then "true"
+    else "false"
     endif
 ENDRULE
 RULE nrccSection_Proj:Proj09_PerfPV
   ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion < 250300) 
-    then  if (Proj:PVComp == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
+    if (Proj:PVComp == "Performance")
+    then "true"
+    else "false"
     endif
 ENDRULE
 RULE nrccSection_Proj:Proj10_PerfBattery
   ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion < 250300) 
-    then  if (Proj:BattComp == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
-    endif
-ENDRULE
-// nrccSection_Proj end
-
-
-// nrccSection_Proj1   ; RJH 7/19/26 2025-CBECC-Schema Issue 65
-RULE nrccSection_Proj1:Proj01_PerfENV
-  ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion >= 250300) 
-    then  if (Proj:CompPathEnv == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
-    endif
-ENDRULE
-RULE nrccSection_Proj1:Proj01mf_PerfENV
-  ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion >= 250300) 
-    then  if (Proj:ResCompPathEnv == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
-    endif
-ENDRULE
-RULE nrccSection_Proj1:Proj02_PerfMCH
-  ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion >= 250300) 
-    then  if (Proj:CompPathMech == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
-    endif
-ENDRULE
-RULE nrccSection_Proj1:Proj02mf_PerfMCH
-  ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion >= 250300) 
-    then  if (Proj:ResCompPathMech == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
-    endif
-ENDRULE
-RULE nrccSection_Proj1:Proj03_PerfDHW
-  ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion >= 250300) 
-    then  if (Proj:CompPathDHW == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
-    endif
-ENDRULE
-RULE nrccSection_Proj1:Proj03mf_PerfDHW
-  ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion >= 250300) 
-    then  if (Proj:ResCompPathDHW == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
-    endif
-ENDRULE
-RULE nrccSection_Proj1:Proj04_PerfCondLTI
-  ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion >= 250300) 
-    then  if (Proj:CompPathLtg == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
-    endif
-ENDRULE
-RULE nrccSection_Proj1:Proj04mf_PerfCondLTI
-  ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion >= 250300) 
-    then  if (Proj:ResCompPathLtg == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
-    endif
-ENDRULE
-
-RULE nrccSection_Proj1:Proj05_PerfSolarWH
-  ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion >= 250300) 
-    then  if (Proj:SolThrmlComp == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
-    endif
-ENDRULE
-
-RULE nrccSection_Proj1:Proj06_PerfKitchenPRC
-  ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion >= 250300) 
-    then  if (Proj:CompPathKit == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
-    endif
-ENDRULE
-RULE nrccSection_Proj1:Proj08_PerfLabPRC
-  ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion >= 250300) 
-    then  if (Proj:CompPathLab == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
-    endif
-ENDRULE
-RULE nrccSection_Proj1:Proj09_PerfPV
-  ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion >= 250300) 
-    then  if (Proj:PVComp == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
-    endif
-ENDRULE
-RULE nrccSection_Proj1:Proj10_PerfBattery
-  ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion >= 250300) 
-    then  if (Proj:BattComp == "Performance")
-          then "true"
-          else "false"
-          endif
-    else UNDEFINED
+    if (Proj:BattComp == "Performance")
+    then "true"
+    else "false"
     endif
 ENDRULE
 // nrccSection_Proj end
@@ -5278,12 +5101,6 @@ RULE nrccSection_Except:Except01_ExceptionalConditionMessageCCPRFE[44]  ; RJH 9/
   ANNUAL_PROPOSED
     if (GlobalStatus( ProjVar:ExcptCondCampusPV ) > 0)
     then if (ProjVar:ExcptCondCampusPV == "Yes") then "ExcptCondCampusPV" else UNDEFINED endif
-    else  UNDEFINED  endif
-ENDRULE
-RULE nrccSection_Except:Except01_ExceptionalConditionMessageCCPRFE[45]  ; RJH 7/10/26 2025-CBECC-Schema Issue #61
-  ANNUAL_PROPOSED
-    if (GlobalStatus( ProjVar:ExcptCondG36Lib ) > 0)
-    then if (ProjVar:ExcptCondG36Lib == "Yes") then "JA18Guideline36LibraryVer" else UNDEFINED endif
     else  UNDEFINED  endif
 ENDRULE
 

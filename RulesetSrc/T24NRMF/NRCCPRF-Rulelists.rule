@@ -69,14 +69,8 @@ RULELIST "NRCCPRF_Proposed"  1 0 0 1
       nrccNRCCPRF:Action    = {  CreateChildren( nrccSection_Info,    1, "NRCC Info" )  }
 ;      nrccNRCCPRF:Action    = {  CreateChildren( nrccSection_Info,    1, "NRCC SecA", "NRCCPRF_Auto_nrccSection_Info" )  }
 
-   "Create nrccSection_Proj object"   ; RJH 7/19/26 2025-CBECC-Schema Issue 65
-      nrccNRCCPRF:Action    = {  if (Proj:AnalysisVersion < 250300) then CreateChildren( nrccSection_Proj,    1, "NRCC Proj" ) else UNDEFINED endif  }
-
-   "Create nrccSection_Proj1 object"   ; RJH 7/19/26 2025-CBECC-Schema Issue 65
-      nrccNRCCPRF:Action    = {  if (Proj:AnalysisVersion >= 250300) then CreateChildren( nrccSection_Proj1,    1, "NRCC Proj1" ) else UNDEFINED endif  }
-
-   "Create nrccSection_Proj2 object"   ; RJH 7/19/26 2025-CBECC-Schema Issue 65
-      nrccNRCCPRF:Action    = {  if (Proj:AnalysisVersion >= 250300) then CreateChildren( nrccSection_Proj2,    1, "NRCC Proj2" ) else UNDEFINED endif  }
+   "Create nrccSection_Proj object"
+      nrccNRCCPRF:Action    = {  CreateChildren( nrccSection_Proj,    1, "NRCC Proj" )  }
 
 
   ; Section_DwellInfo table only for NRCC-MF & LMCC projects (RJH 10/1/22 Created from CF1RPRF Section_H)
@@ -1984,23 +1978,6 @@ RULELIST "NRCCPRF_Proposed"  1 0 0 1
         then SumChildrenIf(Fan:SysCnt, Fan:CtrlMthd = "VariableSpeedDrive")
         else UNDEFINED
         endif  }
-   ; RJH 8/6/26 CBECC-user-support Issue 626
-   "Set TrmlUnit:PriAirFlowMin_Rpt"  TrmlUnit:PriAirFlowMin_Rpt = 
-      {  if (Parent(UseCertG36Lib))
-         then  if (IfValidAnd(PriAirFlowMin > 0))
-               then PriAirFlowMin
-               else UNDEFINED
-               endif
-         else  if (IfValidAnd(u:PriAirFlowMin > 0))
-               then u:PriAirFlowMin
-               else UNDEFINED
-               endif
-         endif  }
-
-   "Set ResSCSysRpt:ParentHVACSysTypeRpt"   ResSCSysRpt:ParentHVACSysTypeRpt = 
-      {  Parent( HVACSysType ) }
-
-
 
    "Create nrccSection_Zone object"   nrccNRCCPRF:Action =
       {  if (Proj:CompPathMech == "Performance") 
