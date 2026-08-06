@@ -1984,12 +1984,23 @@ RULELIST "NRCCPRF_Proposed"  1 0 0 1
         then SumChildrenIf(Fan:SysCnt, Fan:CtrlMthd = "VariableSpeedDrive")
         else UNDEFINED
         endif  }
-   ; RJH 8/5/26 CBECC-user-support Issue 626
-   "Set TrmlUnit:User_PriAirFlowMin"  TrmlUnit:User_PriAirFlowMin = 
-      { if (IfValidAnd(u:PriAirFlowMin > 0))
-        then u:PriAirFlowMin
-        else UNDEFINED
-        endif  }
+   ; RJH 8/6/26 CBECC-user-support Issue 626
+   "Set TrmlUnit:PriAirFlowMin_Rpt"  TrmlUnit:PriAirFlowMin_Rpt = 
+      {  if (Parent(UseCertG36Lib))
+         then  if (IfValidAnd(PriAirFlowMin > 0))
+               then PriAirFlowMin
+               else UNDEFINED
+               endif
+         else  if (IfValidAnd(u:PriAirFlowMin > 0))
+               then u:PriAirFlowMin
+               else UNDEFINED
+               endif
+         endif  }
+
+   "Set ResSCSysRpt:ParentHVACSysTypeRpt"   ResSCSysRpt:ParentHVACSysTypeRpt = 
+      {  Parent( HVACSysType ) }
+
+
 
    "Create nrccSection_Zone object"   nrccNRCCPRF:Action =
       {  if (Proj:CompPathMech == "Performance") 

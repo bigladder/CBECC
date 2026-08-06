@@ -5224,7 +5224,7 @@
 1,           "FanPwrRpt_wcfm",         BEMP_Flt,  1,  0,  1,   NInp,  "",                0,  0,                           3008, "FanPwrRpt_wcfm",  "" 
 1,           "FanPwrRpt_inH2O",        BEMP_Flt,  1,  0,  1,   NInp,  "",                0,  0,                           3008, "FanPwrRpt_inH2O",  "" 
 1,           "FanRpt_IsVSD",           BEMP_Int,  1,  0,  1,   NInp,  "",                0,  0,                           3008, "FanRpt_IsVSD",  "" 
-1,           "User_PriAirFlowMin",     BEMP_Flt,  1,  0,  1,   NInp,  "",                0,  0,                           3008, "User_PriAirFlowMin",  ""   ; RJH 8/5/26 CBECC-user-support Issue 626
+1,           "PriAirFlowMin_Rpt",      BEMP_Flt,  1,  0,  1,   NInp,  "",                0,  0,                           3008, "PriAirFlowMin_Rpt",  ""   ; RJH 8/6/26 CBECC-user-support Issue 626
 ;--------------------------------------------------------------------------------------------------
 
 
