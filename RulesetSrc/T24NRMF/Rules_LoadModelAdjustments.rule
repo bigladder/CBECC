@@ -46,11 +46,15 @@ RULELIST "LoadModelAdjustments" 1 0 0 0
 
   ; 08-05-2026 (GH #991) - retire FID (fault indicator) ACCharge selection
   "Check for FID no longer a valid ResClgSys:ACCharge selection"   ResClgSys:Action =
-     {  if (IfValidAnd( ACCharge == 3 )==0) then  UNCHANGED
-        else  EvalRulelist( "ForceUpdate_ResClgSys_ACCharge_NotVerified", 1 )  endif  }
+     { if( LocalStatus( ACCharge ) < 1 ) then  UNCHANGED
+       else if( EnumValue( ACCharge ) == 3 )
+       then  EvalRulelist( "ForceUpdate_ResClgSys_ACCharge_NotVerified", 1 )
+       else  UNCHANGED  endif endif  }
   "Check for FID no longer a valid ResHtPumpSys:ACCharge selection"   ResHtPumpSys:Action =
-     {  if (IfValidAnd( ACCharge == 3 )==0) then  UNCHANGED
-        else  EvalRulelist( "ForceUpdate_ResHtPumpSys_ACCharge_NotVerified", 1 )  endif  }
+     { if( LocalStatus( ACCharge ) < 1 ) then  UNCHANGED
+       else if( EnumValue( ACCharge ) == 3 )
+       then  EvalRulelist( "ForceUpdate_ResHtPumpSys_ACCharge_NotVerified", 1 )
+       else  UNCHANGED  endif endif  }
 
 ; RES DHW REMOVAL
 ;   ; SAC 8/15/17 - rule to transfer user-defined AirSrcHtPumpType -> new HPWHBrand & HPWHModel properties (tic #829)
