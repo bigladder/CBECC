@@ -66,6 +66,10 @@
 2,              1,    "NO"
 2,              2,    "YES"
 
+0, cseTOP:ucFileName,  2      ; SAC 08/03/26 (dev #607)
+2,              1,    "NO"
+2,              2,    "YES"
+
 
 0, cseIMPORTFILE:imFreq,  -1
 2,              1,    "Year"

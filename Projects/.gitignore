@@ -19,5 +19,6 @@
 !release-package.json
 
 !pr-checks.json
+!test-sets.json
 
 !*/multi-family/contains-nonres-elements.json

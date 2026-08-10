@@ -1398,6 +1398,7 @@ RULELIST  "ApplyPVSystemScaling_StandardDesignTDV" 1 0 0 1
          then  Format( "PV System resized to %.2f kWdc (a factor of %.3f) to achieve '%s' PV scaling", T24RPrescribedPV, PVWDCSizeMultiplier[1], EnumString( PVSizeOption ) )
          else  Format( "PV System resized to %.2f kWdc (a factor of %.3f) to achieve '%s' PV scaling", UseReducedPVReqVal, PVWDCSizeMultiplier[1], EnumString( PVSizeOption ) )
          endif endif endif endif endif  }
+            ; "dbg" Proj:Action = { PostMessageToLog( "setting UserPVScalingMsg in ApplyPVSystemScaling_StandardDesignTDV rulelist:  %s", ResultSummary[1]:UserPVScalingMsg ) }
 END
 ;*************************************************************************
 RULELIST  "ApplyPVSystemScaling_StandardDesignTDV_N" 1 0 0 1
