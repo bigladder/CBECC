@@ -843,7 +843,15 @@ RULELIST "CSE_SimulationPrep_DHW_part2" 1 0 0 1
 														;					else	1.004 + (0.000202 * min( CFAk, 2500 )) -
 														;									  (0.0000000231 * min( CFAk, 2500 ) * min( CFAk, 2500 ))    endif  }
 ;										ResDHWSys:cseDHWSYSRef:wsSDLM		= {	1.1829  }  ; DEBUGGING  1.004 + (0.000202 * cseDHWSYSRef:CFAk) - (0.0000000231 * cseDHWSYSRef:CFAk * cseDHWSYSRef:CFAk)  }
-                                                            
+
+
+
+; 1,           "wsFAdjElec_x",      BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                          3208, "",  ""  ; SAC 07/31/26 (dev #942)
+; 1,           "wsFAdjFuel_x",      BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                          3208, "",  "" 
+
+
+
+
 	"Set cseDHWSYS:HrlyStdEndUse"		cseDHWSYS:HrlyStdEndUse		= {	if (LocalCompAssigned( SourceDHWSys ) > 0.5)
 																							then	8.345 * HWUse * SourceDHWSys:HWDeltaTemp / 24
 																							else	0  endif  }
@@ -892,6 +900,25 @@ RULELIST "CSE_SimulationPrep_DHW_part2" 1 0 0 1
 ;	"Set cseDHWSYS:DistribLossMult"		cseDHWSYS:DistribLossMult		= {	if (LocalCompAssigned( SourceDHWSys ) > 0.5 .AND. LocalStatus( wsSDLM ) > 0)
 ;																									then	1 + ((wsSDLM - 1) * SourceDHWSys:DistribSysMult)
 ;																									else	1.0  endif  }
+
+  "set cseDHWSYS:wsFAdjElec_x - adjustment to Elec use related to MMV type"   cseDHWSYS:wsFAdjElec_x =        ; SAC 08/01/26 (dev #942)
+    { if( LocalCompAssigned( wsCentralDHWSYS ) < 1 .AND.
+          IfValidAnd( SourceDHWSys:CntrlDWHFAdjElec[1] > 0 ) .AND.
+          IfValidAnd( SourceDHWSys:CntrlDWHFAdjElec[2] > 0 ) )
+      then  if( SourceDHWSys:CntrlDWHFAdjElec[1] == SourceDHWSys:CntrlDWHFAdjElec[2] )
+            then  Format( "%g" , SourceDHWSys:CntrlDWHFAdjElec[1] )
+            else  Format( "@DHWSYS[ %c%s%c].loopDeltaTlh < 7 ? %g : %g", 34, Name, 34, SourceDHWSys:CntrlDWHFAdjElec[1], SourceDHWSys:CntrlDWHFAdjElec[2] )
+            endif
+      else  UNDEFINED  endif  }
+  "set cseDHWSYS:wsFAdjFuel_x - adjustment to Fuel use related to MMV type"   cseDHWSYS:wsFAdjFuel_x = 
+    { if( LocalCompAssigned( wsCentralDHWSYS ) < 1 .AND.
+          IfValidAnd( SourceDHWSys:CntrlDWHFAdjFuel[1] > 0 ) .AND.
+          IfValidAnd( SourceDHWSys:CntrlDWHFAdjFuel[2] > 0 ) )
+      then  if( SourceDHWSys:CntrlDWHFAdjFuel[1] == SourceDHWSys:CntrlDWHFAdjFuel[2] )
+            then  Format( "%g" , SourceDHWSys:CntrlDWHFAdjFuel[1] )
+            else  Format( "@DHWSYS[ %c%s%c].loopDeltaTlh < 7 ? %g : %g", 34, Name, 34, SourceDHWSys:CntrlDWHFAdjFuel[1], SourceDHWSys:CntrlDWHFAdjFuel[2] )
+            endif
+      else  UNDEFINED  endif  }
 
 // TO DO - account for Monthly solar fractions ??
 // TO DO - add in HRDLk (hourly recirculation distribution loss (btu))

@@ -641,6 +641,11 @@
 		; Analysis Data
 1,           "RunTitle",                          BEMP_Str,  1,  0,  0,   Opt,  "",                 0,  0,                           1044, "RunTitle",  "" 
 1,           "AnalysisType",                      BEMP_Sym,  1,  0,  0,   Req,  "",                 0,  0,                           1003, "AnalysisType",  ""   
+1,           "FacilityType",                      BEMP_Sym,  1,  0,  0,   Def,  "",                 0,  0,                           1003, "FacilityType",  ""                ; SAC 06/15/26 (dev #903)
+1,           "MultiOrientation",                  BEMP_Int,  1,  0,  0,   Def,  "",                 0,  0,                           1003, "MultipleOrientation",  ""         ; SAC 06/16/26 (dev #903)
+1,           "CliZnGroupingActive",               BEMP_Int,  1,  0,  0,  NInp,  "",                 0,  0,                           1003, "ClimateZoneGroupingActive",  ""   ; SAC 06/17/26 (dev #903)
+1,           "CliZnGrouping",                     BEMP_Sym,  1,  0,  0,   Def,  "",                 0,  0,                           1003, "ClimateZoneGrouping",  ""         ; SAC 06/16/26 (dev #903)
+1,           "CliZnEditable",                     BEMP_Int,  1,  0,  0,  NInp,  "",                 0,  0,                           1003, "ClimateZoneEditable",  ""         ; SAC 08/04/26 (dev #903)
 1,           "CompType",                          BEMP_Sym,  1,  0,  0,   Def,  "",                 0,  0,                           1003, "ComplianceType",  ""
 1,           "ResCompOpt",                        BEMP_Sym,  1,  0,  0,   Def,  "",                 0,  0,                           1003, "ResidentialComplianceOption",  ""    ; MFam EAA - SAC 05/19/23 (tic #3479)
 1,           "ResCompType",                       BEMP_Sym,  1,  0,  0,  NInp,  "",                 0,  0,                           1003, "ResidentialComplianceType",  ""
@@ -677,9 +682,9 @@
 
 1,           "AirBarrier",                        BEMP_Sym,  1,  0,  0,   Req,  "",                 0,  0,                           1003, "AirBarrier",  ""
 
-1,           "HlthCareFacility",                  BEMP_Int,  1,  1,  0,   Opt,  "",                 0,  0,                           1001, "HealthCareFacility",    "" 
+1,           "HlthCareFacility",                  BEMP_Int,  1,  1,  0,  Pres,  "",                 0,  0,                           1001, "HealthCareFacility",    ""           ; switched to Prescribed - SAC 06/15/26 (dev #903)
 
-1,           "ResDwellUnits",                     BEMP_Int,  1,  1,  0,   Opt,  "",                 0,  0,                           1001, "ResidentialDwellingUnits",    "" 
+1,           "ResDwellUnits",                     BEMP_Int,  1,  1,  0,  Pres,  "",                 0,  0,                           1001, "ResidentialDwellingUnits",    ""     ; switched to Prescribed - SAC 06/15/26 (dev #903)
 1,           "AffordableHousing",                 BEMP_Int,  1,  1,  0,  NInp,  "",                 0,  0,                           1001, "AffordableHousing",    ""      ; SAC 07/26/22 (CUAC)
 1,           "CUACReport",                        BEMP_Int,  1,  1,  0,   Opt,  "",                 0,  0,                           1001, "CaliforniaUtilityAllowanceCalculatorReport",    "" 
 1,           "CUAC_OldAccessDB",                  BEMP_Int,  1,  1,  0,  Pres,  "",                 0,  0,                           1001, "CUAC_OldAccessDB",    ""    ; SAC 09/18/23
@@ -7034,6 +7039,20 @@
 1,           "SelfUtil_PropBattSrc",     BEMP_Flt,  1,  0,  0,  Pres,  "kBtu/ft2-yr",   0,  0,                           1046, "Proposed Battery Source Energy shifted from Battery to Flexibility enduses",  "" 
 1,           "SelfUtil_PropBattCO2",     BEMP_Flt,  1,  0,  0,  Pres,  "tonne",         0,  0,                           1046, "Proposed Battery CO2 emissions shifted from Battery to Flexibility enduses",  "" 
 
+1,           "OrientLabel",          BEMP_Str, 10,  1,  0,  Pres,  "",              0,  0,                             39110, "",  ""  ; for storage & display of multi-orientation compliance summary results - SAC 06/11/26 (dev #903)
+1,           "OrientMetric1Std",     BEMP_Str, 10,  1,  0,  Pres,  "",              0,  0,                             39110, "",  ""  ; LCC-Efficiency
+1,           "OrientMetric1Prop",    BEMP_Str, 10,  1,  0,  Pres,  "",              0,  0,                             39110, "",  "" 
+1,           "OrientMetric1Marg",    BEMP_Str, 10,  1,  0,  Pres,  "",              0,  0,                             39110, "",  "" 
+1,           "OrientMetric1PsFl",    BEMP_Str, 10,  1,  0,  Pres,  "",              0,  0,                             39110, "",  "" 
+1,           "OrientMetric2Std",     BEMP_Str, 10,  1,  0,  Pres,  "",              0,  0,                             39110, "",  ""  ; LCC-Total
+1,           "OrientMetric2Prop",    BEMP_Str, 10,  1,  0,  Pres,  "",              0,  0,                             39110, "",  "" 
+1,           "OrientMetric2Marg",    BEMP_Str, 10,  1,  0,  Pres,  "",              0,  0,                             39110, "",  "" 
+1,           "OrientMetric2PsFl",    BEMP_Str, 10,  1,  0,  Pres,  "",              0,  0,                             39110, "",  "" 
+1,           "OrientMetric3Std",     BEMP_Str, 10,  1,  0,  Pres,  "",              0,  0,                             39110, "",  ""  ; Source
+1,           "OrientMetric3Prop",    BEMP_Str, 10,  1,  0,  Pres,  "",              0,  0,                             39110, "",  "" 
+1,           "OrientMetric3Marg",    BEMP_Str, 10,  1,  0,  Pres,  "",              0,  0,                             39110, "",  "" 
+1,           "OrientMetric3PsFl",    BEMP_Str, 10,  1,  0,  Pres,  "",              0,  0,                             39110, "",  "" 
+
 1,           "CSEMeterNames_ap",     BEMP_Str, 20,  1,  0,  Pres,  "",              0,  0,                              1046, "CSEMeterNames_ap",  ""    ; SAC 11/02/23
 1,           "CSEMeterMult_ap",      BEMP_Flt, 20,  1,  0,  Pres,  "",              0,  0,                              1046, "CSEMeterMult_ap",  "" 
 1,           "CSEMeterResults_ap_1", BEMP_Flt, 25,  1,  0,  Pres,  "",              0,  0,                              1046, "CSEMeterResults_ap_1",  "" 
@@ -7047,6 +7066,8 @@
 
 1,           "NRCCPRFPayldTransID",  BEMP_Str,  1,  0,  0,  Pres,  "",              0,  0,                              1001, "NRCCPRFPayloadTransactionID",   ""   ; report NRCC PRF report gen transaction ID & date/time to BEMBase - SAC 12/05/21
 1,           "NRCCPRFPayldProcDate", BEMP_Str,  1,  0,  0,  Pres,  "",              0,  0,                              1001, "NRCCPRFPayloadProcessingDate",  ""  
+
+1,           "NumUIDialogTabs",      BEMP_Int,  1,  1,  0,  Pres,  "",              0,  0,                              3008, "Number of UI dialog tabs shown", ""      ; SAC 06/11/26 (dev #903)
 ;------------------------------------------------------------------------------------------------
 
 

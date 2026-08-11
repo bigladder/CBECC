@@ -99,10 +99,12 @@ RULE nrccSection_Info:Info09_Azimuth
     atof( Format( "%.2f", Bldg:BldgAz ) )
 ENDRULE
 ; RJH 5/26/23 Added Healthcare and LowRiseResidential enumerations per GitHub 2022-CBECC-NonRes-PRF-Schema Issue #71 
+; updated old w/ new reloc classrm Bldg:BldgType selection - SAC 08/04/26 (dev #903)
 RULE nrccSection_Info:Info10_TopLevelOccupancy
   ANNUAL_PROPOSED
     switch (Bldg:BldgType)
-        case "Relocatable Public School Building" : "RelocableSchoolBuildingAllZones"
+        case "Relocatable Pre-checked Public School Building" : "RelocableSchoolBuildingAllZones"
+      ;  case "Permanent Pre-checked Public School Building"   : ???
         case "Hotel-Motel"                        : "HotelMotel"
         case "High-Rise Residential"              : "HighRiseResidential"
         case "Nonresidential"                     : "Nonresidential"
