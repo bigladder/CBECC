@@ -1375,10 +1375,6 @@ RULE nrccWaterCHPWH02:WaterCHPWH02_CentralHPWHCompressorType
                 case	"Colmac CxA-20  (MP, 41kW cap @ 40F)"	:	"ColmacCxA20MP"
                 case	"Colmac CxA-25  (MP, 49kW cap @ 40F)"	:	"ColmacCxA25MP"
                 case	"Colmac CxA-30  (MP, 57kW cap @ 40F)"	:	"ColmacCxA30MP"
-                case	"Rheem HPHD-60HNU (horiz MP, 12kW cap @ 45F)"	  :	"RheemHPHD60HNUMP"
-                case	"Rheem HPHD-60VNU (vertical MP, 12kW cap @ 45F)"  :	"RheemHPHD60VNUMP"
-                case	"Rheem HPHD-135HNU (horiz MP, 30kW cap @ 45F)"	  :	"RheemHPHD135HNUMP"
-                case	"Rheem HPHD-135VNU (vertical MP, 30kW cap @ 45F)" :	"RheemHPHD135VNUMP"
                 case	"Rheem HPHD-60HNU  (horiz MP, 12kW cap @ 45F)"	  :	"RheemHPHD60HNUMP"    ; RJH CBECC-user-support Issue 654 
                 case	"Rheem HPHD-60VNU  (vertical MP, 12kW cap @ 45F)"  :	"RheemHPHD60VNUMP"
                 case	"Rheem HPHD-135HNU  (horiz MP, 30kW cap @ 45F)"	  :	"RheemHPHD135HNUMP"
