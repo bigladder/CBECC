@@ -809,13 +809,13 @@
 1,           "UnitLtgGain",       BEMP_Flt, 16,  1,  0,  Pres,  "kWh/day-DwlgUnt",  0,  0,                           3008, "Lighting energy use per day per dwelling unit",  "" 
 1,           "PeoplePerUnit",     BEMP_Flt, 16,  1,  0,  Pres,  "people/DwlgUnt",   0,  0,                           3008, "Number of occupants per dwelling unit",  "" 
 1,           "UnitPeopleGain",    BEMP_Flt, 16,  1,  0,  Pres,  "Btu/day-DwlgUnt",  0,  0,                           3008, "Internal gain due to occupants per day per dwelling unit",  "" 
-1,           "UnitMscElecGain",   BEMP_Flt, 16,  1,  0,  Pres,  "kWh/day-DwlgUnt",  0,  0,                           3008, "Miscellaneous electric energy use per day per dwelling unit",  "" 
-1,           "UnitDishElecGain",  BEMP_Flt, 16,  1,  0,  Pres,  "kWh/yr",           0,  0,                           3008, "Dish washing electric energy use per year per dwelling unit",  "" 
+; 1,           "UnitMscElecGain",   BEMP_Flt, 16,  1,  0,  Pres,  "kWh/day-DwlgUnt",  0,  0,                           3008, "Miscellaneous electric energy use per day per dwelling unit",  "" 
+; 1,           "UnitDishElecGain",  BEMP_Flt, 16,  1,  0,  Pres,  "kWh/yr",           0,  0,                           3008, "Dish washing electric energy use per year per dwelling unit",  "" 
 ; 1,           "UnitCookElecGain",  BEMP_Flt, 16,  1,  0,  Pres,  "Btu/day-DwlgUnt",  0,  0,                           3008, "Cooking electric energy use per day per dwelling unit",  "" 
 ; 1,           "UnitCookGasGain",   BEMP_Flt, 16,  1,  0,  Pres,  "Btu/day-DwlgUnt",  0,  0,                           3008, "Cooking gas energy use per day per dwelling unit",  "" 
 ; 1,           "UnitClthWashGain",  BEMP_Flt, 16,  1,  0,  Pres,  "kWh/day-DwlgUnt",  0,  0,                           3008, "Clothes washer electric energy use per day per dwelling unit",  "" 
 ; 1,           "UnitClthDryGain",   BEMP_Flt, 16,  1,  0,  Pres,  "Btu/day-DwlgUnt",  0,  0,                           3008, "Clothes dryer energy use per day per dwelling unit",  "" 
-1,           "OtherZnOccFrac",    BEMP_Flt,  1,  0,  0,  Pres,  "frac",             0,  0,                           3008, "The expected fraction of the exiting people in OtherZones, based on SpaceFunction, which will determine the design occupancy.",  ""  ; SAC 10/7/19 - MFamProto
+; 1,           "OtherZnOccFrac",    BEMP_Flt,  1,  0,  0,  Pres,  "frac",             0,  0,                           3008, "The expected fraction of the exiting people in OtherZones, based on SpaceFunction, which will determine the design occupancy.",  ""  ; SAC 10/7/19 - MFamProto
 
 1,           "DefaultIAQFanPwr",  BEMP_Flt,  1,  0,  0,  Pres,  "W/CFM",            0,  0,                           8005, "default IAQ fan power",  ""  ; SAC 2/25/20 - revised default IAQ fan power from 0.25 to 0.3 for SFam and 0.6 for MFam in 2019.2.0+ (tic #1174)
 1,           "UseMaxIAQFanPwr",   BEMP_Flt,  1,  0,  0,  Pres,  "W/CFM",            0,  0,                           8005, "max IAQ fan power active at a certain point in rule processing",  ""  ; SAC 08/28/20
