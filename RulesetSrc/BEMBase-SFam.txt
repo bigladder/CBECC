@@ -437,6 +437,8 @@
 1,           "BattJA12EquipInfoMsg",  BEMP_Str,  1,  0,  0,  NInp,  "",             0,  0,                           1046, "JA12 certified battery equipment listing info dialog - message",  "" 
 1,           "BattJA12EquipInfoDtl",  BEMP_Str,  1,  0,  0,  NInp,  "",             0,  0,                           1046, "JA12 certified battery equipment listing info dialog - details",  "" 
 1,           "BattJA12EquipInfoIcn",  BEMP_Int,  1,  0,  0,  NInp,  "",             0,  0,                           1046, "JA12 certified battery equipment listing info dialog - icon",  "" 
+1,           "BattCreditOptAvail", BEMP_Int,  1,  0,  0,  NInp,  "",                 0,  0,                          1003, "integer flag indicating which battery credit options are avaialble for selection (peak clg and/or self util)",  ""     ; SAC 08/05/26 (dev #989)
+1,           "BattCreditOption",   BEMP_Sym,  1,  0,  0,   Opt,  "",                 0,  0,                          1003, "Which battery credit option is desired (peak clg and/or self util)",  ""  
 1,           "BattGridHarmCredit", BEMP_Int,  1,  0,  0,  Pres,  "",                 0,  0,                          1003, "Whether or not to take the grid harmonization battery credit",  ""   
 1,           "ApplyBattGridHarmCredit", BEMP_Int, 1, 0, 0,  NInp,  "",               0,  0,                          1003, "flag indicating whether or not to apply the grid harmonization battery credit",  ""      ; SAC 10/10/23
 1,           "AllowDischgStartHr", BEMP_Int,  1,  0,  0,  NInp,  "",                 0,  0,                          3208, "Whether or not to allow user to set hour to start discharging with Time of Use control (PV-tied or standalone battery) or Advanced DR control (standalone battery only).",  "" ; APB 03/30/22 - Enable hour to start charging for TOU or Advanced DR control for standalone battery without PV (tic #1319)
@@ -1665,7 +1667,7 @@
 1,           "StdPropOrientPeakCoolElecLimit", BEMP_Flt,  1,  0,  0,  Pres,  "kWh", 0,  0,             39110, "Standard run Proposed-Orientation Peak Cooling Electric Energy Limit (for compliance)",  "" 
 1,           "PropOrientPeakCoolElecMargin",   BEMP_Flt,  1,  0,  0,  Pres,  "kWh", 0,  0,             39110, "Proposed-Orientation Peak Cooling Electric Energy Compliance Margin",  "" 
 1,           "PeakCoolElecLabels",   BEMP_Str,  4,  1,  0,  Pres,  "",              0,  0,             39110, "Peak Cooling Electric Energy Compliance Labels (Prop, Std, Marg, Pass/Fail)",  "" 
-1,           "PeakCoolElecFtnote",   BEMP_Str,  1,  0,  0,  Pres,  "",              0,  0,             39110, "Peak Cooling Electric Energy Compliance Labels (footnote)",  ""      ; SAC 05/13/26 (dev #757)
+1,           "PeakCoolElecFtnote",   BEMP_Str,  2,  1,  0,  Pres,  "",              0,  0,             39110, "Peak Cooling Electric Energy Compliance Labels (footnote)",  ""      ; SAC 05/13/26 (dev #757)
 
 1,           "PropMixedFuelkWh",  BEMP_Flt,  1,  0,  0,  Pres,  "kWh",              0,  0,                      7010, "retained for backward compatibility - Electric kWh use of proposed mixed fuel simulation (2019 and later codes)",  ""  ; SAC 4/6/17
 1,           "PropMixedFuelPV",   BEMP_Flt,  1,  0,  0,  Pres,  "kWh",              0,  0,                      7010, "retained for backward compatibility - PV electric generation (kWh) from the proposed mixed fuel simulation (2019 and later codes)",  ""  ; SAC 4/6/17
