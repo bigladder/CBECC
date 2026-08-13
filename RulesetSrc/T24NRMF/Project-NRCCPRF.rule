@@ -709,6 +709,23 @@ RULE nrccSection_C22Result1:C22Result1b_NotApplicableMessage
 ENDRULE
 
 
+; 2025-CBECC-Schema Issue 64 - call subordinate rulelists to populate multiple orientation run results - SAC 08/13/26 (dev #903)
+; Standard Design
+RULE nrccC22Result1_StandardDesign:Action
+  NRCCPRF
+    if( EnumValue( Proj:FacilityType ) >= 10 .AND. IfValidAnd( Proj:MultiOrientation > 0 ) )
+    then  switch( attrib_StandardAttribute1 )
+          case  "NORTH" :  EvalRulelist( "NRCC_North_nrccC22Result1_StandardDesign_Results", 1 )
+          case  "EAST"  :  EvalRulelist( "NRCC_East_nrccC22Result1_StandardDesign_Results" , 1 )
+          case  "SOUTH" :  EvalRulelist( "NRCC_South_nrccC22Result1_StandardDesign_Results", 1 )
+          case  "WEST"  :  EvalRulelist( "NRCC_West_nrccC22Result1_StandardDesign_Results" , 1 )
+          default       :  UNCHANGED
+          endswitch
+    else  UNCHANGED
+    endif
+ENDRULE
+
+
 ; Proposed Design
 RULE nrccSection_C22Result1:C22Result1_ProposedDesignEfficiency
   NRCCPRF

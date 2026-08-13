@@ -35,6 +35,9 @@
 ;*************************************************************************
 RULELIST "NRCCPRF_Proposed"  1 0 0 1
   ; ----------------------------------------------------------------------
+     ; "store BEMProc details" Proj:Action = {  StoreBEMProc( "b4-NRCCPRF-Prop-rulelist", 0 )  }    ; debugging - SAC 08/13/26 (dev #903)
+     ; "debugging" Proj:Action = { MessageBox( "Model stored from NRCCPRF_Proposed rulelist for %s:%g run, BldgAz %g", RunAbbrev, StdsVersionYr, Bldg:BldgAz ) }
+
   ; Rules to clear past NRCCPRF objects and create those objects populated w/ Proposed model info
    "Delete existing NRCCPRF objects"    nrccComplianceDocumentPackage:Action  = {  DeleteComp()  }
 
@@ -3753,9 +3756,10 @@ RULELIST "NRCC_North_nrccC22Result1_StandardDesign"  1 0 0 1
   ; Populate nrccC22Result1_StandardDesign object
    "Set nrccC22Result1_StandardDesign:attrib_StandardAttribute1"  nrccC22Result1_StandardDesign:attrib_StandardAttribute1  = {  "NORTH"  }
 
-   "Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignEfficiency" nrccC22Result1_StandardDesign:C22Result1_StandardDesignEfficiency = {  Proj:EUseSummaryRef[1]:OrientMetric1Std[1]  }
-   "Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignTotal"      nrccC22Result1_StandardDesign:C22Result1_StandardDesignTotal      = {  Proj:EUseSummaryRef[1]:OrientMetric2Std[1]  }
-   "Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignSource"     nrccC22Result1_StandardDesign:C22Result1_StandardDesignSource     = {  Proj:EUseSummaryRef[1]:OrientMetric3Std[1]  }
+   ; moved down into 'NRCC_North_nrccC22Result1_StandardDesign_Results' rulelist
+   ;"Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignEfficiency" nrccC22Result1_StandardDesign:C22Result1_StandardDesignEfficiency = {  Proj:EUseSummaryRef[1]:OrientMetric1Std[1]  }
+   ;"Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignTotal"      nrccC22Result1_StandardDesign:C22Result1_StandardDesignTotal      = {  Proj:EUseSummaryRef[1]:OrientMetric2Std[1]  }
+   ;"Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignSource"     nrccC22Result1_StandardDesign:C22Result1_StandardDesignSource     = {  Proj:EUseSummaryRef[1]:OrientMetric3Std[1]  }
 
 END
 ;******************************************************************************
@@ -3783,6 +3787,35 @@ RULELIST "NRCC_West_nrccC22Result1_StandardDesign"  1 0 0 1
 
 END
 ;******************************************************************************
+
+
+;*********** 2025-CBECC-Schema Issue 64 - Multi-Orientation Std design results ***************************************** SAC 08/13/26 (dev #903)
+; Proj:EUseSummaryRef[1] - Worst orientation / Proj:EUseSummaryRef[2] - North / Proj:EUseSummaryRef[3] - East ... 4-South ... 5-West
+RULELIST "NRCC_North_nrccC22Result1_StandardDesign_Results"  1 0 0 1
+  "Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignEfficiency" nrccC22Result1_StandardDesign:C22Result1_StandardDesignEfficiency = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric1Std[1] )  }
+  "Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignTotal"      nrccC22Result1_StandardDesign:C22Result1_StandardDesignTotal      = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric2Std[1] )  }
+  "Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignSource"     nrccC22Result1_StandardDesign:C22Result1_StandardDesignSource     = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric3Std[1] )  }
+END
+;******************************************************************************
+RULELIST "NRCC_East_nrccC22Result1_StandardDesign_Results"  1 0 0 1
+  "Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignEfficiency" nrccC22Result1_StandardDesign:C22Result1_StandardDesignEfficiency = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric1Std[2] )  }
+  "Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignTotal"      nrccC22Result1_StandardDesign:C22Result1_StandardDesignTotal      = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric2Std[2] )  }
+  "Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignSource"     nrccC22Result1_StandardDesign:C22Result1_StandardDesignSource     = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric3Std[2] )  }
+END
+;******************************************************************************
+RULELIST "NRCC_South_nrccC22Result1_StandardDesign_Results"  1 0 0 1
+  "Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignEfficiency" nrccC22Result1_StandardDesign:C22Result1_StandardDesignEfficiency = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric1Std[3] )  }
+  "Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignTotal"      nrccC22Result1_StandardDesign:C22Result1_StandardDesignTotal      = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric2Std[3] )  }
+  "Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignSource"     nrccC22Result1_StandardDesign:C22Result1_StandardDesignSource     = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric3Std[3] )  }
+END
+;******************************************************************************
+RULELIST "NRCC_West_nrccC22Result1_StandardDesign_Results"  1 0 0 1
+  "Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignEfficiency" nrccC22Result1_StandardDesign:C22Result1_StandardDesignEfficiency = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric1Std[4] )  }
+  "Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignTotal"      nrccC22Result1_StandardDesign:C22Result1_StandardDesignTotal      = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric2Std[4] )  }
+  "Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignSource"     nrccC22Result1_StandardDesign:C22Result1_StandardDesignSource     = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric3Std[4] )  }
+END
+;******************************************************************************
+
 
 
 ;************************************************************************* rulelist evaluated AFTER Proposed simulation but before copying of nrcc* objects to following transform - SAC 04/14/21
