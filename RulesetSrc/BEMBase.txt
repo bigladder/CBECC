@@ -7785,6 +7785,117 @@
 ;------------------------------------------------------------------------------------------------
 
 
+; RJH 8/9/26 2025-CBECC-Schema Issue 64 - added new Single Orientation schema section for >= 250300 and NRCC only
+;------------------------------------------------------------------------------------------------
+;                     LName              Template         MD  MR  AC   Parent1             P2  P3  P4  P5  P6  P7  P8  P9  P10 P11 P12 P13 P14 P15 P16 P17 P18 P19 P20  MC  MS  bP  CF  SR  IN     HI 
+;                    ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+0,  "nrccC22Result1_SingleOrientation", "nrccC22Result1_SingleOrientation",   "C22Result1_SingleOrientation <i>",   0,  0,  0, "nrccSection_C22Result1",  "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",  -1,  1,  0,  0,  0,  1,   1000
+;
+;                                                  VType     NV  WA  SP  UL                 UT  NO  OC            CV  CP         HI    LName                  
+;                                                 -------------------------------------------------------------------------------------------
+;1,           "C22Result1Row1Subheading",                    BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1Row1Subheading",                             ""
+;                        <xsd:documentation source="FieldText">Standard Design</xsd:documentation>
+1,           "C22Result1_StandardDesignEfficiency",          BEMP_Flt,  1,  0,  0,  Pres,  "kBtu/ft2-yr",      0,  0,                             555, "C22Result1_StandardDesignEfficiency",    ""
+1,           "C22Result1_StandardDesignTotal",               BEMP_Flt,  1,  0,  0,  Pres,  "kBtu/ft2-yr",      0,  0,                             555, "C22Result1_StandardDesignTotal",    ""
+1,           "C22Result1a_NotApplicableMessage",             BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1a_NotApplicableMessage",        ""
+1,           "C22Result1_StandardDesignSource",              BEMP_Flt,  1,  0,  0,  Pres,  "kBtu/ft2-yr",      0,  0,                             555, "C22Result1_StandardDesignSource",    ""
+1,           "C22Result1b_NotApplicableMessage",             BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1b_NotApplicableMessage",        ""
+
+;1,           "C22Result1Row2Subheading",                   BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1Row2Subheading",                             ""
+;                        <xsd:documentation source="FieldText">Proposed Design</xsd:documentation>
+1,           "C22Result1_ProposedDesignEfficiency",          BEMP_Flt,  1,  0,  0,  Pres,  "kBtu/ft2-yr",      0,  0,                             555, "C22Result1_ProposedDesignEfficiency",    ""
+1,           "C22Result1_ProposedDesignTotal",               BEMP_Flt,  1,  0,  0,  Pres,  "kBtu/ft2-yr",      0,  0,                             555, "C22Result1_ProposedDesignTotal",    ""
+1,           "C22Result1c_NotApplicableMessage",             BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1c_NotApplicableMessage",        ""
+1,           "C22Result1_ProposedDesignSource",              BEMP_Flt,  1,  0,  0,  Pres,  "kBtu/ft2-yr",      0,  0,                             555, "C22Result1_ProposedDesignSource",    ""
+1,           "C22Result1d_NotApplicableMessage",             BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1d_NotApplicableMessage",        ""
+
+;1,           "C22Result1Row3Subheading",                 BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1Row3Subheading",                             ""
+;                        <xsd:documentation source="FieldText">Compliance Margins</xsd:documentation>
+1,           "C22Result1_ComplianceMarginEfficiency",        BEMP_Flt,  1,  0,  0,  Pres,  "kBtu/ft2-yr",      0,  0,                             555, "C22Result1_ComplianceMarginEfficiency",    ""
+1,           "C22Result1_ComplianceMarginTotal",             BEMP_Flt,  1,  0,  0,  Pres,  "kBtu/ft2-yr",      0,  0,                             555, "C22Result1_ComplianceMarginTotal",    ""
+1,           "C22Result1e_NotApplicableMessage",             BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1e_NotApplicableMessage",        ""
+1,           "C22Result1_ComplianceMarginSource",            BEMP_Flt,  1,  0,  0,  Pres,  "kBtu/ft2-yr",      0,  0,                             555, "C22Result1_ComplianceMarginSource",    ""
+1,           "C22Result1f_NotApplicableMessage",             BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1f_NotApplicableMessage",        ""
+
+1,           "C22Result1_PassFailEfficiency",                BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1_PassFailEfficiency",        ""
+1,           "C22Result1_PassFailTotal",                     BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1_PassFailTotal",        ""
+1,           "C22Result1g_NotApplicableMessage",             BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1g_NotApplicableMessage",        ""
+1,           "C22Result1_PassFailSource",                    BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1_PassFailSource",        ""
+1,           "C22Result1h_NotApplicableMessage",             BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1h_NotApplicableMessage",        ""
+;------------------------------------------------------------------------------------------------
+
+
+; RJH 8/9/26 2025-CBECC-Schema Issue 64 - added new Multiple Orientation schema sections for >= 250300 and NRCC only
+;------------------------------------------------------------------------------------------------
+;                     LName              Template         MD  MR  AC   Parent1             P2  P3  P4  P5  P6  P7  P8  P9  P10 P11 P12 P13 P14 P15 P16 P17 P18 P19 P20  MC  MS  bP  CF  SR  IN     HI 
+;                    ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+0,  "nrccC22Result1_MultipleOrientations", "nrccC22Result1_MultipleOrientations",   "C22Result1_MultipleOrientations <i>",   0,  0,  0, "nrccSection_C22Result1",  "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",  -1,  1,  0,  0,  0,  1,   1000
+;
+;                                                  VType     NV  WA  SP  UL                 UT  NO  OC            CV  CP         HI    LName                  
+;                                                 -------------------------------------------------------------------------------------------
+;------------------------------------------------------------------------------------------------
+
+;------------------------------------------------------------------------------------------------
+;                     LName              Template         MD  MR  AC   Parent1             P2  P3  P4  P5  P6  P7  P8  P9  P10 P11 P12 P13 P14 P15 P16 P17 P18 P19 P20  MC  MS  bP  CF  SR  IN     HI 
+;                    ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+0,  "nrccC22Result1_StandardDesign", "nrccC22Result1_StandardDesign",   "C22Result1_StandardDesign <i>",   4,  0,  0, "nrccC22Result1_MultipleOrientations",  "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",  -1,  1,  0,  0,  0,  1,   1000
+;
+;                                                  VType     NV  WA  SP  UL                 UT  NO  OC            CV  CP         HI    LName                  
+;                                                 -------------------------------------------------------------------------------------------
+1,           "attrib_StandardAttribute1",                    BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                             555, "attrib_StandardAttribute1",  ""
+1,           "C22Result1_StandardDesignEfficiency",          BEMP_Flt,  1,  0,  0,  Pres,  "kBtu/ft2-yr",      0,  0,                             555, "C22Result1_StandardDesignEfficiency",    ""
+1,           "C22Result1_StandardDesignTotal",               BEMP_Flt,  1,  0,  0,  Pres,  "kBtu/ft2-yr",      0,  0,                             555, "C22Result1_StandardDesignTotal",    ""
+1,           "C22Result1a_NotApplicableMessage",             BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1a_NotApplicableMessage",        ""
+1,           "C22Result1_StandardDesignSource",              BEMP_Flt,  1,  0,  0,  Pres,  "kBtu/ft2-yr",      0,  0,                             555, "C22Result1_StandardDesignSource",    ""
+1,           "C22Result1b_NotApplicableMessage",             BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1b_NotApplicableMessage",        ""
+;------------------------------------------------------------------------------------------------
+
+;------------------------------------------------------------------------------------------------
+;                     LName              Template         MD  MR  AC   Parent1             P2  P3  P4  P5  P6  P7  P8  P9  P10 P11 P12 P13 P14 P15 P16 P17 P18 P19 P20  MC  MS  bP  CF  SR  IN     HI 
+;                    ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+0,  "nrccC22Result1_ProposedDesign", "nrccC22Result1_ProposedDesign",   "C22Result1_ProposedDesign <i>",   4,  0,  0, "nrccC22Result1_MultipleOrientations",  "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",  -1,  1,  0,  0,  0,  1,   1000
+;
+;                                                  VType     NV  WA  SP  UL                 UT  NO  OC            CV  CP         HI    LName                  
+;                                                 -------------------------------------------------------------------------------------------
+1,           "attrib_ProposedAttribute1",                    BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                             555, "attrib_ProposedAttribute1",  ""
+1,           "C22Result1_ProposedDesignEfficiency",          BEMP_Flt,  1,  0,  0,  Pres,  "kBtu/ft2-yr",      0,  0,                             555, "C22Result1_ProposedDesignEfficiency",    ""
+1,           "C22Result1_ProposedDesignTotal",               BEMP_Flt,  1,  0,  0,  Pres,  "kBtu/ft2-yr",      0,  0,                             555, "C22Result1_ProposedDesignTotal",    ""
+1,           "C22Result1c_NotApplicableMessage",             BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1c_NotApplicableMessage",        ""
+1,           "C22Result1_ProposedDesignSource",              BEMP_Flt,  1,  0,  0,  Pres,  "kBtu/ft2-yr",      0,  0,                             555, "C22Result1_ProposedDesignSource",    ""
+1,           "C22Result1d_NotApplicableMessage",             BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1d_NotApplicableMessage",        ""
+;------------------------------------------------------------------------------------------------
+
+;------------------------------------------------------------------------------------------------
+;                     LName              Template         MD  MR  AC   Parent1             P2  P3  P4  P5  P6  P7  P8  P9  P10 P11 P12 P13 P14 P15 P16 P17 P18 P19 P20  MC  MS  bP  CF  SR  IN     HI 
+;                    ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+0,  "nrccC22Result1_ComplianceMargin", "nrccC22Result1_ComplianceMargin",   "C22Result1_ComplianceMargin <i>",   4,  0,  0, "nrccC22Result1_MultipleOrientations",  "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",  -1,  1,  0,  0,  0,  1,   1000
+;
+;                                                  VType     NV  WA  SP  UL                 UT  NO  OC            CV  CP         HI    LName                  
+;                                                 -------------------------------------------------------------------------------------------
+1,           "attrib_ComplianceAttribute1",                  BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                             555, "attrib_ComplianceAttribute1",  ""
+1,           "C22Result1_ComplianceMarginEfficiency",        BEMP_Flt,  1,  0,  0,  Pres,  "kBtu/ft2-yr",      0,  0,                             555, "C22Result1_ComplianceMarginEfficiency",    ""
+1,           "C22Result1_ComplianceMarginTotal",             BEMP_Flt,  1,  0,  0,  Pres,  "kBtu/ft2-yr",      0,  0,                             555, "C22Result1_ComplianceMarginTotal",    ""
+1,           "C22Result1e_NotApplicableMessage",             BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1e_NotApplicableMessage",        ""
+1,           "C22Result1_ComplianceMarginSource",            BEMP_Flt,  1,  0,  0,  Pres,  "kBtu/ft2-yr",      0,  0,                             555, "C22Result1_ComplianceMarginSource",    ""
+1,           "C22Result1f_NotApplicableMessage",             BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1f_NotApplicableMessage",        ""
+;------------------------------------------------------------------------------------------------
+
+;------------------------------------------------------------------------------------------------
+;                     LName              Template         MD  MR  AC   Parent1             P2  P3  P4  P5  P6  P7  P8  P9  P10 P11 P12 P13 P14 P15 P16 P17 P18 P19 P20  MC  MS  bP  CF  SR  IN     HI 
+;                    ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+0,  "nrccC22Result1_ResultsByOrientation", "nrccC22Result1_ResultsByOrientation",   "C22Result1_ResultsByOrientation <i>",   4,  0,  0, "nrccC22Result1_MultipleOrientations",  "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",  -1,  1,  0,  0,  0,  1,   1000
+;
+;                                                  VType     NV  WA  SP  UL                 UT  NO  OC            CV  CP         HI    LName                  
+;                                                 -------------------------------------------------------------------------------------------
+1,           "attrib_ResultAttribute1",              BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                             555, "attrib_ResultAttribute1",  ""
+1,           "C22Result1_PassFailEfficiency",        BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1_PassFailEfficiency",        ""
+1,           "C22Result1_PassFailTotal",             BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1_PassFailTotal",        ""
+1,           "C22Result1g_NotApplicableMessage",     BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1g_NotApplicableMessage",        ""
+1,           "C22Result1_PassFailSource",            BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1_PassFailSource",        ""
+1,           "C22Result1h_NotApplicableMessage",     BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                             555, "C22Result1h_NotApplicableMessage",        ""
+;------------------------------------------------------------------------------------------------
+
+
 ; CBECC-2022 C2. TDV ENERGY COMPLIANCE RESULTS FOR PERFORMANCE COMPONENTS (Annual TDV Energy Use, kBtu/ft2/yr)
 ;------------------------------------------------------------------------------------------------
 ;                           LName                    Template               MD  MR  AC   Parent1        P2  P3  P4  P5  P6  P7  P8  P9  P10 P11 P12 P13 P14 P15 P16 P17 P18 P19 P20  MC  MS  bP  CF  SR  IN     HI 

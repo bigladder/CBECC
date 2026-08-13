@@ -99,6 +99,39 @@ RULELIST "NRCCPRF_Proposed"  1 0 0 1
    "Create nrccSection_C22Result1 object"
       nrccNRCCPRF:Action    = {  if (Proj:AnalysisVersion >= 220000) then CreateChildren( nrccSection_C22Result1,    1, "NRCC C22Result1" ) else UNDEFINED endif  }
 
+   ; RJH 8/9/26 2025-CBECC-Schema Issue 64 - added new Single and Multiple Orientation schema sections for >= 250300 and NRCC only
+   "Create nrccC22Result1_SingleOrientation object"   nrccSection_C22Result1:Action =
+      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0) .AND. IfValidAnd(Proj:MultiOrientation == 0)) 
+         then CreateChildren( nrccC22Result1_SingleOrientation, 1, "C22Result1_SingleOrientation" )
+         else UNCHANGED 
+         endif }
+
+   "Create nrccC22Result1_MultipleOrientations object"   nrccSection_C22Result1:Action =
+      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0) .AND. IfValidAnd(Proj:MultiOrientation == 1)) 
+         then CreateChildren( nrccC22Result1_MultipleOrientations, 1, "C22Result1_MultipleOrientations" )
+         else UNCHANGED 
+         endif }
+
+  ; Create & Populate NORTH (0) nrccC22Result1_StandardDesign object
+   "Create & initialize new nrccC22Result1_StandardDesign object"
+      nrccC22Result1_MultipleOrientations:Action = {  CreateChildren( nrccC22Result1_StandardDesign, 1, "StandardDesign", "NRCC_North_nrccC22Result1_StandardDesign" )  }     ; no init needed
+
+  ; Create & Populate EAST (90) nrccC22Result1_StandardDesign object
+   "Create & initialize new nrccC22Result1_StandardDesign object"
+      nrccC22Result1_MultipleOrientations:Action = {  CreateChildren( nrccC22Result1_StandardDesign, 1, "StandardDesign", "NRCC_East_nrccC22Result1_StandardDesign" )  }     ; no init needed
+
+  ; Create & Populate SOUTH (180) nrccC22Result1_StandardDesign object
+   "Create & initialize new nrccC22Result1_StandardDesign object"
+      nrccC22Result1_MultipleOrientations:Action = {  CreateChildren( nrccC22Result1_StandardDesign, 1, "StandardDesign", "NRCC_South_nrccC22Result1_StandardDesign" )  }     ; no init needed
+
+  ; Create & Populate WEST (270) nrccC22Result1_StandardDesign object
+   "Create & initialize new nrccC22Result1_StandardDesign object"
+      nrccC22Result1_MultipleOrientations:Action = {  CreateChildren( nrccC22Result1_StandardDesign, 1, "StandardDesign", "NRCC_West_nrccC22Result1_StandardDesign" )  }     ; no init needed
+
+
+
+
+
    "Create nrccSection_C22Result2 object"
       nrccNRCCPRF:Action    = {  if (Proj:AnalysisVersion >= 220000) then CreateChildren( nrccSection_C22Result2,    1, "NRCC C22Result2" ) else UNDEFINED endif  }
 
@@ -3715,6 +3748,43 @@ RULELIST "NRCCPRF_Proposed"  1 0 0 1
 END
 
 
+;*********** RJH 8/12/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
+RULELIST "NRCC_North_nrccC22Result1_StandardDesign"  1 0 0 1
+  ; Populate nrccC22Result1_StandardDesign object
+   "Set nrccC22Result1_StandardDesign:attrib_StandardAttribute1"  nrccC22Result1_StandardDesign:attrib_StandardAttribute1  = {  "NORTH"  }
+
+   "Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignEfficiency" nrccC22Result1_StandardDesign:C22Result1_StandardDesignEfficiency = {  Proj:EUseSummaryRef[1]:OrientMetric1Std[1]  }
+   "Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignTotal"      nrccC22Result1_StandardDesign:C22Result1_StandardDesignTotal      = {  Proj:EUseSummaryRef[1]:OrientMetric2Std[1]  }
+   "Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignSource"     nrccC22Result1_StandardDesign:C22Result1_StandardDesignSource     = {  Proj:EUseSummaryRef[1]:OrientMetric3Std[1]  }
+
+END
+;******************************************************************************
+
+;*********** RJH 8/12/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
+RULELIST "NRCC_East_nrccC22Result1_StandardDesign"  1 0 0 1
+  ; Populate nrccC22Result1_StandardDesign object
+   "Set nrccC22Result1_StandardDesign:attrib_StandardAttribute1"  nrccC22Result1_StandardDesign:attrib_StandardAttribute1  = {  "EAST"  }
+
+END
+;******************************************************************************
+
+;*********** RJH 8/12/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
+RULELIST "NRCC_South_nrccC22Result1_StandardDesign"  1 0 0 1
+  ; Populate nrccC22Result1_StandardDesign object
+   "Set nrccC22Result1_StandardDesign:attrib_StandardAttribute1"  nrccC22Result1_StandardDesign:attrib_StandardAttribute1  = {  "SOUTH"  }
+
+END
+;******************************************************************************
+
+;*********** RJH 8/12/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
+RULELIST "NRCC_West_nrccC22Result1_StandardDesign"  1 0 0 1
+  ; Populate nrccC22Result1_StandardDesign object
+   "Set nrccC22Result1_StandardDesign:attrib_StandardAttribute1"  nrccC22Result1_StandardDesign:attrib_StandardAttribute1  = {  "WEST"  }
+
+END
+;******************************************************************************
+
+
 ;************************************************************************* rulelist evaluated AFTER Proposed simulation but before copying of nrcc* objects to following transform - SAC 04/14/21
 RULELIST "NRCCPRF_ap_PostSim"  1 0 0 1
 
@@ -5466,7 +5536,6 @@ RULELIST "NRCAMch24ASystemsToFieldVerify"  1 0 0 1
          endif endif  }
 END
 ;*************************************************************************
-
 
 
 ENDFILE

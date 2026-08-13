@@ -492,16 +492,15 @@ RULE nrccSection_C22Result1:C22Result1_PerformanceComplianceResult
     endif endif endif endif
 ENDRULE
 
-; replaced use of atof() w/ StrToFlt() for any string that may include a comma (outside +/- 1k) - SAC 01/11/23 (tic #3468)
-
-; Standard Design
-RULE nrccSection_C22Result1:C22Result1_StandardDesignEfficiency
+; RJH 8/8/26 2025-CBECC-Schema Issue 64 - added new Single and Multiple Orientation schema sections for >= 250300 and NRCC only
+; Single Orientation Standard Design
+RULE nrccC22Result1_SingleOrientation:C22Result1_StandardDesignEfficiency
   NRCCPRF
     if (GlobalStatus( Proj:EUseSummaryRef[1]:Enduse16[7] ) > 0)
     then  StrToFlt( Proj:EUseSummaryRef[1]:Enduse16[7] )
     else  UNDEFINED  endif
 ENDRULE
-RULE nrccSection_C22Result1:C22Result1_StandardDesignTotal
+RULE nrccC22Result1_SingleOrientation:C22Result1_StandardDesignTotal
   NRCCPRF
     if ( (enumvalue(Proj:CompType) >= 11 .AND. enumvalue(Proj:CompType) <= 22) ; RJH 20230702 Nonresidential Project: AdditionComplete (CompType 11) and Other EAA compliance scopes (CompType 12-22)
          .OR. enumvalue(Proj:ResCompType) = 11                                 ; Multifamily/Mixed-Use Project: AdditionComplete (ResCompType 11)
@@ -512,13 +511,13 @@ RULE nrccSection_C22Result1:C22Result1_StandardDesignTotal
          else  UNDEFINED  endif
     endif
 ENDRULE
-RULE nrccSection_C22Result1:C22Result1a_NotApplicableMessage
+RULE nrccC22Result1_SingleOrientation:C22Result1a_NotApplicableMessage
   NRCCPRF
     if (LocalStatus( C22Result1_StandardDesignTotal ) > 0)
     then  UNDEFINED  else  "n/a"  endif
 ENDRULE
 
-RULE nrccSection_C22Result1:C22Result1_StandardDesignSource
+RULE nrccC22Result1_SingleOrientation:C22Result1_StandardDesignSource
   NRCCPRF
     if ( (enumvalue(Proj:CompType) >= 12 .AND. enumvalue(Proj:CompType) <= 22) ; RJH 20230702 Nonresidential Project: Other EAA compliance scopes (CompType 12-22)
          .OR. enumvalue(Proj:ResCompType) = 22 )                               ; Multifamily/mixed-use Project: ExistingAdditionAndAlteration (ResCompType 22)
@@ -528,22 +527,19 @@ RULE nrccSection_C22Result1:C22Result1_StandardDesignSource
          else  UNDEFINED  endif
     endif
 ENDRULE
-RULE nrccSection_C22Result1:C22Result1b_NotApplicableMessage
+RULE nrccC22Result1_SingleOrientation:C22Result1b_NotApplicableMessage
   NRCCPRF
     if (LocalStatus( C22Result1_StandardDesignSource ) > 0)
     then  UNDEFINED  else  "n/a"  endif
 ENDRULE
-
-
 ; Proposed Design
-RULE nrccSection_C22Result1:C22Result1_ProposedDesignEfficiency
+RULE nrccC22Result1_SingleOrientation:C22Result1_ProposedDesignEfficiency
   NRCCPRF
     if (GlobalStatus( Proj:EUseSummaryRef[1]:Enduse16[4] ) > 0)
     then  StrToFlt( Proj:EUseSummaryRef[1]:Enduse16[4] )
     else  UNDEFINED  endif
 ENDRULE
-
-RULE nrccSection_C22Result1:C22Result1_ProposedDesignTotal
+RULE nrccC22Result1_SingleOrientation:C22Result1_ProposedDesignTotal
   NRCCPRF
     if ( (enumvalue(Proj:CompType) >= 11 .AND. enumvalue(Proj:CompType) <= 22) ; RJH 20230702 Nonresidential Project: AdditionComplete (CompType 11) and Other EAA compliance scopes (CompType 12-22)
          .OR. enumvalue(Proj:ResCompType) = 11                                 ; Multifamily/Mixed-Use Project: AdditionComplete (ResCompType 11)
@@ -554,13 +550,12 @@ RULE nrccSection_C22Result1:C22Result1_ProposedDesignTotal
          else  UNDEFINED  endif
     endif
 ENDRULE
-RULE nrccSection_C22Result1:C22Result1c_NotApplicableMessage
+RULE nrccC22Result1_SingleOrientation:C22Result1c_NotApplicableMessage
   NRCCPRF
     if (LocalStatus( C22Result1_ProposedDesignTotal ) > 0)
     then  UNDEFINED  else  "n/a"  endif
 ENDRULE
-
-RULE nrccSection_C22Result1:C22Result1_ProposedDesignSource
+RULE nrccC22Result1_SingleOrientation:C22Result1_ProposedDesignSource
   NRCCPRF
     if ( (enumvalue(Proj:CompType) >= 12 .AND. enumvalue(Proj:CompType) <= 22) ; RJH 20230702 Nonresidential Project: Other EAA compliance scopes (CompType 12-22)
          .OR. enumvalue(Proj:ResCompType) = 22 )                               ; Multifamily/mixed-use Project: ExistingAdditionAndAlteration (ResCompType 22)
@@ -570,22 +565,19 @@ RULE nrccSection_C22Result1:C22Result1_ProposedDesignSource
          else  UNDEFINED  endif
     endif
 ENDRULE
-RULE nrccSection_C22Result1:C22Result1d_NotApplicableMessage
+RULE nrccC22Result1_SingleOrientation:C22Result1d_NotApplicableMessage
   NRCCPRF
     if (LocalStatus( C22Result1_ProposedDesignSource ) > 0)
     then  UNDEFINED  else  "n/a"  endif
 ENDRULE
-
-
 ; Compliance Margins
-RULE nrccSection_C22Result1:C22Result1_ComplianceMarginEfficiency
+RULE nrccC22Result1_SingleOrientation:C22Result1_ComplianceMarginEfficiency
   NRCCPRF
     if (GlobalStatus( Proj:EUseSummaryRef[1]:Enduse16[8] ) > 0)
     then  StrToFlt( Proj:EUseSummaryRef[1]:Enduse16[8] )
     else  UNDEFINED  endif
 ENDRULE
-
-RULE nrccSection_C22Result1:C22Result1_ComplianceMarginTotal
+RULE nrccC22Result1_SingleOrientation:C22Result1_ComplianceMarginTotal
   NRCCPRF
     if ( (enumvalue(Proj:CompType) >= 11 .AND. enumvalue(Proj:CompType) <= 22) ; RJH 20230702 Nonresidential Project: AdditionComplete (CompType 11) and Other EAA compliance scopes (CompType 12-22)
          .OR. enumvalue(Proj:ResCompType) = 11                                 ; Multifamily/Mixed-Use Project: AdditionComplete (ResCompType 11)
@@ -596,13 +588,12 @@ RULE nrccSection_C22Result1:C22Result1_ComplianceMarginTotal
          else  UNDEFINED  endif
     endif
 ENDRULE
-RULE nrccSection_C22Result1:C22Result1e_NotApplicableMessage
+RULE nrccC22Result1_SingleOrientation:C22Result1e_NotApplicableMessage
   NRCCPRF
     if (LocalStatus( C22Result1_ComplianceMarginTotal ) > 0)
     then  UNDEFINED  else  "n/a"  endif
 ENDRULE
-
-RULE nrccSection_C22Result1:C22Result1_ComplianceMarginSource
+RULE nrccC22Result1_SingleOrientation:C22Result1_ComplianceMarginSource
   NRCCPRF
     if ( (enumvalue(Proj:CompType) >= 12 .AND. enumvalue(Proj:CompType) <= 22) ; RJH 20230702 Nonresidential Project: Other EAA compliance scopes (CompType 12-22)
          .OR. enumvalue(Proj:ResCompType) = 22 )                               ; Multifamily/mixed-use Project: ExistingAdditionAndAlteration (ResCompType 22)
@@ -612,22 +603,19 @@ RULE nrccSection_C22Result1:C22Result1_ComplianceMarginSource
          else  UNDEFINED  endif
     endif
 ENDRULE
-RULE nrccSection_C22Result1:C22Result1f_NotApplicableMessage
+RULE nrccC22Result1_SingleOrientation:C22Result1f_NotApplicableMessage
   NRCCPRF
     if (LocalStatus( C22Result1_ComplianceMarginSource ) > 0)
     then  UNDEFINED  else  "n/a"  endif
 ENDRULE
-
-
 ; Pass/Fail
-RULE nrccSection_C22Result1:C22Result1_PassFailEfficiency
+RULE nrccC22Result1_SingleOrientation:C22Result1_PassFailEfficiency
   NRCCPRF
     if (GlobalStatus( Proj:EUseSummaryRef[1]:MetricPassFail[1] ) > 0)
     then  Proj:EUseSummaryRef[1]:MetricPassFail[1]
     else  UNDEFINED  endif
 ENDRULE
-
-RULE nrccSection_C22Result1:C22Result1_PassFailTotal
+RULE nrccC22Result1_SingleOrientation:C22Result1_PassFailTotal
   NRCCPRF
     if ( (enumvalue(Proj:CompType) >= 11 .AND. enumvalue(Proj:CompType) <= 22) ; RJH 20230702 Nonresidential Project: AdditionComplete (CompType 11) and Other EAA compliance scopes (CompType 12-22)
          .OR. enumvalue(Proj:ResCompType) = 11                                 ; Multifamily/Mixed-Use Project: AdditionComplete (ResCompType 11)
@@ -638,13 +626,12 @@ RULE nrccSection_C22Result1:C22Result1_PassFailTotal
          else  UNDEFINED  endif
     endif
 ENDRULE
-RULE nrccSection_C22Result1:C22Result1g_NotApplicableMessage
+RULE nrccC22Result1_SingleOrientation:C22Result1g_NotApplicableMessage
   NRCCPRF
     if (LocalStatus( C22Result1_PassFailTotal ) > 0)
     then  UNDEFINED  else  "n/a"  endif
 ENDRULE
-
-RULE nrccSection_C22Result1:C22Result1_PassFailSource
+RULE nrccC22Result1_SingleOrientation:C22Result1_PassFailSource
   NRCCPRF
     if ( (enumvalue(Proj:CompType) >= 12 .AND. enumvalue(Proj:CompType) <= 22) ; RJH 20230702 Nonresidential Project: Other EAA compliance scopes (CompType 12-22)
          .OR. enumvalue(Proj:ResCompType) = 22 )                               ; Multifamily/mixed-use Project: ExistingAdditionAndAlteration (ResCompType 22)
@@ -654,10 +641,242 @@ RULE nrccSection_C22Result1:C22Result1_PassFailSource
          else  UNDEFINED  endif
     endif
 ENDRULE
-RULE nrccSection_C22Result1:C22Result1h_NotApplicableMessage
+RULE nrccC22Result1_SingleOrientation:C22Result1h_NotApplicableMessage
   NRCCPRF
     if (LocalStatus( C22Result1_PassFailSource ) > 0)
     then  UNDEFINED  else  "n/a"  endif
+ENDRULE
+
+
+
+
+; replaced use of atof() w/ StrToFlt() for any string that may include a comma (outside +/- 1k) - SAC 01/11/23 (tic #3468)
+
+; RJH 8/8/26 2025-CBECC-Schema Issue 64 - backward compatible XML output for pre-250300 AND all LMCC
+; Standard Design
+RULE nrccSection_C22Result1:C22Result1_StandardDesignEfficiency
+  NRCCPRF
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    then  if (GlobalStatus( Proj:EUseSummaryRef[1]:Enduse16[7] ) > 0)
+          then  StrToFlt( Proj:EUseSummaryRef[1]:Enduse16[7] )
+          else  UNDEFINED  endif
+    else UNDEFINED
+    endif
+ENDRULE
+RULE nrccSection_C22Result1:C22Result1_StandardDesignTotal
+  NRCCPRF
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    then  if ( (enumvalue(Proj:CompType) >= 11 .AND. enumvalue(Proj:CompType) <= 22) ; RJH 20230702 Nonresidential Project: AdditionComplete (CompType 11) and Other EAA compliance scopes (CompType 12-22)
+              .OR. enumvalue(Proj:ResCompType) = 11                                 ; Multifamily/Mixed-Use Project: AdditionComplete (ResCompType 11)
+              .OR. enumvalue(Proj:ResCompType) = 22 )                               ; Multifamily/mixed-use Project: ExistingAdditionAndAlteration (ResCompType 22)
+          then UNDEFINED
+          else if (GlobalStatus( Proj:EUseSummaryRef[1]:Enduse8[7] ) > 0)
+              then  StrToFlt( Proj:EUseSummaryRef[1]:Enduse8[7] )
+              else  UNDEFINED  endif
+          endif
+    else UNDEFINED
+    endif
+ENDRULE
+RULE nrccSection_C22Result1:C22Result1a_NotApplicableMessage
+  NRCCPRF
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    then  if (LocalStatus( C22Result1_StandardDesignTotal ) > 0)
+          then  UNDEFINED  else  "n/a"  endif
+    else UNDEFINED
+    endif
+ENDRULE
+
+RULE nrccSection_C22Result1:C22Result1_StandardDesignSource
+  NRCCPRF
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    then  if ( (enumvalue(Proj:CompType) >= 12 .AND. enumvalue(Proj:CompType) <= 22) ; RJH 20230702 Nonresidential Project: Other EAA compliance scopes (CompType 12-22)
+              .OR. enumvalue(Proj:ResCompType) = 22 )                               ; Multifamily/mixed-use Project: ExistingAdditionAndAlteration (ResCompType 22)
+          then UNDEFINED
+          else if (GlobalStatus( Proj:EUseSummaryRef[1]:Enduse8[12] ) > 0)
+              then  StrToFlt( Proj:EUseSummaryRef[1]:Enduse8[12] )
+              else  UNDEFINED  endif
+          endif
+    else UNDEFINED
+    endif
+ENDRULE
+RULE nrccSection_C22Result1:C22Result1b_NotApplicableMessage
+  NRCCPRF
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    then  if (LocalStatus( C22Result1_StandardDesignSource ) > 0)
+          then  UNDEFINED  else  "n/a"  endif
+    else UNDEFINED
+    endif
+ENDRULE
+
+
+; Proposed Design
+RULE nrccSection_C22Result1:C22Result1_ProposedDesignEfficiency
+  NRCCPRF
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    then  if (GlobalStatus( Proj:EUseSummaryRef[1]:Enduse16[4] ) > 0)
+          then  StrToFlt( Proj:EUseSummaryRef[1]:Enduse16[4] )
+          else  UNDEFINED  endif
+    else UNDEFINED
+    endif
+ENDRULE
+
+RULE nrccSection_C22Result1:C22Result1_ProposedDesignTotal
+  NRCCPRF
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    then  if ( (enumvalue(Proj:CompType) >= 11 .AND. enumvalue(Proj:CompType) <= 22) ; RJH 20230702 Nonresidential Project: AdditionComplete (CompType 11) and Other EAA compliance scopes (CompType 12-22)
+              .OR. enumvalue(Proj:ResCompType) = 11                                 ; Multifamily/Mixed-Use Project: AdditionComplete (ResCompType 11)
+              .OR. enumvalue(Proj:ResCompType) = 22 )                               ; Multifamily/mixed-use Project: ExistingAdditionAndAlteration (ResCompType 22)
+          then UNDEFINED
+          else if (GlobalStatus( Proj:EUseSummaryRef[1]:Enduse8[4] ) > 0)
+              then  StrToFlt( Proj:EUseSummaryRef[1]:Enduse8[4] )
+              else  UNDEFINED  endif
+          endif
+    else UNDEFINED
+    endif
+ENDRULE
+RULE nrccSection_C22Result1:C22Result1c_NotApplicableMessage
+  NRCCPRF
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    then  if (LocalStatus( C22Result1_ProposedDesignTotal ) > 0)
+          then  UNDEFINED  else  "n/a"  endif
+    else UNDEFINED
+    endif
+ENDRULE
+
+RULE nrccSection_C22Result1:C22Result1_ProposedDesignSource
+  NRCCPRF
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    then  if ( (enumvalue(Proj:CompType) >= 12 .AND. enumvalue(Proj:CompType) <= 22) ; RJH 20230702 Nonresidential Project: Other EAA compliance scopes (CompType 12-22)
+              .OR. enumvalue(Proj:ResCompType) = 22 )                               ; Multifamily/mixed-use Project: ExistingAdditionAndAlteration (ResCompType 22)
+          then UNDEFINED
+          else if (GlobalStatus( Proj:EUseSummaryRef[1]:Enduse8[11] ) > 0)
+              then  StrToFlt( Proj:EUseSummaryRef[1]:Enduse8[11] )
+              else  UNDEFINED  endif
+          endif
+    else UNDEFINED
+    endif
+ENDRULE
+RULE nrccSection_C22Result1:C22Result1d_NotApplicableMessage
+  NRCCPRF
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    then  if (LocalStatus( C22Result1_ProposedDesignSource ) > 0)
+          then  UNDEFINED  else  "n/a"  endif
+    else UNDEFINED
+    endif
+ENDRULE
+
+
+; Compliance Margins
+RULE nrccSection_C22Result1:C22Result1_ComplianceMarginEfficiency
+  NRCCPRF
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    then  if (GlobalStatus( Proj:EUseSummaryRef[1]:Enduse16[8] ) > 0)
+          then  StrToFlt( Proj:EUseSummaryRef[1]:Enduse16[8] )
+          else  UNDEFINED  endif
+    else UNDEFINED
+    endif
+ENDRULE
+
+RULE nrccSection_C22Result1:C22Result1_ComplianceMarginTotal
+  NRCCPRF
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    then  if ( (enumvalue(Proj:CompType) >= 11 .AND. enumvalue(Proj:CompType) <= 22) ; RJH 20230702 Nonresidential Project: AdditionComplete (CompType 11) and Other EAA compliance scopes (CompType 12-22)
+              .OR. enumvalue(Proj:ResCompType) = 11                                 ; Multifamily/Mixed-Use Project: AdditionComplete (ResCompType 11)
+              .OR. enumvalue(Proj:ResCompType) = 22 )                               ; Multifamily/mixed-use Project: ExistingAdditionAndAlteration (ResCompType 22)
+          then UNDEFINED
+          else if (GlobalStatus( Proj:EUseSummaryRef[1]:Enduse8[8] ) > 0)
+              then  StrToFlt( Proj:EUseSummaryRef[1]:Enduse8[8] )
+              else  UNDEFINED  endif
+          endif
+    else UNDEFINED
+    endif
+ENDRULE
+RULE nrccSection_C22Result1:C22Result1e_NotApplicableMessage
+  NRCCPRF
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    then  if (LocalStatus( C22Result1_ComplianceMarginTotal ) > 0)
+          then  UNDEFINED  else  "n/a"  endif
+    else UNDEFINED
+    endif
+ENDRULE
+
+RULE nrccSection_C22Result1:C22Result1_ComplianceMarginSource
+  NRCCPRF
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    then  if ( (enumvalue(Proj:CompType) >= 12 .AND. enumvalue(Proj:CompType) <= 22) ; RJH 20230702 Nonresidential Project: Other EAA compliance scopes (CompType 12-22)
+              .OR. enumvalue(Proj:ResCompType) = 22 )                               ; Multifamily/mixed-use Project: ExistingAdditionAndAlteration (ResCompType 22)
+          then UNDEFINED
+          else if (GlobalStatus( Proj:EUseSummaryRef[1]:Enduse8[13] ) > 0)
+              then  StrToFlt( Proj:EUseSummaryRef[1]:Enduse8[13] )
+              else  UNDEFINED  endif
+          endif
+    else UNDEFINED
+    endif
+ENDRULE
+RULE nrccSection_C22Result1:C22Result1f_NotApplicableMessage
+  NRCCPRF
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    then  if (LocalStatus( C22Result1_ComplianceMarginSource ) > 0)
+          then  UNDEFINED  else  "n/a"  endif
+    else UNDEFINED
+    endif
+ENDRULE
+
+
+; Pass/Fail
+RULE nrccSection_C22Result1:C22Result1_PassFailEfficiency
+  NRCCPRF
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    then  if (GlobalStatus( Proj:EUseSummaryRef[1]:MetricPassFail[1] ) > 0)
+          then  Proj:EUseSummaryRef[1]:MetricPassFail[1]
+          else  UNDEFINED  endif
+    else UNDEFINED
+    endif
+ENDRULE
+
+RULE nrccSection_C22Result1:C22Result1_PassFailTotal
+  NRCCPRF
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    then  if ( (enumvalue(Proj:CompType) >= 11 .AND. enumvalue(Proj:CompType) <= 22) ; RJH 20230702 Nonresidential Project: AdditionComplete (CompType 11) and Other EAA compliance scopes (CompType 12-22)
+              .OR. enumvalue(Proj:ResCompType) = 11                                 ; Multifamily/Mixed-Use Project: AdditionComplete (ResCompType 11)
+              .OR. enumvalue(Proj:ResCompType) = 22 )                               ; Multifamily/mixed-use Project: ExistingAdditionAndAlteration (ResCompType 22)
+          then UNDEFINED
+          else if (GlobalStatus( Proj:EUseSummaryRef[1]:MetricPassFail[2] ) > 0)
+              then  Proj:EUseSummaryRef[1]:MetricPassFail[2]
+              else  UNDEFINED  endif
+          endif
+    else UNDEFINED
+    endif
+ENDRULE
+RULE nrccSection_C22Result1:C22Result1g_NotApplicableMessage
+  NRCCPRF
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    then  if (LocalStatus( C22Result1_PassFailTotal ) > 0)
+          then  UNDEFINED  else  "n/a"  endif
+    else UNDEFINED
+    endif
+ENDRULE
+
+RULE nrccSection_C22Result1:C22Result1_PassFailSource
+  NRCCPRF
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    then  if ( (enumvalue(Proj:CompType) >= 12 .AND. enumvalue(Proj:CompType) <= 22) ; RJH 20230702 Nonresidential Project: Other EAA compliance scopes (CompType 12-22)
+              .OR. enumvalue(Proj:ResCompType) = 22 )                               ; Multifamily/mixed-use Project: ExistingAdditionAndAlteration (ResCompType 22)
+          then UNDEFINED
+          else if (GlobalStatus( Proj:EUseSummaryRef[1]:MetricPassFail[3] ) > 0)
+              then  Proj:EUseSummaryRef[1]:MetricPassFail[3]
+              else  UNDEFINED  endif
+          endif
+    else UNDEFINED
+    endif
+ENDRULE
+RULE nrccSection_C22Result1:C22Result1h_NotApplicableMessage
+  NRCCPRF
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    then  if (LocalStatus( C22Result1_PassFailSource ) > 0)
+          then  UNDEFINED  else  "n/a"  endif
+    else UNDEFINED
+    endif
 ENDRULE
 
 
