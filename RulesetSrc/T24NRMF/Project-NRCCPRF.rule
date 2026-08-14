@@ -783,6 +783,23 @@ RULE nrccSection_C22Result1:C22Result1d_NotApplicableMessage
 ENDRULE
 
 
+; 2025-CBECC-Schema Issue 64 - call subordinate rulelists to populate multiple orientation run results - RJH 8/14/26
+; Proposed Design
+RULE nrccC22Result1_ProposedDesign:Action
+  NRCCPRF
+    if( EnumValue( Proj:FacilityType ) >= 10 .AND. IfValidAnd( Proj:MultiOrientation > 0 ) )
+    then  switch( attrib_ProposedAttribute1 )
+          case  "NORTH" :  EvalRulelist( "NRCC_North_nrccC22Result1_ProposedDesign_Results", 1 )
+          case  "EAST"  :  EvalRulelist( "NRCC_East_nrccC22Result1_ProposedDesign_Results" , 1 )
+          case  "SOUTH" :  EvalRulelist( "NRCC_South_nrccC22Result1_ProposedDesign_Results", 1 )
+          case  "WEST"  :  EvalRulelist( "NRCC_West_nrccC22Result1_ProposedDesign_Results" , 1 )
+          default       :  UNCHANGED
+          endswitch
+    else  UNCHANGED
+    endif
+ENDRULE
+
+
 ; Compliance Margins
 RULE nrccSection_C22Result1:C22Result1_ComplianceMarginEfficiency
   NRCCPRF
@@ -840,6 +857,23 @@ RULE nrccSection_C22Result1:C22Result1f_NotApplicableMessage
 ENDRULE
 
 
+; 2025-CBECC-Schema Issue 64 - call subordinate rulelists to populate multiple orientation run results - RJH 8/14/26
+; Compliance Margin
+RULE nrccC22Result1_ComplianceMargin:Action
+  NRCCPRF
+    if( EnumValue( Proj:FacilityType ) >= 10 .AND. IfValidAnd( Proj:MultiOrientation > 0 ) )
+    then  switch( attrib_ComplianceAttribute1 )
+          case  "NORTH" :  EvalRulelist( "NRCC_North_nrccC22Result1_ComplianceMargin_Results", 1 )
+          case  "EAST"  :  EvalRulelist( "NRCC_East_nrccC22Result1_ComplianceMargin_Results" , 1 )
+          case  "SOUTH" :  EvalRulelist( "NRCC_South_nrccC22Result1_ComplianceMargin_Results", 1 )
+          case  "WEST"  :  EvalRulelist( "NRCC_West_nrccC22Result1_ComplianceMargin_Results" , 1 )
+          default       :  UNCHANGED
+          endswitch
+    else  UNCHANGED
+    endif
+ENDRULE
+
+
 ; Pass/Fail
 RULE nrccSection_C22Result1:C22Result1_PassFailEfficiency
   NRCCPRF
@@ -893,6 +927,23 @@ RULE nrccSection_C22Result1:C22Result1h_NotApplicableMessage
     then  if (LocalStatus( C22Result1_PassFailSource ) > 0)
           then  UNDEFINED  else  "n/a"  endif
     else UNDEFINED
+    endif
+ENDRULE
+
+
+; 2025-CBECC-Schema Issue 64 - call subordinate rulelists to populate multiple orientation run results - RJH 8/14/26
+; Pass/Fail
+RULE nrccC22Result1_ResultsByOrientation:Action
+  NRCCPRF
+    if( EnumValue( Proj:FacilityType ) >= 10 .AND. IfValidAnd( Proj:MultiOrientation > 0 ) )
+    then  switch( attrib_ResultAttribute1 )
+          case  "NORTH" :  EvalRulelist( "NRCC_North_nrccC22Result1_ResultsByOrientation_Results", 1 )
+          case  "EAST"  :  EvalRulelist( "NRCC_East_nrccC22Result1_ResultsByOrientation_Results" , 1 )
+          case  "SOUTH" :  EvalRulelist( "NRCC_South_nrccC22Result1_ResultsByOrientation_Results", 1 )
+          case  "WEST"  :  EvalRulelist( "NRCC_West_nrccC22Result1_ResultsByOrientation_Results" , 1 )
+          default       :  UNCHANGED
+          endswitch
+    else  UNCHANGED
     endif
 ENDRULE
 

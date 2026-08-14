@@ -115,21 +115,58 @@ RULELIST "NRCCPRF_Proposed"  1 0 0 1
          else UNCHANGED 
          endif }
 
-  ; Create & Populate NORTH (0) nrccC22Result1_StandardDesign object
-   "Create & initialize new nrccC22Result1_StandardDesign object"
-      nrccC22Result1_MultipleOrientations:Action = {  CreateChildren( nrccC22Result1_StandardDesign, 1, "StandardDesign", "NRCC_North_nrccC22Result1_StandardDesign" )  }     ; no init needed
+   ; RJH 8/14/26 2025-CBECC-Schema Issue 64 - Create Multiple Orientation sub-sections for >= 250300 and NRCC only
+  ; Create NORTH (0) nrccC22Result1_StandardDesign object
+   "Create & initialize NORTH nrccC22Result1_StandardDesign object"
+      nrccC22Result1_MultipleOrientations:Action = {  CreateChildren( nrccC22Result1_StandardDesign, 1, "StandardDesign", "NRCC_North_nrccC22Result1_StandardDesign" )  } 
+  ; Create EAST (90) nrccC22Result1_StandardDesign object
+   "Create & initialize EAST nrccC22Result1_StandardDesign object"
+      nrccC22Result1_MultipleOrientations:Action = {  CreateChildren( nrccC22Result1_StandardDesign, 1, "StandardDesign", "NRCC_East_nrccC22Result1_StandardDesign" )  } 
+  ; Create SOUTH (180) nrccC22Result1_StandardDesign object
+   "Create & initialize SOUTH nrccC22Result1_StandardDesign object"
+      nrccC22Result1_MultipleOrientations:Action = {  CreateChildren( nrccC22Result1_StandardDesign, 1, "StandardDesign", "NRCC_South_nrccC22Result1_StandardDesign" )  }
+  ; Create WEST (270) nrccC22Result1_StandardDesign object
+   "Create & initialize WEST nrccC22Result1_StandardDesign object"
+      nrccC22Result1_MultipleOrientations:Action = {  CreateChildren( nrccC22Result1_StandardDesign, 1, "StandardDesign", "NRCC_West_nrccC22Result1_StandardDesign" )  }
 
-  ; Create & Populate EAST (90) nrccC22Result1_StandardDesign object
-   "Create & initialize new nrccC22Result1_StandardDesign object"
-      nrccC22Result1_MultipleOrientations:Action = {  CreateChildren( nrccC22Result1_StandardDesign, 1, "StandardDesign", "NRCC_East_nrccC22Result1_StandardDesign" )  }     ; no init needed
+  ; Create NORTH (0) nrccC22Result1_ProposedDesign object
+   "Create & initialize NORTH nrccC22Result1_ProposedDesign object"
+      nrccC22Result1_MultipleOrientations:Action = {  CreateChildren( nrccC22Result1_ProposedDesign, 1, "ProposedDesign", "NRCC_North_nrccC22Result1_ProposedDesign" )  } 
+  ; Create EAST (90) nrccC22Result1_ProposedDesign object
+   "Create & initialize EAST nrccC22Result1_ProposedDesign object"
+      nrccC22Result1_MultipleOrientations:Action = {  CreateChildren( nrccC22Result1_ProposedDesign, 1, "ProposedDesign", "NRCC_East_nrccC22Result1_ProposedDesign" )  } 
+  ; Create SOUTH (180) nrccC22Result1_StandardDesign object
+   "Create & initialize SOUTH nrccC22Result1_ProposedDesign object"
+      nrccC22Result1_MultipleOrientations:Action = {  CreateChildren( nrccC22Result1_ProposedDesign, 1, "ProposedDesign", "NRCC_South_nrccC22Result1_ProposedDesign" )  }
+  ; Create WEST (270) nrccC22Result1_StandardDesign object
+   "Create & initialize WEST nrccC22Result1_ProposedDesign object"
+      nrccC22Result1_MultipleOrientations:Action = {  CreateChildren( nrccC22Result1_ProposedDesign, 1, "ProposedDesign", "NRCC_West_nrccC22Result1_ProposedDesign" )  }
 
-  ; Create & Populate SOUTH (180) nrccC22Result1_StandardDesign object
-   "Create & initialize new nrccC22Result1_StandardDesign object"
-      nrccC22Result1_MultipleOrientations:Action = {  CreateChildren( nrccC22Result1_StandardDesign, 1, "StandardDesign", "NRCC_South_nrccC22Result1_StandardDesign" )  }     ; no init needed
+  ; Create NORTH (0) nrccC22Result1_ComplianceMargin object
+   "Create & initialize NORTH nrccC22Result1_ComplianceMargin object"
+      nrccC22Result1_MultipleOrientations:Action = {  CreateChildren( nrccC22Result1_ComplianceMargin, 1, "ComplianceMargin", "NRCC_North_nrccC22Result1_ComplianceMargin" )  } 
+  ; Create EAST (90) nrccC22Result1_ComplianceMargin object
+   "Create & initialize EAST nrccC22Result1_ComplianceMargin object"
+      nrccC22Result1_MultipleOrientations:Action = {  CreateChildren( nrccC22Result1_ComplianceMargin, 1, "ComplianceMargin", "NRCC_East_nrccC22Result1_ComplianceMargin" )  } 
+  ; Create SOUTH (180) nrccC22Result1_StandardDesign object
+   "Create & initialize SOUTH nrccC22Result1_ComplianceMargin object"
+      nrccC22Result1_MultipleOrientations:Action = {  CreateChildren( nrccC22Result1_ComplianceMargin, 1, "ComplianceMargin", "NRCC_South_nrccC22Result1_ComplianceMargin" )  }
+  ; Create WEST (270) nrccC22Result1_StandardDesign object
+   "Create & initialize WEST nrccC22Result1_ComplianceMargin object"
+      nrccC22Result1_MultipleOrientations:Action = {  CreateChildren( nrccC22Result1_ComplianceMargin, 1, "ComplianceMargin", "NRCC_West_nrccC22Result1_ComplianceMargin" )  }
 
-  ; Create & Populate WEST (270) nrccC22Result1_StandardDesign object
-   "Create & initialize new nrccC22Result1_StandardDesign object"
-      nrccC22Result1_MultipleOrientations:Action = {  CreateChildren( nrccC22Result1_StandardDesign, 1, "StandardDesign", "NRCC_West_nrccC22Result1_StandardDesign" )  }     ; no init needed
+  ; Create NORTH (0) nrccC22Result1_ResultsByOrientation object
+   "Create & initialize NORTH nrccC22Result1_ResultsByOrientation object"
+      nrccC22Result1_MultipleOrientations:Action = {  CreateChildren( nrccC22Result1_ResultsByOrientation, 1, "ResultsByOrientation", "NRCC_North_nrccC22Result1_ResultsByOrientation" )  } 
+  ; Create EAST (90) nrccC22Result1_ResultsByOrientation object
+   "Create & initialize EAST nrccC22Result1_ResultsByOrientation object"
+      nrccC22Result1_MultipleOrientations:Action = {  CreateChildren( nrccC22Result1_ResultsByOrientation, 1, "ResultsByOrientation", "NRCC_East_nrccC22Result1_ResultsByOrientation" )  } 
+  ; Create SOUTH (180) nrccC22Result1_StandardDesign object
+   "Create & initialize SOUTH nrccC22Result1_ResultsByOrientation object"
+      nrccC22Result1_MultipleOrientations:Action = {  CreateChildren( nrccC22Result1_ResultsByOrientation, 1, "ResultsByOrientation", "NRCC_South_nrccC22Result1_ResultsByOrientation" )  }
+  ; Create WEST (270) nrccC22Result1_StandardDesign object
+   "Create & initialize WEST nrccC22Result1_ResultsByOrientation object"
+      nrccC22Result1_MultipleOrientations:Action = {  CreateChildren( nrccC22Result1_ResultsByOrientation, 1, "ResultsByOrientation", "NRCC_West_nrccC22Result1_ResultsByOrientation" )  }
 
 
 
@@ -3763,7 +3800,6 @@ RULELIST "NRCC_North_nrccC22Result1_StandardDesign"  1 0 0 1
 
 END
 ;******************************************************************************
-
 ;*********** RJH 8/12/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
 RULELIST "NRCC_East_nrccC22Result1_StandardDesign"  1 0 0 1
   ; Populate nrccC22Result1_StandardDesign object
@@ -3771,7 +3807,6 @@ RULELIST "NRCC_East_nrccC22Result1_StandardDesign"  1 0 0 1
 
 END
 ;******************************************************************************
-
 ;*********** RJH 8/12/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
 RULELIST "NRCC_South_nrccC22Result1_StandardDesign"  1 0 0 1
   ; Populate nrccC22Result1_StandardDesign object
@@ -3779,12 +3814,86 @@ RULELIST "NRCC_South_nrccC22Result1_StandardDesign"  1 0 0 1
 
 END
 ;******************************************************************************
-
 ;*********** RJH 8/12/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
 RULELIST "NRCC_West_nrccC22Result1_StandardDesign"  1 0 0 1
   ; Populate nrccC22Result1_StandardDesign object
    "Set nrccC22Result1_StandardDesign:attrib_StandardAttribute1"  nrccC22Result1_StandardDesign:attrib_StandardAttribute1  = {  "WEST"  }
 
+END
+;******************************************************************************
+
+;*********** RJH 8/14/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
+RULELIST "NRCC_North_nrccC22Result1_ProposedDesign"  1 0 0 1
+  ; Populate nrccC22Result1_ProposedDesign object
+   "Set nrccC22Result1_ProposedDesign:attrib_ProposedAttribute1"  nrccC22Result1_ProposedDesign:attrib_ProposedAttribute1  = {  "NORTH"  }
+END
+;******************************************************************************
+;*********** RJH 8/14/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
+RULELIST "NRCC_East_nrccC22Result1_ProposedDesign"  1 0 0 1
+  ; Populate nrccC22Result1_ProposedDesign object
+   "Set nrccC22Result1_ProposedDesign:attrib_ProposedAttribute1"  nrccC22Result1_ProposedDesign:attrib_ProposedAttribute1  = {  "EAST"  }
+END
+;******************************************************************************
+;*********** RJH 8/14/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
+RULELIST "NRCC_South_nrccC22Result1_ProposedDesign"  1 0 0 1
+  ; Populate nrccC22Result1_ProposedDesign object
+   "Set nrccC22Result1_ProposedDesign:attrib_ProposedAttribute1"  nrccC22Result1_ProposedDesign:attrib_ProposedAttribute1  = {  "SOUTH"  }
+END
+;******************************************************************************
+;*********** RJH 8/14/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
+RULELIST "NRCC_West_nrccC22Result1_ProposedDesign"  1 0 0 1
+  ; Populate nrccC22Result1_ProposedDesign object
+   "Set nrccC22Result1_ProposedDesign:attrib_ProposedAttribute1"  nrccC22Result1_ProposedDesign:attrib_ProposedAttribute1  = {  "WEST"  }
+END
+;******************************************************************************
+
+;*********** RJH 8/14/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
+RULELIST "NRCC_North_nrccC22Result1_ComplianceMargin"  1 0 0 1
+  ; Populate nrccC22Result1_ComplianceMargin object
+   "Set nrccC22Result1_ComplianceMargin:attrib_ComplianceAttribute1"  nrccC22Result1_ComplianceMargin:attrib_ComplianceAttribute1  = {  "NORTH"  }
+END
+;******************************************************************************
+;*********** RJH 8/14/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
+RULELIST "NRCC_East_nrccC22Result1_ComplianceMargin"  1 0 0 1
+  ; Populate nrccC22Result1_ComplianceMargin object
+   "Set nrccC22Result1_ComplianceMargin:attrib_ComplianceAttribute1"  nrccC22Result1_ComplianceMargin:attrib_ComplianceAttribute1  = {  "EAST"  }
+END
+;******************************************************************************
+;*********** RJH 8/14/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
+RULELIST "NRCC_South_nrccC22Result1_ComplianceMargin"  1 0 0 1
+  ; Populate nrccC22Result1_ComplianceMargin object
+   "Set nrccC22Result1_ComplianceMargin:attrib_ComplianceAttribute1"  nrccC22Result1_ComplianceMargin:attrib_ComplianceAttribute1  = {  "SOUTH"  }
+END
+;******************************************************************************
+;*********** RJH 8/14/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
+RULELIST "NRCC_West_nrccC22Result1_ComplianceMargin"  1 0 0 1
+  ; Populate nrccC22Result1_ComplianceMargin object
+   "Set nrccC22Result1_ComplianceMargin:attrib_ComplianceAttribute1"  nrccC22Result1_ComplianceMargin:attrib_ComplianceAttribute1  = {  "WEST"  }
+END
+;******************************************************************************
+
+;*********** RJH 8/14/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
+RULELIST "NRCC_North_nrccC22Result1_ResultsByOrientation"  1 0 0 1
+  ; Populate nrccC22Result1_ResultsByOrientation object
+   "Set nrccC22Result1_ResultsByOrientation:attrib_ResultAttribute1"  nrccC22Result1_ResultsByOrientation:attrib_ResultAttribute1  = {  "NORTH"  }
+END
+;******************************************************************************
+;*********** RJH 8/14/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
+RULELIST "NRCC_East_nrccC22Result1_ResultsByOrientation"  1 0 0 1
+  ; Populate nrccC22Result1_ResultsByOrientation object
+   "Set nrccC22Result1_ResultsByOrientation:attrib_ResultAttribute1"  nrccC22Result1_ResultsByOrientation:attrib_ResultAttribute1  = {  "EAST"  }
+END
+;******************************************************************************
+;*********** RJH 8/14/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
+RULELIST "NRCC_South_nrccC22Result1_ResultsByOrientation"  1 0 0 1
+  ; Populate nrccC22Result1_ResultsByOrientation object
+   "Set nrccC22Result1_ResultsByOrientation:attrib_ResultAttribute1"  nrccC22Result1_ResultsByOrientation:attrib_ResultAttribute1  = {  "SOUTH"  }
+END
+;******************************************************************************
+;*********** RJH 8/14/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
+RULELIST "NRCC_West_nrccC22Result1_ResultsByOrientation"  1 0 0 1
+  ; Populate nrccC22Result1_ResultsByOrientation object
+   "Set nrccC22Result1_ResultsByOrientation:attrib_ResultAttribute1"  nrccC22Result1_ResultsByOrientation:attrib_ResultAttribute1  = {  "WEST"  }
 END
 ;******************************************************************************
 
@@ -3813,6 +3922,84 @@ RULELIST "NRCC_West_nrccC22Result1_StandardDesign_Results"  1 0 0 1
   "Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignEfficiency" nrccC22Result1_StandardDesign:C22Result1_StandardDesignEfficiency = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric1Std[4] )  }
   "Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignTotal"      nrccC22Result1_StandardDesign:C22Result1_StandardDesignTotal      = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric2Std[4] )  }
   "Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignSource"     nrccC22Result1_StandardDesign:C22Result1_StandardDesignSource     = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric3Std[4] )  }
+END
+;******************************************************************************
+
+;*********** RJH 8/14/26 2025-CBECC-Schema Issue 64 - Multi-Orientation Proposed design results *****************************************
+RULELIST "NRCC_North_nrccC22Result1_ProposedDesign_Results"  1 0 0 1
+  "Set nrccC22Result1_ProposedDesign:C22Result1_ProposedDesignEfficiency" nrccC22Result1_ProposedDesign:C22Result1_ProposedDesignEfficiency = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric1Prop[1] )  }
+  "Set nrccC22Result1_ProposedDesign:C22Result1_ProposedDesignTotal"      nrccC22Result1_ProposedDesign:C22Result1_ProposedDesignTotal      = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric2Prop[1] )  }
+  "Set nrccC22Result1_ProposedDesign:C22Result1_ProposedDesignSource"     nrccC22Result1_ProposedDesign:C22Result1_ProposedDesignSource     = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric3Prop[1] )  }
+END
+;******************************************************************************
+RULELIST "NRCC_East_nrccC22Result1_ProposedDesign_Results"  1 0 0 1
+  "Set nrccC22Result1_ProposedDesign:C22Result1_ProposedDesignEfficiency" nrccC22Result1_ProposedDesign:C22Result1_ProposedDesignEfficiency = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric1Prop[2] )  }
+  "Set nrccC22Result1_ProposedDesign:C22Result1_ProposedDesignTotal"      nrccC22Result1_ProposedDesign:C22Result1_ProposedDesignTotal      = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric2Prop[2] )  }
+  "Set nrccC22Result1_ProposedDesign:C22Result1_ProposedDesignSource"     nrccC22Result1_ProposedDesign:C22Result1_ProposedDesignSource     = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric3Prop[2] )  }
+END
+;******************************************************************************
+RULELIST "NRCC_South_nrccC22Result1_ProposedDesign_Results"  1 0 0 1
+  "Set nrccC22Result1_ProposedDesign:C22Result1_ProposedDesignEfficiency" nrccC22Result1_ProposedDesign:C22Result1_ProposedDesignEfficiency = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric1Prop[3] )  }
+  "Set nrccC22Result1_ProposedDesign:C22Result1_ProposedDesignTotal"      nrccC22Result1_ProposedDesign:C22Result1_ProposedDesignTotal      = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric2Prop[3] )  }
+  "Set nrccC22Result1_ProposedDesign:C22Result1_ProposedDesignSource"     nrccC22Result1_ProposedDesign:C22Result1_ProposedDesignSource     = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric3Prop[3] )  }
+END
+;******************************************************************************
+RULELIST "NRCC_West_nrccC22Result1_ProposedDesign_Results"  1 0 0 1
+  "Set nrccC22Result1_ProposedDesign:C22Result1_ProposedDesignEfficiency" nrccC22Result1_ProposedDesign:C22Result1_ProposedDesignEfficiency = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric1Prop[4] )  }
+  "Set nrccC22Result1_ProposedDesign:C22Result1_ProposedDesignTotal"      nrccC22Result1_ProposedDesign:C22Result1_ProposedDesignTotal      = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric2Prop[4] )  }
+  "Set nrccC22Result1_ProposedDesign:C22Result1_ProposedDesignSource"     nrccC22Result1_ProposedDesign:C22Result1_ProposedDesignSource     = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric3Prop[4] )  }
+END
+;******************************************************************************
+
+;*********** RJH 8/14/26 2025-CBECC-Schema Issue 64 - Multi-Orientation Compliance Margin results *****************************************
+RULELIST "NRCC_North_nrccC22Result1_ComplianceMargin_Results"  1 0 0 1
+  "Set nrccC22Result1_ComplianceMargin:C22Result1_ComplianceMarginEfficiency" nrccC22Result1_ComplianceMargin:C22Result1_ComplianceMarginEfficiency = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric1Marg[1] )  }
+  "Set nrccC22Result1_ComplianceMargin:C22Result1_ComplianceMarginTotal"      nrccC22Result1_ComplianceMargin:C22Result1_ComplianceMarginTotal      = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric2Marg[1] )  }
+  "Set nrccC22Result1_ComplianceMargin:C22Result1_ComplianceMarginSource"     nrccC22Result1_ComplianceMargin:C22Result1_ComplianceMarginSource     = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric3Marg[1] )  }
+END
+;******************************************************************************
+RULELIST "NRCC_East_nrccC22Result1_ComplianceMargin_Results"  1 0 0 1
+  "Set nrccC22Result1_ComplianceMargin:C22Result1_ComplianceMarginEfficiency" nrccC22Result1_ComplianceMargin:C22Result1_ComplianceMarginEfficiency = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric1Marg[2] )  }
+  "Set nrccC22Result1_ComplianceMargin:C22Result1_ComplianceMarginTotal"      nrccC22Result1_ComplianceMargin:C22Result1_ComplianceMarginTotal      = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric2Marg[2] )  }
+  "Set nrccC22Result1_ComplianceMargin:C22Result1_ComplianceMarginSource"     nrccC22Result1_ComplianceMargin:C22Result1_ComplianceMarginSource     = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric3Marg[2] )  }
+END
+;******************************************************************************
+RULELIST "NRCC_South_nrccC22Result1_ComplianceMargin_Results"  1 0 0 1
+  "Set nrccC22Result1_ComplianceMargin:C22Result1_ComplianceMarginEfficiency" nrccC22Result1_ComplianceMargin:C22Result1_ComplianceMarginEfficiency = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric1Marg[3] )  }
+  "Set nrccC22Result1_ComplianceMargin:C22Result1_ComplianceMarginTotal"      nrccC22Result1_ComplianceMargin:C22Result1_ComplianceMarginTotal      = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric2Marg[3] )  }
+  "Set nrccC22Result1_ComplianceMargin:C22Result1_ComplianceMarginSource"     nrccC22Result1_ComplianceMargin:C22Result1_ComplianceMarginSource     = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric3Marg[3] )  }
+END
+;******************************************************************************
+RULELIST "NRCC_West_nrccC22Result1_ComplianceMargin_Results"  1 0 0 1
+  "Set nrccC22Result1_ComplianceMargin:C22Result1_ComplianceMarginEfficiency" nrccC22Result1_ComplianceMargin:C22Result1_ComplianceMarginEfficiency = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric1Marg[4] )  }
+  "Set nrccC22Result1_ComplianceMargin:C22Result1_ComplianceMarginTotal"      nrccC22Result1_ComplianceMargin:C22Result1_ComplianceMarginTotal      = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric2Marg[4] )  }
+  "Set nrccC22Result1_ComplianceMargin:C22Result1_ComplianceMarginSource"     nrccC22Result1_ComplianceMargin:C22Result1_ComplianceMarginSource     = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric3Marg[4] )  }
+END
+;******************************************************************************
+
+;*********** RJH 8/14/26 2025-CBECC-Schema Issue 64 - Multi-Orientation Pass Fail results *****************************************
+RULELIST "NRCC_North_nrccC22Result1_ResultsByOrientation_Results"  1 0 0 1
+  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailEfficiency" nrccC22Result1_ResultsByOrientation:C22Result1_PassFailEfficiency = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[1]  }
+  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailTotal"      nrccC22Result1_ResultsByOrientation:C22Result1_PassFailTotal      = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[1]  }
+  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource"     nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource     = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[1]  }
+END
+;******************************************************************************
+RULELIST "NRCC_East_nrccC22Result1_ResultsByOrientation_Results"  1 0 0 1
+  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailEfficiency" nrccC22Result1_ResultsByOrientation:C22Result1_PassFailEfficiency = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[2]  }
+  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailTotal"      nrccC22Result1_ResultsByOrientation:C22Result1_PassFailTotal      = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[2]  }
+  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource"     nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource     = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[2]  }
+END
+;******************************************************************************
+RULELIST "NRCC_South_nrccC22Result1_ResultsByOrientation_Results"  1 0 0 1
+  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailEfficiency" nrccC22Result1_ResultsByOrientation:C22Result1_PassFailEfficiency = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[3]  }
+  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailTotal"      nrccC22Result1_ResultsByOrientation:C22Result1_PassFailTotal      = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[3]  }
+  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource"     nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource     = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[3]  }
+END
+;******************************************************************************
+RULELIST "NRCC_West_nrccC22Result1_ResultsByOrientation_Results"  1 0 0 1
+  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailEfficiency" nrccC22Result1_ResultsByOrientation:C22Result1_PassFailEfficiency = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[4]  }
+  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailTotal"      nrccC22Result1_ResultsByOrientation:C22Result1_PassFailTotal      = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[4]  }
+  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource"     nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource     = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[4]  }
 END
 ;******************************************************************************
 
