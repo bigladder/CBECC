@@ -205,6 +205,43 @@ RULELIST "NRCCPRF_Proposed"  1 0 0 1
    "Create nrccSection_C22Result8 object"
       nrccNRCCPRF:Action    = {  if (Proj:AnalysisVersion >= 220000) then CreateChildren( nrccSection_C22Result8,    1, "NRCC C22Result8" ) else UNDEFINED endif  }
 
+   ; RJH 8/15/26 2025-CBECC-Schema Issue 64 - Create new Single and Multiple Orientation schema sections for >= 250300 and NRCC only
+   "Create nrccSingleOrientationEUI object"   nrccSection_C22Result8:Action =
+      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0) .AND. IfValidAnd(Proj:MultiOrientation == 0)) 
+         then CreateChildren( nrccSingleOrientationEUI, 1, "SingleOrientationEUI" )
+         else UNCHANGED 
+         endif }
+
+   ; RJH 8/15/26 2025-CBECC-Schema Issue 64 - Create Multiple Orientation sections for >= 250300 and NRCC only
+  ; Create NORTH (0) nrccMultipleOrientationEUI object
+   "Create & initialize NORTH nrccMultipleOrientationEUI object"   nrccSection_C22Result8:Action =
+      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0) .AND. IfValidAnd(Proj:MultiOrientation == 1)) 
+         then CreateChildren( nrccMultipleOrientationEUI, 1, "MultipleOrientationEUI", "NRCC_North_nrccMultipleOrientationEUI" )
+         else UNCHANGED 
+         endif }
+  ; Create EAST (90) nrccMultipleOrientationEUI object
+   "Create & initialize EAST nrccMultipleOrientationEUI object"   nrccSection_C22Result8:Action =
+      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0) .AND. IfValidAnd(Proj:MultiOrientation == 1)) 
+         then CreateChildren( nrccMultipleOrientationEUI, 1, "MultipleOrientationEUI", "NRCC_East_nrccMultipleOrientationEUI" )
+         else UNCHANGED 
+         endif }
+  ; Create SOUTH (180) nrccMultipleOrientationEUI object
+   "Create & initialize SOUTH nrccMultipleOrientationEUI object"   nrccSection_C22Result8:Action =
+      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0) .AND. IfValidAnd(Proj:MultiOrientation == 1)) 
+         then CreateChildren( nrccMultipleOrientationEUI, 1, "MultipleOrientationEUI", "NRCC_South_nrccMultipleOrientationEUI" )
+         else UNCHANGED 
+         endif }
+  ; Create WEST (270) nrccMultipleOrientationEUI object
+   "Create & initialize WEST nrccMultipleOrientationEUI object"   nrccSection_C22Result8:Action =
+      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0) .AND. IfValidAnd(Proj:MultiOrientation == 1)) 
+         then CreateChildren( nrccMultipleOrientationEUI, 1, "MultipleOrientationEUI", "NRCC_West_nrccMultipleOrientationEUI" )
+         else UNCHANGED 
+         endif }
+
+
+
+
+
    "Create nrccSection_C22Result9 object"
       nrccNRCCPRF:Action    = {  if (Proj:AnalysisVersion >= 220000) then CreateChildren( nrccSection_C22Result9,    1, "NRCC C22Result9" ) else UNDEFINED endif  }
    "Create nrccSection_C22Result9 nrccTableUMLHC22 object"              nrccSection_C22Result9:Action  =
@@ -4002,6 +4039,187 @@ RULELIST "NRCC_West_nrccC22Result1_ResultsByOrientation_Results"  1 0 0 1
   "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource"     nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource     = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[4]  }
 END
 ;******************************************************************************
+
+
+
+
+;*********** RJH 8/15/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
+RULELIST "NRCC_North_nrccMultipleOrientationEUI"  1 0 0 1
+  ; Initialize nrccMultipleOrientationEUI object
+   "Set nrccMultipleOrientationEUI:attrib_EuiAttribute1"  nrccMultipleOrientationEUI:attrib_EuiAttribute1  = {  "NORTH"  }
+END
+;*********** RJH 8/15/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
+RULELIST "NRCC_East_nrccMultipleOrientationEUI"  1 0 0 1
+  ; Initialize nrccMultipleOrientationEUI object
+   "Set nrccMultipleOrientationEUI:attrib_EuiAttribute1"  nrccMultipleOrientationEUI:attrib_EuiAttribute1  = {  "EAST"  }
+END
+;*********** RJH 8/15/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
+RULELIST "NRCC_South_nrccMultipleOrientationEUI"  1 0 0 1
+  ; Initialize nrccMultipleOrientationEUI object
+   "Set nrccMultipleOrientationEUI:attrib_EuiAttribute1"  nrccMultipleOrientationEUI:attrib_EuiAttribute1  = {  "SOUTH"  }
+END
+;*********** RJH 8/15/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
+RULELIST "NRCC_West_nrccMultipleOrientationEUI"  1 0 0 1
+  ; Initialize nrccMultipleOrientationEUI object
+   "Set nrccMultipleOrientationEUI:attrib_EuiAttribute1"  nrccMultipleOrientationEUI:attrib_EuiAttribute1  = {  "WEST"  }
+END
+
+;*********** RJH 8/16/26 2025-CBECC-Schema Issue 64 - Multi-Orientation results *****************************************
+RULELIST "NRCC_North_nrccMultipleOrientationEUI_Results"  1 0 0 1
+  "Set nrccMultipleOrientationEUI:C22Result8GEui1_StandardDesignGrossEUI" nrccMultipleOrientationEUI:C22Result8GEui1_StandardDesignGrossEUI = {  
+      if (Bldg:TotFlrArea != 0)
+      then atof( Format( "%.2f", (((noXMLoutput_EnergySumStandard_North - noXMLoutput_PV1_EnergySumStandard_North - noXMLoutput_Flex1_EnergySumStandard_North) * 3412) + (noXMLoutput_EnergySumStandardMBtu_North * 1000)) / Bldg:TotFlrArea ) )
+      else 0
+      endif  }
+  "Set nrccMultipleOrientationEUI:C22Result8GEui2_ProposedDesignGrossEUI" nrccMultipleOrientationEUI:C22Result8GEui2_ProposedDesignGrossEUI = {  
+      if (Bldg:TotFlrArea != 0)
+      then atof( Format( "%.2f", (((noXMLoutput_EnergySumProposed_North - noXMLoutput_PV1_EnergySumProposed_North - noXMLoutput_Flex1_EnergySumProposed_North) * 3412) + (noXMLoutput_EnergySumProposedMBtu_North * 1000)) / Bldg:TotFlrArea ) )
+      else 0
+      endif  }
+  "Set nrccMultipleOrientationEUI:C22Result8GEui3_MarginGrossEUI" nrccMultipleOrientationEUI:C22Result8GEui3_MarginGrossEUI = {  
+      C22Result8GEui1_StandardDesignGrossEUI - C22Result8GEui2_ProposedDesignGrossEUI  }
+  "Set nrccMultipleOrientationEUI:C22Result8GEui4_MarginPctGrossEUI" nrccMultipleOrientationEUI:C22Result8GEui4_MarginPctGrossEUI = {  
+      if (C22Result8GEui1_StandardDesignGrossEUI != 0)
+      then atof( Format( "%.2f", ((C22Result8GEui1_StandardDesignGrossEUI - C22Result8GEui2_ProposedDesignGrossEUI) / C22Result8GEui1_StandardDesignGrossEUI) * 100 ) )
+      else 0
+      endif  }
+  "Set nrccMultipleOrientationEUI:C22Result8NEui1_StandardDesignNetEUI" nrccMultipleOrientationEUI:C22Result8NEui1_StandardDesignNetEUI = {  
+      if (Bldg:TotFlrArea != 0)
+      then atof( Format( "%.2f", ((noXMLoutput_EnergySumStandard_North * 3412) + (noXMLoutput_EnergySumStandardMBtu_North * 1000)) / Bldg:TotFlrArea ) )
+      else 0
+      endif  }
+  "Set nrccMultipleOrientationEUI:C22Result8NEui2_ProposedDesignNetEUI" nrccMultipleOrientationEUI:C22Result8NEui2_ProposedDesignNetEUI = {  
+      if (Bldg:TotFlrArea != 0)
+      then atof( Format( "%.2f", ((noXMLoutput_EnergySumProposed_North * 3412) + (noXMLoutput_EnergySumProposedMBtu_North * 1000)) / Bldg:TotFlrArea ) )
+      else 0
+      endif  }
+  "Set nrccMultipleOrientationEUI:C22Result8NEui3_MarginNetEUI" nrccMultipleOrientationEUI:C22Result8NEui3_MarginNetEUI = {  
+      C22Result8NEui1_StandardDesignNetEUI - C22Result8NEui2_ProposedDesignNetEUI  }
+  "Set nrccMultipleOrientationEUI:C22Result8NEui4_MarginPctNetEUI" nrccMultipleOrientationEUI:C22Result8NEui4_MarginPctNetEUI = {  
+      if (C22Result8NEui1_StandardDesignNetEUI != 0)
+      then atof( Format( "%.2f", ((C22Result8NEui1_StandardDesignNetEUI - C22Result8NEui2_ProposedDesignNetEUI) / C22Result8NEui1_StandardDesignNetEUI) * 100 ) )
+      else 0
+      endif  }
+END
+RULELIST "NRCC_East_nrccMultipleOrientationEUI_Results"  1 0 0 1
+  "Set nrccMultipleOrientationEUI:C22Result8GEui1_StandardDesignGrossEUI" nrccMultipleOrientationEUI:C22Result8GEui1_StandardDesignGrossEUI = {  
+      if (Bldg:TotFlrArea != 0)
+      then atof( Format( "%.2f", (((noXMLoutput_EnergySumStandard_East - noXMLoutput_PV1_EnergySumStandard_East - noXMLoutput_Flex1_EnergySumStandard_East) * 3412) + (noXMLoutput_EnergySumStandardMBtu_East * 1000)) / Bldg:TotFlrArea ) )
+      else 0
+      endif  }
+  "Set nrccMultipleOrientationEUI:C22Result8GEui2_ProposedDesignGrossEUI" nrccMultipleOrientationEUI:C22Result8GEui2_ProposedDesignGrossEUI = {  
+      if (Bldg:TotFlrArea != 0)
+      then atof( Format( "%.2f", (((noXMLoutput_EnergySumProposed_East - noXMLoutput_PV1_EnergySumProposed_East - noXMLoutput_Flex1_EnergySumProposed_East) * 3412) + (noXMLoutput_EnergySumProposedMBtu_East * 1000)) / Bldg:TotFlrArea ) )
+      else 0
+      endif  }
+  "Set nrccMultipleOrientationEUI:C22Result8GEui3_MarginGrossEUI" nrccMultipleOrientationEUI:C22Result8GEui3_MarginGrossEUI = {  
+      C22Result8GEui1_StandardDesignGrossEUI - C22Result8GEui2_ProposedDesignGrossEUI  }
+  "Set nrccMultipleOrientationEUI:C22Result8GEui4_MarginPctGrossEUI" nrccMultipleOrientationEUI:C22Result8GEui4_MarginPctGrossEUI = {  
+      if (C22Result8GEui1_StandardDesignGrossEUI != 0)
+      then atof( Format( "%.2f", ((C22Result8GEui1_StandardDesignGrossEUI - C22Result8GEui2_ProposedDesignGrossEUI) / C22Result8GEui1_StandardDesignGrossEUI) * 100 ) )
+      else 0
+      endif  }
+  "Set nrccMultipleOrientationEUI:C22Result8NEui1_StandardDesignNetEUI" nrccMultipleOrientationEUI:C22Result8NEui1_StandardDesignNetEUI = {  
+      if (Bldg:TotFlrArea != 0)
+      then atof( Format( "%.2f", ((noXMLoutput_EnergySumStandard_East * 3412) + (noXMLoutput_EnergySumStandardMBtu_East * 1000)) / Bldg:TotFlrArea ) )
+      else 0
+      endif  }
+  "Set nrccMultipleOrientationEUI:C22Result8NEui2_ProposedDesignNetEUI" nrccMultipleOrientationEUI:C22Result8NEui2_ProposedDesignNetEUI = {  
+      if (Bldg:TotFlrArea != 0)
+      then atof( Format( "%.2f", ((noXMLoutput_EnergySumProposed_East * 3412) + (noXMLoutput_EnergySumProposedMBtu_East * 1000)) / Bldg:TotFlrArea ) )
+      else 0
+      endif  }
+  "Set nrccMultipleOrientationEUI:C22Result8NEui3_MarginNetEUI" nrccMultipleOrientationEUI:C22Result8NEui3_MarginNetEUI = {  
+      C22Result8NEui1_StandardDesignNetEUI - C22Result8NEui2_ProposedDesignNetEUI  }
+  "Set nrccMultipleOrientationEUI:C22Result8NEui4_MarginPctNetEUI" nrccMultipleOrientationEUI:C22Result8NEui4_MarginPctNetEUI = {  
+      if (C22Result8NEui1_StandardDesignNetEUI != 0)
+      then atof( Format( "%.2f", ((C22Result8NEui1_StandardDesignNetEUI - C22Result8NEui2_ProposedDesignNetEUI) / C22Result8NEui1_StandardDesignNetEUI) * 100 ) )
+      else 0
+      endif  }
+END
+RULELIST "NRCC_South_nrccMultipleOrientationEUI_Results"  1 0 0 1
+  "Set nrccMultipleOrientationEUI:C22Result8GEui1_StandardDesignGrossEUI" nrccMultipleOrientationEUI:C22Result8GEui1_StandardDesignGrossEUI = {  
+      if (Bldg:TotFlrArea != 0)
+      then atof( Format( "%.2f", (((noXMLoutput_EnergySumStandard_South - noXMLoutput_PV1_EnergySumStandard_South - noXMLoutput_Flex1_EnergySumStandard_South) * 3412) + (noXMLoutput_EnergySumStandardMBtu_South * 1000)) / Bldg:TotFlrArea ) )
+      else 0
+      endif  }
+  "Set nrccMultipleOrientationEUI:C22Result8GEui2_ProposedDesignGrossEUI" nrccMultipleOrientationEUI:C22Result8GEui2_ProposedDesignGrossEUI = {  
+      if (Bldg:TotFlrArea != 0)
+      then atof( Format( "%.2f", (((noXMLoutput_EnergySumProposed_South - noXMLoutput_PV1_EnergySumProposed_South - noXMLoutput_Flex1_EnergySumProposed_South) * 3412) + (noXMLoutput_EnergySumProposedMBtu_South * 1000)) / Bldg:TotFlrArea ) )
+      else 0
+      endif  }
+  "Set nrccMultipleOrientationEUI:C22Result8GEui3_MarginGrossEUI" nrccMultipleOrientationEUI:C22Result8GEui3_MarginGrossEUI = {  
+      C22Result8GEui1_StandardDesignGrossEUI - C22Result8GEui2_ProposedDesignGrossEUI  }
+  "Set nrccMultipleOrientationEUI:C22Result8GEui4_MarginPctGrossEUI" nrccMultipleOrientationEUI:C22Result8GEui4_MarginPctGrossEUI = {  
+      if (C22Result8GEui1_StandardDesignGrossEUI != 0)
+      then atof( Format( "%.2f", ((C22Result8GEui1_StandardDesignGrossEUI - C22Result8GEui2_ProposedDesignGrossEUI) / C22Result8GEui1_StandardDesignGrossEUI) * 100 ) )
+      else 0
+      endif  }
+  "Set nrccMultipleOrientationEUI:C22Result8NEui1_StandardDesignNetEUI" nrccMultipleOrientationEUI:C22Result8NEui1_StandardDesignNetEUI = {  
+      if (Bldg:TotFlrArea != 0)
+      then atof( Format( "%.2f", ((noXMLoutput_EnergySumStandard_South * 3412) + (noXMLoutput_EnergySumStandardMBtu_South * 1000)) / Bldg:TotFlrArea ) )
+      else 0
+      endif  }
+  "Set nrccMultipleOrientationEUI:C22Result8NEui2_ProposedDesignNetEUI" nrccMultipleOrientationEUI:C22Result8NEui2_ProposedDesignNetEUI = {  
+      if (Bldg:TotFlrArea != 0)
+      then atof( Format( "%.2f", ((noXMLoutput_EnergySumProposed_South * 3412) + (noXMLoutput_EnergySumProposedMBtu_South * 1000)) / Bldg:TotFlrArea ) )
+      else 0
+      endif  }
+  "Set nrccMultipleOrientationEUI:C22Result8NEui3_MarginNetEUI" nrccMultipleOrientationEUI:C22Result8NEui3_MarginNetEUI = {  
+      C22Result8NEui1_StandardDesignNetEUI - C22Result8NEui2_ProposedDesignNetEUI  }
+  "Set nrccMultipleOrientationEUI:C22Result8NEui4_MarginPctNetEUI" nrccMultipleOrientationEUI:C22Result8NEui4_MarginPctNetEUI = {  
+      if (C22Result8NEui1_StandardDesignNetEUI != 0)
+      then atof( Format( "%.2f", ((C22Result8NEui1_StandardDesignNetEUI - C22Result8NEui2_ProposedDesignNetEUI) / C22Result8NEui1_StandardDesignNetEUI) * 100 ) )
+      else 0
+      endif  }
+END
+RULELIST "NRCC_West_nrccMultipleOrientationEUI_Results"  1 0 0 1
+  "Set nrccMultipleOrientationEUI:C22Result8GEui1_StandardDesignGrossEUI" nrccMultipleOrientationEUI:C22Result8GEui1_StandardDesignGrossEUI = {  
+      if (Bldg:TotFlrArea != 0)
+      then atof( Format( "%.2f", (((noXMLoutput_EnergySumStandard_West - noXMLoutput_PV1_EnergySumStandard_West - noXMLoutput_Flex1_EnergySumStandard_West) * 3412) + (noXMLoutput_EnergySumStandardMBtu_West * 1000)) / Bldg:TotFlrArea ) )
+      else 0
+      endif  }
+  "Set nrccMultipleOrientationEUI:C22Result8GEui2_ProposedDesignGrossEUI" nrccMultipleOrientationEUI:C22Result8GEui2_ProposedDesignGrossEUI = {  
+      if (Bldg:TotFlrArea != 0)
+      then atof( Format( "%.2f", (((noXMLoutput_EnergySumProposed_West - noXMLoutput_PV1_EnergySumProposed_West - noXMLoutput_Flex1_EnergySumProposed_West) * 3412) + (noXMLoutput_EnergySumProposedMBtu_West * 1000)) / Bldg:TotFlrArea ) )
+      else 0
+      endif  }
+  "Set nrccMultipleOrientationEUI:C22Result8GEui3_MarginGrossEUI" nrccMultipleOrientationEUI:C22Result8GEui3_MarginGrossEUI = {  
+      C22Result8GEui1_StandardDesignGrossEUI - C22Result8GEui2_ProposedDesignGrossEUI  }
+  "Set nrccMultipleOrientationEUI:C22Result8GEui4_MarginPctGrossEUI" nrccMultipleOrientationEUI:C22Result8GEui4_MarginPctGrossEUI = {  
+      if (C22Result8GEui1_StandardDesignGrossEUI != 0)
+      then atof( Format( "%.2f", ((C22Result8GEui1_StandardDesignGrossEUI - C22Result8GEui2_ProposedDesignGrossEUI) / C22Result8GEui1_StandardDesignGrossEUI) * 100 ) )
+      else 0
+      endif  }
+  "Set nrccMultipleOrientationEUI:C22Result8NEui1_StandardDesignNetEUI" nrccMultipleOrientationEUI:C22Result8NEui1_StandardDesignNetEUI = {  
+      if (Bldg:TotFlrArea != 0)
+      then atof( Format( "%.2f", ((noXMLoutput_EnergySumStandard_West * 3412) + (noXMLoutput_EnergySumStandardMBtu_West * 1000)) / Bldg:TotFlrArea ) )
+      else 0
+      endif  }
+  "Set nrccMultipleOrientationEUI:C22Result8NEui2_ProposedDesignNetEUI" nrccMultipleOrientationEUI:C22Result8NEui2_ProposedDesignNetEUI = {  
+      if (Bldg:TotFlrArea != 0)
+      then atof( Format( "%.2f", ((noXMLoutput_EnergySumProposed_West * 3412) + (noXMLoutput_EnergySumProposedMBtu_West * 1000)) / Bldg:TotFlrArea ) )
+      else 0
+      endif  }
+  "Set nrccMultipleOrientationEUI:C22Result8NEui3_MarginNetEUI" nrccMultipleOrientationEUI:C22Result8NEui3_MarginNetEUI = {  
+      C22Result8NEui1_StandardDesignNetEUI - C22Result8NEui2_ProposedDesignNetEUI  }
+  "Set nrccMultipleOrientationEUI:C22Result8NEui4_MarginPctNetEUI" nrccMultipleOrientationEUI:C22Result8NEui4_MarginPctNetEUI = {  
+      if (C22Result8NEui1_StandardDesignNetEUI != 0)
+      then atof( Format( "%.2f", ((C22Result8NEui1_StandardDesignNetEUI - C22Result8NEui2_ProposedDesignNetEUI) / C22Result8NEui1_StandardDesignNetEUI) * 100 ) )
+      else 0
+      endif  }
+END
+
+
+;*********** 2025-CBECC-Schema Issue 64 - Multi-Orientation EUI results *****************************************
+; Proj:EUseSummaryRef[1] - Worst orientation / Proj:EUseSummaryRef[2] - North / Proj:EUseSummaryRef[3] - East ... 4-South ... 5-West
+;RULELIST "NRCC_North_nrccC22Result8_EUI_Results"  1 0 0 1
+;  "Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignEfficiency" nrccC22Result1_StandardDesign:C22Result1_StandardDesignEfficiency = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric1Std[1] )  }
+;END
+
+
+
+
 
 
 

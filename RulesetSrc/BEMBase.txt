@@ -8626,6 +8626,56 @@
 1,           "C22Result8NEui4_MarginPctNetEUI",           BEMP_Flt,  1,  0,  1,  Pres,  "%",                   0,  0,                             555, "C22Result8NEui4_MarginPctNetEUI",      ""
 ;------------------------------------------------------------------------------------------------
 
+
+; RJH 8/15/26 2025-CBECC-Schema Issue 64 - added new Single Orientation schema section for >= 250300 and NRCC only
+;------------------------------------------------------------------------------------------------
+;                     LName              Template         MD  MR  AC   Parent1             P2  P3  P4  P5  P6  P7  P8  P9  P10 P11 P12 P13 P14 P15 P16 P17 P18 P19 P20  MC  MS  bP  CF  SR  IN     HI 
+;                    ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+0,  "nrccSingleOrientationEUI", "nrccSingleOrientationEUI",   "SingleOrientationEUI <i>",   0,  0,  0, "nrccSection_C22Result8",  "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",  -1,  1,  0,  0,  0,  1,   1000
+;
+;                                                  VType     NV  WA  SP  UL                 UT  NO  OC            CV  CP         HI    LName                  
+;                                                 -------------------------------------------------------------------------------------------
+;1,           "C22Result8GEui",                            BEMP_Str,  1,  0,  1,  Pres,  "",                    0,  0,                             555, "C22Result8GEui",                             ""
+;                        <xsd:documentation source="FieldText">GROSS EUI</xsd:documentation>
+1,           "C22Result8GEui1_StandardDesignGrossEUI",    BEMP_Flt,  1,  0,  1,  Pres,  "kBTU/ft2-yr",         0,  0,                             555, "C22Result8GEui1_StandardDesignGrossEUI",          ""
+1,           "C22Result8GEui2_ProposedDesignGrossEUI",    BEMP_Flt,  1,  0,  1,  Pres,  "kBTU/ft2-yr",         0,  0,                             555, "C22Result8GEui2_ProposedDesignGrossEUI",          ""
+1,           "C22Result8GEui3_MarginGrossEUI",            BEMP_Flt,  1,  0,  1,  Pres,  "kBTU/ft2-yr",         0,  0,                             555, "C22Result8GEui3_MarginGrossEUI",            ""
+1,           "C22Result8GEui4_MarginPctGrossEUI",         BEMP_Flt,  1,  0,  1,  Pres,  "%",                   0,  0,                             555, "C22Result8GEui4_MarginPctGrossEUI",      ""
+
+;1,           "C22Result8NEui",                            BEMP_Str,  1,  0,  1,  Pres,  "",                    0,  0,                             555, "C22Result8NEui",                             ""
+;                        <xsd:documentation source="FieldText">NET EUI</xsd:documentation>
+1,           "C22Result8NEui1_StandardDesignNetEUI",      BEMP_Flt,  1,  0,  1,  Pres,  "kBTU/ft2-yr",         0,  0,                             555, "C22Result8NEui1_StandardDesignNetEUI",          ""
+1,           "C22Result8NEui2_ProposedDesignNetEUI",      BEMP_Flt,  1,  0,  1,  Pres,  "kBTU/ft2-yr",         0,  0,                             555, "C22Result8NEui2_ProposedDesignNetEUI",          ""
+1,           "C22Result8NEui3_MarginNetEUI",              BEMP_Flt,  1,  0,  1,  Pres,  "kBTU/ft2-yr",         0,  0,                             555, "C22Result8NEui3_MarginNetEUI",            ""
+1,           "C22Result8NEui4_MarginPctNetEUI",           BEMP_Flt,  1,  0,  1,  Pres,  "%",                   0,  0,                             555, "C22Result8NEui4_MarginPctNetEUI",      ""
+;------------------------------------------------------------------------------------------------
+
+
+; RJH 8/15/26 2025-CBECC-Schema Issue 64 - added new Multiple Orientation schema sections for >= 250300 and NRCC only
+;------------------------------------------------------------------------------------------------
+;                     LName              Template         MD  MR  AC   Parent1             P2  P3  P4  P5  P6  P7  P8  P9  P10 P11 P12 P13 P14 P15 P16 P17 P18 P19 P20  MC  MS  bP  CF  SR  IN     HI 
+;                    ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+0,  "nrccMultipleOrientationEUI", "nrccMultipleOrientationEUI",   "MultipleOrientationEUI <i>",   4,  0,  0, "nrccSection_C22Result8",  "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",  -1,  1,  0,  0,  0,  1,   1000
+;
+;                                                  VType     NV  WA  SP  UL                 UT  NO  OC            CV  CP         HI    LName                  
+;                                                 -------------------------------------------------------------------------------------------
+1,           "attrib_EuiAttribute1",                      BEMP_Str,  1,  0,  1,  Pres,  "",                    0,  0,                             555, "attrib_EuiAttribute1",  ""
+;1,           "C22Result8GEui",                            BEMP_Str,  1,  0,  1,  Pres,  "",                    0,  0,                             555, "C22Result8GEui",                             ""
+;                        <xsd:documentation source="FieldText">GROSS EUI</xsd:documentation>
+1,           "C22Result8GEui1_StandardDesignGrossEUI",    BEMP_Flt,  1,  0,  1,  Pres,  "kBTU/ft2-yr",         0,  0,                             555, "C22Result8GEui1_StandardDesignGrossEUI",          ""
+1,           "C22Result8GEui2_ProposedDesignGrossEUI",    BEMP_Flt,  1,  0,  1,  Pres,  "kBTU/ft2-yr",         0,  0,                             555, "C22Result8GEui2_ProposedDesignGrossEUI",          ""
+1,           "C22Result8GEui3_MarginGrossEUI",            BEMP_Flt,  1,  0,  1,  Pres,  "kBTU/ft2-yr",         0,  0,                             555, "C22Result8GEui3_MarginGrossEUI",            ""
+1,           "C22Result8GEui4_MarginPctGrossEUI",         BEMP_Flt,  1,  0,  1,  Pres,  "%",                   0,  0,                             555, "C22Result8GEui4_MarginPctGrossEUI",      ""
+
+;1,           "C22Result8NEui",                            BEMP_Str,  1,  0,  1,  Pres,  "",                    0,  0,                             555, "C22Result8NEui",                             ""
+;                        <xsd:documentation source="FieldText">NET EUI</xsd:documentation>
+1,           "C22Result8NEui1_StandardDesignNetEUI",      BEMP_Flt,  1,  0,  1,  Pres,  "kBTU/ft2-yr",         0,  0,                             555, "C22Result8NEui1_StandardDesignNetEUI",          ""
+1,           "C22Result8NEui2_ProposedDesignNetEUI",      BEMP_Flt,  1,  0,  1,  Pres,  "kBTU/ft2-yr",         0,  0,                             555, "C22Result8NEui2_ProposedDesignNetEUI",          ""
+1,           "C22Result8NEui3_MarginNetEUI",              BEMP_Flt,  1,  0,  1,  Pres,  "kBTU/ft2-yr",         0,  0,                             555, "C22Result8NEui3_MarginNetEUI",            ""
+1,           "C22Result8NEui4_MarginPctNetEUI",           BEMP_Flt,  1,  0,  1,  Pres,  "%",                   0,  0,                             555, "C22Result8NEui4_MarginPctNetEUI",      ""
+;------------------------------------------------------------------------------------------------
+
+
 ;------------------------------------------------------------------------------------------------
 ;                        LName                 Template            MD  MR  AC   Parent1        P2  P3  P4  P5  P6  P7  P8  P9  P10 P11 P12 P13 P14 P15 P16 P17 P18 P19 P20  MC  MS  bP  CF  SR  IN     HI 
 ;                       ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
