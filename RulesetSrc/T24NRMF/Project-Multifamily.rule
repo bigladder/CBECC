@@ -43,14 +43,19 @@ RULE Proj:IsSFamResRuleset
 ENDRULE
 
 // SAC 10/19/21 (MFam)
+      ; switched from Default to Prescribed and now set based on FacilityType - SAC 06/15/26 (dev #903)
 RULE Proj:ResDwellUnits
   DESCRIPTION
     "whether this project includes residential dwelling units (other than hotel/motel guest rooms)"
   DEFAULT
-    if (ComponentCount( ResProj  ) > 0)
+    if( FacilityType == "Includes Residential Dwellings &/or Common Areas" )
     then  1
     else  0  endif
 ENDRULE
+  ; before 06/15/26 was:
+  ;  if (ComponentCount( ResProj  ) > 0)
+  ;  then  1
+  ;  else  0  endif
 
 // SAC 10/18/21 (MFam)
 RULE Proj:Action

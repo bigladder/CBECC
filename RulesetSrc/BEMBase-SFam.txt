@@ -286,6 +286,7 @@
 1,           "CommunitySolarProject", BEMP_Sym,  1,  0,  0,  Pres,  "",             0,  0,                           1046, "The Community Solar project this home subscribes to",  "" 
 1,           "InCmntySlrProjTerritory",BEMP_Int, 1,  0,  0,  Pres,  "",             0,  0,                           1046, "Whether this home is within the Community Solar project service territory",  ""  ;  SAC 7/3/20 (CommunitySolar)
 1,           "SMUDSlrSharesReserved", BEMP_Int,  1,  0,  0,   Opt,  "",             0,  0,                           1046, "Whether this home is within SMUD's territory and Neighborhood SolarShares have been reserved",  ""   ; SAC 01/25/25 (com tic #3651)
+1,           "CmntySlrProjReserved",  BEMP_Int,  1,  0,  0,   Opt,  "",             0,  0,                           1046, "Whether this home has been reserved with the selected community solar program",  ""   ; SAC 07/24/26 (com tic #859)
 1,           "CommunitySolarWarnMsg", BEMP_Str,  2,  1,  0,  NInp,  "",             0,  0,                           1046, "Warning re: community solar project availability",  ""  ;  SAC 01/25/25 (tic #3651)  ; SAC 10/22/25 (dev #492)
 1,           "CommunitySolarProjID",  BEMP_Int,  1,  0,  0,  Pres,  "",             0,  0,                           1046, "The ID of the Community Solar project (or 0 if not allowed or specified)",  "" 
 1,           "CommunitySolarSim",     BEMP_Int,  1,  0,  0,  Pres,  "",             0,  0,                           1046, "Flag indicating whether Community Solar is to be simulated (1) or not (0-default)",  ""   ; SAC 7/16/20
@@ -436,6 +437,8 @@
 1,           "BattJA12EquipInfoMsg",  BEMP_Str,  1,  0,  0,  NInp,  "",             0,  0,                           1046, "JA12 certified battery equipment listing info dialog - message",  "" 
 1,           "BattJA12EquipInfoDtl",  BEMP_Str,  1,  0,  0,  NInp,  "",             0,  0,                           1046, "JA12 certified battery equipment listing info dialog - details",  "" 
 1,           "BattJA12EquipInfoIcn",  BEMP_Int,  1,  0,  0,  NInp,  "",             0,  0,                           1046, "JA12 certified battery equipment listing info dialog - icon",  "" 
+1,           "BattCreditOptAvail", BEMP_Int,  1,  0,  0,  NInp,  "",                 0,  0,                          1003, "integer flag indicating which battery credit options are avaialble for selection (peak clg and/or self util)",  ""     ; SAC 08/05/26 (dev #989)
+1,           "BattCreditOption",   BEMP_Sym,  1,  0,  0,   Opt,  "",                 0,  0,                          1003, "Which battery credit option is desired (peak clg and/or self util)",  ""  
 1,           "BattGridHarmCredit", BEMP_Int,  1,  0,  0,  Pres,  "",                 0,  0,                          1003, "Whether or not to take the grid harmonization battery credit",  ""   
 1,           "ApplyBattGridHarmCredit", BEMP_Int, 1, 0, 0,  NInp,  "",               0,  0,                          1003, "flag indicating whether or not to apply the grid harmonization battery credit",  ""      ; SAC 10/10/23
 1,           "AllowDischgStartHr", BEMP_Int,  1,  0,  0,  NInp,  "",                 0,  0,                          3208, "Whether or not to allow user to set hour to start discharging with Time of Use control (PV-tied or standalone battery) or Advanced DR control (standalone battery only).",  "" ; APB 03/30/22 - Enable hour to start charging for TOU or Advanced DR control for standalone battery without PV (tic #1319)
@@ -806,13 +809,13 @@
 1,           "UnitLtgGain",       BEMP_Flt, 16,  1,  0,  Pres,  "kWh/day-DwlgUnt",  0,  0,                           3008, "Lighting energy use per day per dwelling unit",  "" 
 1,           "PeoplePerUnit",     BEMP_Flt, 16,  1,  0,  Pres,  "people/DwlgUnt",   0,  0,                           3008, "Number of occupants per dwelling unit",  "" 
 1,           "UnitPeopleGain",    BEMP_Flt, 16,  1,  0,  Pres,  "Btu/day-DwlgUnt",  0,  0,                           3008, "Internal gain due to occupants per day per dwelling unit",  "" 
-1,           "UnitMscElecGain",   BEMP_Flt, 16,  1,  0,  Pres,  "kWh/day-DwlgUnt",  0,  0,                           3008, "Miscellaneous electric energy use per day per dwelling unit",  "" 
-1,           "UnitDishElecGain",  BEMP_Flt, 16,  1,  0,  Pres,  "kWh/yr",           0,  0,                           3008, "Dish washing electric energy use per year per dwelling unit",  "" 
+; 1,           "UnitMscElecGain",   BEMP_Flt, 16,  1,  0,  Pres,  "kWh/day-DwlgUnt",  0,  0,                           3008, "Miscellaneous electric energy use per day per dwelling unit",  "" 
+; 1,           "UnitDishElecGain",  BEMP_Flt, 16,  1,  0,  Pres,  "kWh/yr",           0,  0,                           3008, "Dish washing electric energy use per year per dwelling unit",  "" 
 ; 1,           "UnitCookElecGain",  BEMP_Flt, 16,  1,  0,  Pres,  "Btu/day-DwlgUnt",  0,  0,                           3008, "Cooking electric energy use per day per dwelling unit",  "" 
 ; 1,           "UnitCookGasGain",   BEMP_Flt, 16,  1,  0,  Pres,  "Btu/day-DwlgUnt",  0,  0,                           3008, "Cooking gas energy use per day per dwelling unit",  "" 
 ; 1,           "UnitClthWashGain",  BEMP_Flt, 16,  1,  0,  Pres,  "kWh/day-DwlgUnt",  0,  0,                           3008, "Clothes washer electric energy use per day per dwelling unit",  "" 
 ; 1,           "UnitClthDryGain",   BEMP_Flt, 16,  1,  0,  Pres,  "Btu/day-DwlgUnt",  0,  0,                           3008, "Clothes dryer energy use per day per dwelling unit",  "" 
-1,           "OtherZnOccFrac",    BEMP_Flt,  1,  0,  0,  Pres,  "frac",             0,  0,                           3008, "The expected fraction of the exiting people in OtherZones, based on SpaceFunction, which will determine the design occupancy.",  ""  ; SAC 10/7/19 - MFamProto
+; 1,           "OtherZnOccFrac",    BEMP_Flt,  1,  0,  0,  Pres,  "frac",             0,  0,                           3008, "The expected fraction of the exiting people in OtherZones, based on SpaceFunction, which will determine the design occupancy.",  ""  ; SAC 10/7/19 - MFamProto
 
 1,           "DefaultIAQFanPwr",  BEMP_Flt,  1,  0,  0,  Pres,  "W/CFM",            0,  0,                           8005, "default IAQ fan power",  ""  ; SAC 2/25/20 - revised default IAQ fan power from 0.25 to 0.3 for SFam and 0.6 for MFam in 2019.2.0+ (tic #1174)
 1,           "UseMaxIAQFanPwr",   BEMP_Flt,  1,  0,  0,  Pres,  "W/CFM",            0,  0,                           8005, "max IAQ fan power active at a certain point in rule processing",  ""  ; SAC 08/28/20
@@ -1664,7 +1667,7 @@
 1,           "StdPropOrientPeakCoolElecLimit", BEMP_Flt,  1,  0,  0,  Pres,  "kWh", 0,  0,             39110, "Standard run Proposed-Orientation Peak Cooling Electric Energy Limit (for compliance)",  "" 
 1,           "PropOrientPeakCoolElecMargin",   BEMP_Flt,  1,  0,  0,  Pres,  "kWh", 0,  0,             39110, "Proposed-Orientation Peak Cooling Electric Energy Compliance Margin",  "" 
 1,           "PeakCoolElecLabels",   BEMP_Str,  4,  1,  0,  Pres,  "",              0,  0,             39110, "Peak Cooling Electric Energy Compliance Labels (Prop, Std, Marg, Pass/Fail)",  "" 
-1,           "PeakCoolElecFtnote",   BEMP_Str,  1,  0,  0,  Pres,  "",              0,  0,             39110, "Peak Cooling Electric Energy Compliance Labels (footnote)",  ""      ; SAC 05/13/26 (dev #757)
+1,           "PeakCoolElecFtnote",   BEMP_Str,  2,  1,  0,  Pres,  "",              0,  0,             39110, "Peak Cooling Electric Energy Compliance Labels (footnote)",  ""      ; SAC 05/13/26 (dev #757)
 
 1,           "PropMixedFuelkWh",  BEMP_Flt,  1,  0,  0,  Pres,  "kWh",              0,  0,                      7010, "retained for backward compatibility - Electric kWh use of proposed mixed fuel simulation (2019 and later codes)",  ""  ; SAC 4/6/17
 1,           "PropMixedFuelPV",   BEMP_Flt,  1,  0,  0,  Pres,  "kWh",              0,  0,                      7010, "retained for backward compatibility - PV electric generation (kWh) from the proposed mixed fuel simulation (2019 and later codes)",  ""  ; SAC 4/6/17
@@ -1702,6 +1705,10 @@
 1,           "PFlxTDV",           BEMP_Flt,  2,  1,  0,  Pres,  "kTDV/ft2-yr",      0,  0,                      39110, "Delta Proposed/Proposed Flexibility run TDV (reduced by PropFlexFrac) [1-rounded for reporting, 2-raw result]",  "" 
 1,           "PFlxSrc",           BEMP_Flt,  2,  1,  0,  Pres,  "kBtu/ft2-yr",      0,  0,                      39110, "Delta Proposed/Proposed Flexibility run source energy (reduced by PropFlexFrac) [1-rounded for reporting, 2-raw result]",  ""   ; SAC 11/27/23
 1,           "PFlxElecDemand",    BEMP_Flt,  2,  1,  0,  Pres,  "kW",               0,  0,                      39110, "Delta Proposed/Proposed Flexibility run Electric demand (reduced by PropFlexFrac) [1-rounded for reporting, 2-raw result]",  ""     ; SAC 2/5/19 (tic #1053) 
+
+         ; community solar results - SAC 07/27/26 (dev #859)
+1,           "CmntySlrStdEnergy", BEMP_Flt,  1,  0,  0,  Pres,  "",                 0,  0,                       1046, "Standard design electric energy generation requiring community solar offset",  "" 
+1,           "CmntySlrProjVal",   BEMP_Flt,  1,  0,  0,  Pres,  "",                 0,  0,                       1046, "Community Solar project allocation value (unknown/varying units)",  "" 
 
          ; SAC 12/01/20 - add in PV export results (primarily for 2022 research)
 1,           "PropPV_Total",      BEMP_Flt,  1,  0,  0,  Pres,  "kWh",              0,  0,                      39110, "Proposed design total PV generated",  "" 
@@ -1972,6 +1979,7 @@
 1,           "runSerial",         BEMP_Int,  1,  0,  1,  Pres,  "",                 0,  0,              1801, "serial # for the simulation. Increments on each run in a session; appears in report footers",  ""     
 1,           "wfName",            BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,              1801, "wfName",  ""     
 1,           "tdvfName",          BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,              1801, "tdvfName",  ""     ; SAC 3/10/17
+1,           "ucFileName",        BEMP_Sym,  1,  0,  1,  Pres,  "",                 0,  0,              1801, "ucFileName",  ""        ; SAC 08/03/26 (dev #607)       
 1,           "begDay",            BEMP_Int,  1,  0,  1,  Pres,  "",                 0,  0,              1801, "begDay",  ""     
 1,           "endDay",            BEMP_Int,  1,  0,  1,  Pres,  "",                 0,  0,              1801, "endDay",  ""     
 1,           "ebTolHour",         BEMP_Flt,  1,  0,  1,  Pres,  "",                 0,  0,              1801, "ebTolHour",  ""  

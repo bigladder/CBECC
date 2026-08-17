@@ -3394,6 +3394,14 @@ RULELIST "SetIndirectOutsideConnection"  1 0 0 0
 END
 ;*************************************************************************
 
+;*************************************************************************  SAC 06/10/22   ; moved from Multifam-BackwardCompatRuleLists.rule to here - SAC 06/15/26 (dev #903)  ; SAC 08/12/26 (dev #1039)
+RULELIST "ModelErrorCheck_SpcFunc_HighRiseRes"  1 0 0 0
+   "Post error for Spc w/ invalid highrise res SpcFunc"    Spc:Action =
+      {  if( EnumString( SpcFunc ) == "High-Rise Residential Living Spaces" )
+         then  PostError( "Space '%s' space function (SpcFunc): 'High-Rise Residential Living Spaces' is no longer supported. %cResidential dwellings now must be defined via DwellUnitType and residential zones (ResZn). Search for 'Creating a Dwelling Unit Type' in CBECC user manual.", Name, 13 )
+         else  UNCHANGED  endif  }
+END
+;*************************************************************************
 
 
 
