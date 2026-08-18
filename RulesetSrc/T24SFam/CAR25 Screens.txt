@@ -677,7 +677,7 @@ MAINSCREEN,  3
     ; removed Self Utilization Credit from 2025 UI (unless in research mode) - SAC 03/27/25 (2025)
     ; CTRL, "BattGridHarmCredit",  2215, TDCT_Check,  140, 135,  22, 210,     0, FNT_STD, "Take the Self Utilization Credit", TA_LEFT,  0, 4,    0, TA_LEFT, 0, 0,  None,       SimulateBattery > 0 And SimStandaloneBatt < 1 And EnableResearchMode > 0,     0,  0,  "whether or not to take the Self Utilization battery credit"   ; SAC 12/30/17
     ; replaced BattGridHarmCredit checkbox w/ BattCreditOption selection for 2025+ - SAC 08/05/26 (dev #989)
-	 CTRL, "BattCreditOption",    2215, TDCT_Combo,  170, 135, 200, 130,    25, FNT_STD, "Apply Battery Credit To:",     TA_LEFT,  -150, 4,     0, TA_LEFT, 0, 0,  None,       SimulateBattery > 0,   -80,  0,  "whether to apply battery credit to Peak Cooling or Self-Utilization (or n/a)"
+	 CTRL, "BattCreditOption",    2215, TDCT_Combo,  170, 135, 200, 130,    25, FNT_STD, "Apply Battery Credit To:",     TA_LEFT,  -150, 4,     0, TA_LEFT, 0, 0,  None,       SimulateBattery > 0,  -155,  0,  "whether to apply battery credit to Peak Cooling or Self-Utilization (or n/a)"
 
 	 CTRL, "BatteryControl",      2202, TDCT_Combo,  140, 205, 200, 160,    25, FNT_STD, "Control:",                     TA_RIGHT,   -5, 4,     0, TA_LEFT, 0, 0,  None,       SimulateBattery > 0,   -80,  0,  "Algorithm used to determine how/when the battery is charged and discharged"
 ;	 CTRL, "",                     101, TDCT_Label,   82, 185,  17,   0,    -1, FNT_STD, "TOU and Advanced DR controls are not available for this research version.",  TA_LEFT,   0, 0,     0, TA_LEFT, 0, 0,  None,    SimulateBattery > 0 And EnergyCodeYearNum >= 2025 And EnableResearchMode = 0,     0,  0,  ""     ; SAC 08/02/23 (2025)

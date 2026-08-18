@@ -71,6 +71,18 @@ RULELIST "LoadModelAdjustments" 1 0 0 0
       then  EvalRulelist( "Blast_ResProj_IntSurfModelMthd" )
       else  UNCHANGED  endif endif  }
 
+  ; 08-05-2026 (GH #991) - retire FID (fault indicator) ACCharge selection
+  "Check for FID no longer a valid ResClgSys:ACCharge selection"   ResClgSys:Action =
+     { if( LocalStatus( ACCharge ) < 1 ) then  UNCHANGED
+       else if( EnumValue( ACCharge ) == 3 )
+       then  EvalRulelist( "ForceUpdate_ResClgSys_ACCharge_NotVerified", 1 )
+       else  UNCHANGED  endif endif  }
+  "Check for FID no longer a valid ResHtPumpSys:ACCharge selection"   ResHtPumpSys:Action =
+     { if( LocalStatus( ACCharge ) < 1 ) then  UNCHANGED
+       else if( EnumValue( ACCharge ) == 3 )
+       then  EvalRulelist( "ForceUpdate_ResHtPumpSys_ACCharge_NotVerified", 1 )
+       else  UNCHANGED  endif endif  }
+
 ; RES DHW REMOVAL
 ;   ; SAC 8/15/17 - rule to transfer user-defined AirSrcHtPumpType -> new HPWHBrand & HPWHModel properties (tic #829)
 ;   "Backward compat for AirSrcHtPumpType"   ResWtrHtr:Action  = {
@@ -777,6 +789,24 @@ RULELIST "Blast_ResProj_IntSurfModelMthd"  1 0 0 1
   "Post message to log that IntSurfModelMthd being reset"  ResProj:Action  = 
       { PostMessageToLog( "Interior Surface Modeling Method (IntSurfModelMthd) input is not approved for compliance analysis and being reset." ) }
   "blast ResProj:IntSurfModelMthd"    ResProj:IntSurfModelMthd = {  0  } 
+END
+;*************************************************************************
+
+;************************************************************************* 08-05-2026 (GH #991)
+RULELIST "ForceUpdate_ResClgSys_ACCharge_NotVerified" 1 0 1 1
+   "post warning that FID is no longer valid"   ResClgSys:Action =
+      {  PostWarning( "Cooling system '%s': the 'FID (fault indicator)' AC Charge selection is no
+                       longer allowed and has been reset to 'Not Verified'.", Name )  }
+   "force ACCharge to Not Verified"   ResClgSys:ACCharge = {  "Not Verified"  }
+END
+;*************************************************************************
+
+;************************************************************************* 08-05-2026 (GH #991)
+RULELIST "ForceUpdate_ResHtPumpSys_ACCharge_NotVerified" 1 0 1 1
+   "post warning that FID is no longer valid"   ResHtPumpSys:Action =
+      {  PostWarning( "Heat pump system '%s': the 'FID (fault indicator)' AC Charge selection is no
+                       longer allowed and has been reset to 'Not Verified'.", Name )  }
+   "force ACCharge to Not Verified"   ResHtPumpSys:ACCharge = {  "Not Verified"  }
 END
 ;*************************************************************************
 
