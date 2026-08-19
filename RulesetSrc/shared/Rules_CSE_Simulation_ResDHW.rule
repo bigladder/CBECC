@@ -2937,11 +2937,15 @@ RULELIST "CSE_SimulationPrep_DHWLoop" 1 0 0 1
                        ValidOr( SourceDHWSys:NumAssignedCommonDUEquiv, 0 ))
          else  6  endif endif  }
    ; DVK 7/31/26 - CBECC-Dev Issue #944 - wlFUA now varies by Std/Proposed + VerifiedPipeInsulation per 2025 ACM
+   ; DVK 8/19/26 - CEC scope: central DHW serving dwelling units and/or hotel/motel guestrooms (NumAssignedDUFracs);
+   ;               not systems serving only multifamily common areas. Out-of-scope Proposed stays 2.0.
    "Set cseDHWLOOP:wlFUA"      cseDHWLOOP:wlFUA     = {
          if (ResProj:RunAbbrev == "s" .OR. ResProj:RunAbbrev == "zb" .OR. ResProj:RunAbbrev == "smf" .OR. ResProj:RunAbbrev == "dr")
          then  2.0
-         else if (IfValidAnd( SourceDHWSys:VerifiedPipeInsulation > 0.5 )) then  2.0
-         else  2.4  endif endif  }
+         else if (IfValidAnd( SourceDHWSys:CentralRecircType > 0.5 ) .AND. IfValidAnd( SourceDHWSys:NumAssignedDUFracs > 0.5 ))
+              then  if (IfValidAnd( SourceDHWSys:VerifiedPipeInsulation > 0.5 )) then  2.0
+                    else  2.4  endif
+         else  2.0  endif endif  }
 
    ; based on Res ACM table B-3
    "Set cseDHWLOOP:wlTIn1"     cseDHWLOOP:wlTIn1    = {
