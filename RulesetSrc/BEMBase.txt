@@ -191,6 +191,13 @@
 1,           "ClgUnmetLdHrTol",                   BEMP_Flt,  1,  0,  1,  NInp,  "°F",               0,  0,                           3008, "CoolingUnmetLoadHourTolerance",  "" 
 1,           "HtgUnmetLdHrTol",                   BEMP_Flt,  1,  0,  1,  NInp,  "°F",               0,  0,                           3008, "HeatingUnmetLoadHourTolerance",  ""          
 
+1,           "NumZnsExceedClgUnmetLdHrs",         BEMP_Int, 10,  1,  0,   NInp, "hrs",              0,  0,                           3008, "NumberZonesExceedCoolingUnmetLoadHours",  ""     ; RULE NEW to BEMBase to expand to arrays - SAC 08/18/26 (dev #903)                    
+1,           "NumZnsExceedHtgUnmetLdHrs",         BEMP_Int, 10,  1,  0,   NInp, "hrs",              0,  0,                           3008, "NumberZonesExceedHeatingUnmetLoadHours",  ""                          
+1,           "MaxZnClgUnmetLdHrs",                BEMP_Flt, 10,  1,  0,   NInp, "hrs",              0,  0,                           3008, "MaximumZoneCoolingUnmetLoadHours",  ""                          
+1,           "MaxZnHtgUnmetLdHrs",                BEMP_Flt, 10,  1,  0,   NInp, "hrs",              0,  0,                           3008, "MaximumZoneHeatingUnmetLoadHours",  ""                          
+1,           "MaxZnClgUnmetLdHrsName",            BEMP_Str, 10,  1,  0,   NInp, "hrs",              0,  0,                           3008, "MaximumZoneCoolingUnmetLoadHoursName",  ""                          
+1,           "MaxZnHtgUnmetLdHrsName",            BEMP_Str, 10,  1,  0,   NInp, "hrs",              0,  0,                           3008, "MaximumZoneHeatingUnmetLoadHoursName",  ""                          
+
 ;1,           "ZipCode",                           BEMP_Int,  1,  0,  0,   Req,  "",                 0,  0,                           1001, "ZipCode",  ""   - MOVED TO BELOW - 360LDH
 1,           "CliZnCounty",                       BEMP_Sym,  1,  0,  0,   Req,  "",                 0,  0,                           1001, "ClimateZoneCounty",  "" 
 ;1,           "CliZnCity",                         BEMP_Sym,  1,  0,  0,   Req,  "",                 0,  0,                           1001, "ClimateZoneCity",  "" 
@@ -4321,8 +4328,8 @@
 
 1,           "ClgDsgnLd",                 BEMP_Flt,  1,  0,  0,  NInp,  "Btu/h",           0,  0,                              3008, "CoolingDesignLoad",  "" 
 1,           "HtgDsgnLd",                 BEMP_Flt,  1,  0,  0,  NInp,  "Btu/h",           0,  0,                              3008, "HeatingDesignLoad",  ""                              
-1,           "ClgUnmetLdHrs",             BEMP_Flt,  1,  0,  0,  NInp,  "hrs",             0,  0,                              3008, "CoolingUnmetLoadHours",  ""                          
-1,           "HtgUnmetLdHrs",             BEMP_Flt,  1,  0,  0,  NInp,  "hrs",             0,  0,                              3008, "HeatingUnmetLoadHours",  ""           
+1,           "ClgUnmetLdHrs",             BEMP_Flt, 10,  1,  0,  NInp,  "hrs",             0,  0,                              3008, "CoolingUnmetLoadHours",  ""    ; expand from single value to array of 10 to handle values by orientation - SAC 08/18/26 (dev #903)
+1,           "HtgUnmetLdHrs",             BEMP_Flt, 10,  1,  0,  NInp,  "hrs",             0,  0,                              3008, "HeatingUnmetLoadHours",  ""  
 
 1,           "OperableWinHaveInterlock",  BEMP_Int,  1,  1,  0,  CReq,  "",                0,  0,                              3008, "OperableWindowsHaveInterlock",    "" 
 1,           "OperableWinInterlock",      BEMP_Int,  1,  1,  1,  CReq,  "",                0,  0,                              3008, "OperableWindowInterlock",    "" 
