@@ -2939,10 +2939,12 @@ RULELIST "CSE_SimulationPrep_DHWLoop" 1 0 0 1
    ; DVK 7/31/26 - CBECC-Dev Issue #944 - wlFUA now varies by Std/Proposed + VerifiedPipeInsulation per 2025 ACM
    ; DVK 8/19/26 - CEC scope: central DHW serving dwelling units and/or hotel/motel guestrooms (NumAssignedDUFracs);
    ;               not systems serving only multifamily common areas. Out-of-scope Proposed stays 2.0.
+   ; added check for Proj:CompOptNew > 0 - SAC 08/19/26 (dev #944)
    "Set cseDHWLOOP:wlFUA"      cseDHWLOOP:wlFUA     = {
          if (ResProj:RunAbbrev == "s" .OR. ResProj:RunAbbrev == "zb" .OR. ResProj:RunAbbrev == "smf" .OR. ResProj:RunAbbrev == "dr")
          then  2.0
-         else if (IfValidAnd( SourceDHWSys:CentralRecircType > 0.5 ) .AND. IfValidAnd( SourceDHWSys:NumAssignedDUFracs > 0.5 ))
+         else if (IfValidAnd( SourceDHWSys:CentralRecircType > 0.5 ) .AND. IfValidAnd( SourceDHWSys:NumAssignedDUFracs > 0.5 ) .AND.
+                  IfValidAnd( Proj:CompOptNew > 0 ))
               then  if (IfValidAnd( SourceDHWSys:VerifiedPipeInsulation > 0.5 )) then  2.0
                     else  2.4  endif
          else  2.0  endif endif  }
