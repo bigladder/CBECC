@@ -1260,7 +1260,11 @@ RULELIST  "Reporting_HERS_SpecialFeaturesSummary" 1 0 0 0
            IfValidAnd( PipeSizingPerCPCAppM > 0 ) ) then 1 else 0 endif }
 	"Check for PipeSizingPerCPCAppMSpeclFtr" 			ResProj:SpeclFeatrs:PipeSizingPerCPCAppMSpeclFtr = {  MaxAll( ResDHWSys:PipeSizingPerCPCAppMSpeclFtr )  }
 
-	"Set ResDHWSys:MasterMixingValveSpeclFtr flag"		ResDHWSys:MasterMixingValveSpeclFtr = { if ( CentralRecircType > 0 .AND. IfValidAnd( FloorAreaServed[1] > 0 ) .AND. IfValidAnd( MasterMixingValve > 0 ) ) then 1 else 0 endif }
+  ; added check for Proj:CompOptNew > 0 & NumAssignedDUFracs > 0.5 - SAC 08/19/26 (dev #942)
+	"Set ResDHWSys:MasterMixingValveSpeclFtr flag"		ResDHWSys:MasterMixingValveSpeclFtr =
+    { if ( CentralRecircType > 0 .AND. IfValidAnd( FloorAreaServed[1] > 0 ) .AND.
+           IfValidAnd( Proj:CompOptNew > 0 ) .AND. IfValidAnd( NumAssignedDUFracs > 0.5 ) .AND.
+           IfValidAnd( MasterMixingValve > 0 ) ) then 1 else 0 endif }
 	"Check for MasterMixingValveSpeclFtr" 				ResProj:SpeclFeatrs:MasterMixingValveSpeclFtr = {  MaxAll( ResDHWSys:MasterMixingValveSpeclFtr )  }
 
 

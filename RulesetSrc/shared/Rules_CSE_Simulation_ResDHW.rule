@@ -843,15 +843,7 @@ RULELIST "CSE_SimulationPrep_DHW_part2" 1 0 0 1
 														;					else	1.004 + (0.000202 * min( CFAk, 2500 )) -
 														;									  (0.0000000231 * min( CFAk, 2500 ) * min( CFAk, 2500 ))    endif  }
 ;										ResDHWSys:cseDHWSYSRef:wsSDLM		= {	1.1829  }  ; DEBUGGING  1.004 + (0.000202 * cseDHWSYSRef:CFAk) - (0.0000000231 * cseDHWSYSRef:CFAk * cseDHWSYSRef:CFAk)  }
-
-
-
-; 1,           "wsFAdjElec_x",      BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                          3208, "",  ""  ; SAC 07/31/26 (dev #942)
-; 1,           "wsFAdjFuel_x",      BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                          3208, "",  "" 
-
-
-
-
+                                                            
 	"Set cseDHWSYS:HrlyStdEndUse"		cseDHWSYS:HrlyStdEndUse		= {	if (LocalCompAssigned( SourceDHWSys ) > 0.5)
 																							then	8.345 * HWUse * SourceDHWSys:HWDeltaTemp / 24
 																							else	0  endif  }
@@ -2967,14 +2959,18 @@ RULELIST "CSE_SimulationPrep_DHWLoop" 1 0 0 1
    ; DVK 8/19/26 - CEC scope: central DHW serving dwelling units and/or hotel/motel guestrooms (NumAssignedDUFracs);
    ;               not systems serving only multifamily common areas. Out-of-scope Proposed stays 2.0.
    ; added check for Proj:CompOptNew > 0 - SAC 08/19/26 (dev #944)
+   ; altered logic to assume Verified for Std design and not verified for cases where we are not allowing access to this input - SAC 08/20/26 (dev #944)
    "Set cseDHWLOOP:wlFUA"      cseDHWLOOP:wlFUA     = {
-         if (ResProj:RunAbbrev == "s" .OR. ResProj:RunAbbrev == "zb" .OR. ResProj:RunAbbrev == "smf" .OR. ResProj:RunAbbrev == "dr")
-         then  2.0
+         if( IfValidAnd( Proj:SimulateStdDHW > 0.5 ) .AND. IfValidAnd( SourceDHWSys:IsExisting > 0.5 )==0 .AND.
+             IfValidAnd( SourceDHWSys:NumAssignedDUFracs > 0.5 ) .AND. IfValidAnd( SourceDHWSys:CentralRecircType > 0.5 ) .AND.
+             (ResProj:RunAbbrev == "s" .OR. ResProj:RunAbbrev == "zb" .OR. ResProj:RunAbbrev == "smf" .OR. ResProj:RunAbbrev == "dr") )
+         then  2.0   ; verified pipe insulation
          else if (IfValidAnd( SourceDHWSys:CentralRecircType > 0.5 ) .AND. IfValidAnd( SourceDHWSys:NumAssignedDUFracs > 0.5 ) .AND.
                   IfValidAnd( Proj:CompOptNew > 0 ))
               then  if (IfValidAnd( SourceDHWSys:VerifiedPipeInsulation > 0.5 )) then  2.0
                     else  2.4  endif
-         else  2.0  endif endif  }
+         else  2.4   ; pipe insul not verified
+         endif endif  }
 
    ; based on Res ACM table B-3
    "Set cseDHWLOOP:wlTIn1"     cseDHWLOOP:wlTIn1    = {
