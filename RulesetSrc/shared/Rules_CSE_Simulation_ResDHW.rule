@@ -2960,7 +2960,7 @@ RULELIST "CSE_SimulationPrep_DHWLoop" 1 0 0 1
    ;               not systems serving only multifamily common areas. Out-of-scope runs stay 2.0.
    ; added check for Proj:CompOptNew > 0 - SAC 08/19/26 (dev #944)
    ; Std design in-scope assumed Verified (2.0). Hidden/out-of-scope cases also stay Verified (2.0) per
-   ; CEC 8/19–8/21: only Proposed serving DUs/guestrooms with VerifiedPipeInsulation unchecked is 2.4. - DVK 8/21/26
+   ; CEC 8/19-8/21: only Proposed serving DUs/guestrooms with VerifiedPipeInsulation unchecked is 2.4. - DVK 8/21/26
    "Set cseDHWLOOP:wlFUA"      cseDHWLOOP:wlFUA     = {
          if( IfValidAnd( Proj:SimulateStdDHW > 0.5 ) .AND. IfValidAnd( SourceDHWSys:IsExisting > 0.5 )==0 .AND.
              IfValidAnd( SourceDHWSys:NumAssignedDUFracs > 0.5 ) .AND. IfValidAnd( SourceDHWSys:CentralRecircType > 0.5 ) .AND.
