@@ -3075,15 +3075,15 @@ RULELIST "CSE_SimulationPrep_DHWLoopSeg" 1 0 0 1
          then   (SourceDHWSys:NumDUsServed + SourceDHWSys:NumResOtherZnsServed) / wlMult
          else   (SourceDHWSys:NumDUsServed + SourceDHWSys:NumResOtherZnsServed) / wlMult / 2
          endif endif endif  }
-   "Set cseDHWLOOPSEG:wgSize"
+  ; removed logic setting Return seg diam to 1.0 when ResProj:NumStories > 4 for consistency w/ current RACM Appendix B - SAC 08/21/26 (dev #943)
+  ;             if (IfValidAnd( ResProj:NumStories > 4 ))
+  ;             then   1.0
+  "Set cseDHWLOOPSEG:wgSize"
       cseDHWLOOPSEG:wgSize = {
          if (IfValidAnd( SourceDHWSys:MFamDistType < 1 )) then  2.0
          else if (IfValidAnd( SegmentIndex > 3 ))
          then   ; RETURN pipe segments
-               if (IfValidAnd( ResProj:NumStories > 4 ))
-               then   1.0
-               else   0.75
-               endif
+               0.75
          else   ; SUPPLY pipe segments
                if (IfValidAnd( NUnitThisSeg > 0 ))
                then   T24RDHW_LoopPipeSize:PipeDiam( "CodeBase", Proj:StdDesignBase, "CPC_AppM", ValidOr( SourceDHWSys:PipeSizingPerCPCAppM, 0 ),
