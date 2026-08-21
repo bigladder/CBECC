@@ -72,6 +72,16 @@ RULELIST "NRCCPRF_Proposed"  1 0 0 1
       nrccNRCCPRF:Action    = {  CreateChildren( nrccSection_Info,    1, "NRCC Info" )  }
 ;      nrccNRCCPRF:Action    = {  CreateChildren( nrccSection_Info,    1, "NRCC SecA", "NRCCPRF_Auto_nrccSection_Info" )  }
 
+; Create sub-element Info10_BuildingType for 250300 and NOT-MFam projects - RJH 8/20/26 2025-CBECC-Schema Issue 64
+   "Create nrccInfo10_BuildingType object"
+      nrccSection_Info:Action = {   if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0))
+                                    then CreateChildren( nrccInfo10_BuildingType,    1, "NRCC Info BldgType" ) 
+                                    else UNCHANGED
+                                    endif }
+
+    
+
+
    "Create nrccSection_Proj object"   ; RJH 7/19/26 2025-CBECC-Schema Issue 65
       nrccNRCCPRF:Action    = {  if (Proj:AnalysisVersion < 250300) then CreateChildren( nrccSection_Proj,    1, "NRCC Proj" ) else UNDEFINED endif  }
 

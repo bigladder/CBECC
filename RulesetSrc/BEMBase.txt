@@ -7656,18 +7656,42 @@
 1,           "Info09_Azimuth",                          BEMP_Flt,  1,  0,  1,  Pres,  "",       0,  0,                             555, "Info09_Azimuth",                          "map from: Proj:Bldg:BldgAz"
 1,           "Info10_TopLevelOccupancy",                BEMP_Str,  1,  0,  0,  Pres,  "",       0,  0,                             555, "Info10_TopLevelOccupancy",                "map from: Bldg:BldgType"
 1,           "Info11_WeatherFile",                      BEMP_Str,  1,  0,  0,  Pres,  "",       0,  0,                             555, "Info11_WeatherFile",                      "map from: Proj:AnnualWeatherFileNoPath"
+1,           "afterchildren_Info11_WeatherFile",                  BEMP_Str,  1,  0,  0,  Pres,  "",       0,  0,                             555, "afterchildren_Info11_WeatherFile",                      "map from: Proj:AnnualWeatherFileNoPath"
 1,           "Info12_ProjectScopeNR",                   BEMP_Str,  1,  0,  1,  Pres,  "",       0,  0,                             555, "Info12_ProjectScopeNR",                   "map from: Proj:PermitScope"
+1,           "afterchildren_Info12_ProjectScopeNR",               BEMP_Str,  1,  0,  1,  Pres,  "",       0,  0,                             555, "afterchildren_Info12_ProjectScopeNR",                   "map from: Proj:PermitScope"
 1,           "Info13_DwellingUnitsCount",               BEMP_Int,  1,  0,  0,  Pres,  "",       0,  0,                             555, "Info13_DwellingUnitsCount",               "map from: NRCC Proj:Bldg:HighRiseResLivingUnitCnt LMCC Proj:Bldg:LowRiseResLivingUnitCnt | Proj:ResProj:NumDwellingUnits"
+1,           "afterchildren_Info13_DwellingUnitsCount",           BEMP_Int,  1,  0,  0,  Pres,  "",       0,  0,                             555, "afterchildren_Info13_DwellingUnitsCount",               "map from: NRCC Proj:Bldg:HighRiseResLivingUnitCnt LMCC Proj:Bldg:LowRiseResLivingUnitCnt | Proj:ResProj:NumDwellingUnits"
 1,           "Info14_TotalConditionedFloorArea",        BEMP_Flt,  1,  0,  0,  Pres,  "",       0,  0,                             555, "Info14_TotalConditionedFloorArea",        "map from: Bldg:TotCondFlrArea"
+1,           "afterchildren_Info14_TotalConditionedFloorArea",    BEMP_Flt,  1,  0,  0,  Pres,  "",       0,  0,                             555, "afterchildren_Info14_TotalConditionedFloorArea",        "map from: Bldg:TotCondFlrArea"
 1,           "Info15_HotelMotelGuestRoomCount",         BEMP_Int,  1,  0,  0,  Pres,  "",       0,  0,                             555, "Info15_HotelMotelGuestRoomCount",         "map from: Proj:Bldg:HotelMotelGuestRmCnt"
+1,           "afterchildren_Info15_HotelMotelGuestRoomCount",     BEMP_Int,  1,  0,  0,  Pres,  "",       0,  0,                             555, "afterchildren_Info15_HotelMotelGuestRoomCount",         "map from: Proj:Bldg:HotelMotelGuestRmCnt"
 1,           "Info16_TotalUnconditionedFloorArea",      BEMP_Flt,  1,  0,  0,  Pres,  "",       0,  0,                             555, "Info16_TotalUnconditionedFloorArea",      "map from: Proj:Bldg:TotFlrArea - Proj:Bldg:TotCondFlrArea"
+1,           "afterchildren_Info16_TotalUnconditionedFloorArea",  BEMP_Flt,  1,  0,  0,  Pres,  "",       0,  0,                             555, "afterchildren_Info16_TotalUnconditionedFloorArea",      "map from: Proj:Bldg:TotFlrArea - Proj:Bldg:TotCondFlrArea"
 1,           "Info17_SiteFuelType",                     BEMP_Str,  1,  0,  0,  Pres,  "",       0,  0,                             555, "Info17_SiteFuelType",                     "map from: Proj:GasType"
+1,           "afterchildren_Info17_SiteFuelType",                 BEMP_Str,  1,  0,  0,  Pres,  "",       0,  0,                             555, "afterchildren_Info17_SiteFuelType",                     "map from: Proj:GasType"
 1,           "Info17a_NaturalGasOnSite",                BEMP_Str,  1,  0,  0,  Pres,  "",       0,  0,                             555, "Info17a_NaturalGasOnSite",                "map from: Proj:NatGasAvail"
+1,           "afterchildren_Info17a_NaturalGasOnSite",            BEMP_Str,  1,  0,  0,  Pres,  "",       0,  0,                             555, "afterchildren_Info17a_NaturalGasOnSite",                "map from: Proj:NatGasAvail"
 1,           "Info18_NonResBuildingTotalConditionedFloorArea", BEMP_Flt,  1,  0,  0,  Pres,  "", 0,  0,                            555, "Info18_NonResBuildingTotalConditionedFloorArea", "map from: Proj:Bldg:NonResFlrArea"
+1,           "afterchildren_Info18_NonResBuildingTotalConditionedFloorArea", BEMP_Flt,  1,  0,  0,  Pres,  "", 0,  0,                            555, "afterchildren_Info18_NonResBuildingTotalConditionedFloorArea", "map from: Proj:Bldg:NonResFlrArea"
 1,           "Info19_AboveGradeStoryCount",             BEMP_Int,  1,  0,  0,  Pres,  "",       0,  0,                             555, "Info19_AboveGradeStoryCount",             "map from: Proj:Bldg:AboveGrdStoryCnt"
+1,           "afterchildren_Info19_AboveGradeStoryCount",         BEMP_Int,  1,  0,  0,  Pres,  "",       0,  0,                             555, "afterchildren_Info19_AboveGradeStoryCount",             "map from: Proj:Bldg:AboveGrdStoryCnt"
 1,           "Info20_ResidentialBuildingTotalConditionedFloorArea", BEMP_Flt,  1,  0,  0,  Pres,  "", 0,  0,                       555, "Info20_ResidentialBuildingTotalConditionedFloorArea", "map from: Proj:Bldg:ResFlrArea"
+1,           "afterchildren_Info20_ResidentialBuildingTotalConditionedFloorArea", BEMP_Flt,  1,  0,  0,  Pres,  "", 0,  0,                       555, "afterchildren_Info20_ResidentialBuildingTotalConditionedFloorArea", "map from: Proj:Bldg:ResFlrArea"
 1,           "Info21_BuildingTotalVolume",              BEMP_Flt,  1,  0,  0,  Pres,  "",       0,  0,                             555, "Info21_BuildingTotalVolume",        "map from: Bldg:TotCondFlrArea"
+1,           "afterchildren_Info21_BuildingTotalVolume",          BEMP_Flt,  1,  0,  0,  Pres,  "",       0,  0,                             555, "afterchildren_Info21_BuildingTotalVolume",        "map from: Bldg:TotCondFlrArea"
 1,           "Info21_NotApplicableMessage",             BEMP_Str,  1,  0,  0,  Pres,  "",       0,  0,                             555, "Info21_NotApplicableMessage",        ""
+1,           "afterchildren_Info21_NotApplicableMessage",         BEMP_Str,  1,  0,  0,  Pres,  "",       0,  0,                             555, "afterchildren_Info21_NotApplicableMessage",        ""
+;------------------------------------------------------------------------------------------------
+
+;---------- RJH 8/20/26 2025-CBECC-Schema Issue 64 --------------------------------------------------------------------------------------
+;                          LName                   Template              MD  MR  AC   Parent1          P2  P3  P4  P5  P6  P7  P8  P9  P10 P11 P12 P13 P14 P15 P16 P17 P18 P19 P20  MC  MS  bP  CF  SR  IN     HI 
+;                         ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+0,  "nrccInfo10_BuildingType", "nrccInfo10_BuildingType",   "Info10_BuildingType <i>",   0,  0,  0, "nrccSection_Info",  "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",  -1,  1,  0,  0,  0,  1,   1000
+;
+;                                            VType     NV  WA  SP   US    UL                 UT  NO  OC            CV  CP         HI    LName                  
+;                                           -------------------------------------------------------------------------------------------
+1,           "Info10_TopLevelOccupancy",       BEMP_Str,  1,  0,  1,  Pres,  "",            0,  0,                          555, "Info10_TopLevelOccupancy",               "map from: Bldg:BldgType"
+1,           "Info10_ClimateZoneGroup",        BEMP_Str,  1,  0,  1,  Pres,  "",            0,  0,                          555, "Info10_ClimateZoneGroup",                "map from: Bldg:BldgType"
 ;------------------------------------------------------------------------------------------------
 
 

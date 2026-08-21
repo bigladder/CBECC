@@ -100,95 +100,296 @@ RULE nrccSection_Info:Info09_Azimuth
 ENDRULE
 ; RJH 5/26/23 Added Healthcare and LowRiseResidential enumerations per GitHub 2022-CBECC-NonRes-PRF-Schema Issue #71 
 ; updated old w/ new reloc classrm Bldg:BldgType selection - SAC 08/04/26 (dev #903)
+; updated to output this element only for pre-250300 and MFam projects - RJH 8/20/26 2025-CBECC-Schema Issue 64
 RULE nrccSection_Info:Info10_TopLevelOccupancy
   ANNUAL_PROPOSED
-    switch (Bldg:BldgType)
-        case "Relocatable Pre-checked Public School Building" : "RelocableSchoolBuildingAllZones"
-      ;  case "Permanent Pre-checked Public School Building"   : ???
-        case "Hotel-Motel"                        : "HotelMotel"
-        case "High-Rise Residential"              : "HighRiseResidential"
-        case "Nonresidential"                     : "Nonresidential"
-        case "Mixed Occupancy"                    : "MixedOccupancy"
-        case "Healthcare"                         : "Healthcare"
-        case "Low-Rise Residential"               : "LowRiseResidential"
-        default :  UNDEFINED
-    endswitch
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam == 1 ) .OR. IfValidAnd(Proj:IsHighRiseMFam == 1))
+    then  switch (Bldg:BldgType)
+              case "Relocatable Pre-checked Public School Building" : "RelocableSchoolBuildingAllZones"
+            ;  case "Permanent Pre-checked Public School Building"   : ???
+              case "Hotel-Motel"                        : "HotelMotel"
+              case "High-Rise Residential"              : "HighRiseResidential"
+              case "Nonresidential"                     : "Nonresidential"
+              case "Mixed Occupancy"                    : "MixedOccupancy"
+              case "Healthcare"                         : "Healthcare"
+              case "Low-Rise Residential"               : "LowRiseResidential"
+              default :  UNDEFINED
+          endswitch
+    else UNDEFINED
+    endif
 ENDRULE
+
+
+; Output nrccInfo10_BuildingType for 250300 and NOT-MFam projects - RJH 8/20/26 2025-CBECC-Schema Issue 64
+RULE nrccSection_Info:nrccInfo10_BuildingType:Info10_TopLevelOccupancy
+  ANNUAL_PROPOSED
+    if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0))
+    then  switch (Bldg:BldgType)
+              case "Relocatable Pre-checked Public School Building" : "RelocableSchoolBuildingAllZones"
+              case "Permanent Pre-checked Public School Building"   : "PermanentSchoolBuilding"
+              case "Hotel-Motel"                        : "HotelMotel"
+              case "High-Rise Residential"              : "HighRiseResidential"
+              case "Nonresidential"                     : "Nonresidential"
+              case "Mixed Occupancy"                    : "MixedOccupancy"
+              case "Healthcare"                         : "Healthcare"
+              case "Low-Rise Residential"               : "LowRiseResidential"
+              default :  UNDEFINED
+          endswitch
+    else UNDEFINED
+    endif
+ENDRULE
+RULE nrccSection_Info:nrccInfo10_BuildingType:Info10_ClimateZoneGroup
+  ANNUAL_PROPOSED
+    if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0))
+    then  switch (Proj:CliZnGrouping)
+              case "No Climate Zone Group"                  : "GroupNoZones"
+              case "Group A ( CZ1, CZ16* )"                 : "GroupA"
+              case "Group B ( CZ2, CZ3, CZ4*, CZ5 )"        : "GroupB"
+              case "Group C ( CZ6, CZ7, CZ8, CZ9, CZ10* )"  : "GroupC"
+              case "Group D ( CZ11, CZ12, CZ13, CZ14* )"    : "GroupD"
+              case "Climate Zone (CZ) 15"                   : "GroupCZ15"
+              default :  UNDEFINED
+          endswitch
+    else UNDEFINED
+    endif
+ENDRULE
+
+
+; Output all elements following nrccInfo10_BuildingType "as was" for pre-250300 and MFam projects - RJH 8/20/26 2025-CBECC-Schema Issue 64
 RULE nrccSection_Info:Info11_WeatherFile
   ANNUAL_PROPOSED
-    Proj:AnnualWeatherFileNoPath
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam == 1 ) .OR. IfValidAnd(Proj:IsHighRiseMFam == 1))
+    then Proj:AnnualWeatherFileNoPath
+    else UNDEFINED
+    endif
 ENDRULE
+; Output all elements following nrccInfo10_BuildingType as "afterchildren" for 250300 and NOT-MFam projects - RJH 8/20/26 2025-CBECC-Schema Issue 64
+RULE nrccSection_Info:afterchildren_Info11_WeatherFile
+  ANNUAL_PROPOSED
+    if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0))
+    then Proj:AnnualWeatherFileNoPath
+    else UNDEFINED
+    endif
+ENDRULE
+
 RULE nrccSection_Info:Info12_ProjectScopeNR
   ANNUAL_PROPOSED
-    if (Proj:ResDwellUnits > 0)
-    then if (EnumString(Proj:ResCompType) != "NA")
-         then EnumString(Proj:ResCompType)
-         else UNDEFINED
-         endif
-    else if ( EnumString(Proj:CompType) != "NA" )
-         then EnumString(Proj:CompType)
-         else UNDEFINED
-         endif
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam == 1 ) .OR. IfValidAnd(Proj:IsHighRiseMFam == 1))
+    then  if (Proj:ResDwellUnits > 0)
+          then if (EnumString(Proj:ResCompType) != "NA")
+              then EnumString(Proj:ResCompType)
+              else UNDEFINED
+              endif
+          else if ( EnumString(Proj:CompType) != "NA" )
+              then EnumString(Proj:CompType)
+              else UNDEFINED
+              endif
+          endif
+    else UNDEFINED
     endif
 ENDRULE
+RULE nrccSection_Info:afterchildren_Info12_ProjectScopeNR
+  ANNUAL_PROPOSED
+    if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0))
+    then  if (Proj:ResDwellUnits > 0)
+          then if (EnumString(Proj:ResCompType) != "NA")
+              then EnumString(Proj:ResCompType)
+              else UNDEFINED
+              endif
+          else if ( EnumString(Proj:CompType) != "NA" )
+              then EnumString(Proj:CompType)
+              else UNDEFINED
+              endif
+          endif
+    else UNDEFINED
+    endif
+ENDRULE
+
 RULE nrccSection_Info:Info13_DwellingUnitsCount
   ANNUAL_PROPOSED
-    if (IfValidAnd(Proj:IsHighRiseMFam > 0))  ; NRCC
-    then Bldg:HighRiseResLivingUnitCnt
-    else if (IfValidAnd(Proj:IsLowRiseMFam > 0))  ; LMCC
-         then Bldg:LowRiseResLivingUnitCnt
-         else 0
-         endif
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam == 1 ) .OR. IfValidAnd(Proj:IsHighRiseMFam == 1))
+    then  if (IfValidAnd(Proj:IsHighRiseMFam > 0))  ; NRCC
+          then Bldg:HighRiseResLivingUnitCnt
+          else if (IfValidAnd(Proj:IsLowRiseMFam > 0))  ; LMCC
+              then Bldg:LowRiseResLivingUnitCnt
+              else 0
+              endif
+          endif
+    else UNDEFINED
     endif
 ENDRULE
+RULE nrccSection_Info:afterchildren_Info13_DwellingUnitsCount
+  ANNUAL_PROPOSED
+    if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0))
+    then  if (IfValidAnd(Proj:IsHighRiseMFam > 0))  ; NRCC
+          then Bldg:HighRiseResLivingUnitCnt
+          else if (IfValidAnd(Proj:IsLowRiseMFam > 0))  ; LMCC
+              then Bldg:LowRiseResLivingUnitCnt
+              else 0
+              endif
+          endif
+    else UNDEFINED
+    endif
+ENDRULE
+
 RULE nrccSection_Info:Info14_TotalConditionedFloorArea
   ANNUAL_PROPOSED
-    atof( Format( "%.2f", Bldg:TotCondFlrArea ) )
-ENDRULE
-RULE nrccSection_Info:Info15_HotelMotelGuestRoomCount
-  ANNUAL_PROPOSED
-    Bldg:HotelMotelGuestRmCnt
-ENDRULE
-RULE nrccSection_Info:Info16_TotalUnconditionedFloorArea
-  ANNUAL_PROPOSED
-    atof( Format( "%.2f", Bldg:TotFlrArea - Bldg:TotCondFlrArea ) )
-ENDRULE
-RULE nrccSection_Info:Info17_SiteFuelType
-  ANNUAL_PROPOSED
-    if  (Proj:AnalysisVersion < 250000)
-    then EnumString(Proj:GasType)
-    else if  (EnumString(Proj:GasType) == "None")  ; RJH 6/15/25 2025-CBECC-Schema Issue #13
-         then "Electricity"
-         else EnumString(Proj:GasType)
-         endif
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam == 1 ) .OR. IfValidAnd(Proj:IsHighRiseMFam == 1))
+    then atof( Format( "%.2f", Bldg:TotCondFlrArea ) )
+    else UNDEFINED
     endif
 ENDRULE
+RULE nrccSection_Info:afterchildren_Info14_TotalConditionedFloorArea
+  ANNUAL_PROPOSED
+    if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0))
+    then atof( Format( "%.2f", Bldg:TotCondFlrArea ) )
+    else UNDEFINED
+    endif
+ENDRULE
+
+RULE nrccSection_Info:Info15_HotelMotelGuestRoomCount
+  ANNUAL_PROPOSED
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam == 1 ) .OR. IfValidAnd(Proj:IsHighRiseMFam == 1))
+    then Bldg:HotelMotelGuestRmCnt
+    else UNDEFINED
+    endif
+ENDRULE
+RULE nrccSection_Info:afterchildren_Info15_HotelMotelGuestRoomCount
+  ANNUAL_PROPOSED
+    if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0))
+    then Bldg:HotelMotelGuestRmCnt
+    else UNDEFINED
+    endif
+ENDRULE
+
+RULE nrccSection_Info:Info16_TotalUnconditionedFloorArea
+  ANNUAL_PROPOSED
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam == 1 ) .OR. IfValidAnd(Proj:IsHighRiseMFam == 1))
+    then atof( Format( "%.2f", Bldg:TotFlrArea - Bldg:TotCondFlrArea ) )
+    else UNDEFINED
+    endif
+ENDRULE
+RULE nrccSection_Info:afterchildren_Info16_TotalUnconditionedFloorArea
+  ANNUAL_PROPOSED
+    if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0))
+    then atof( Format( "%.2f", Bldg:TotFlrArea - Bldg:TotCondFlrArea ) )
+    else UNDEFINED
+    endif
+ENDRULE
+
+RULE nrccSection_Info:Info17_SiteFuelType
+  ANNUAL_PROPOSED
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam == 1 ) .OR. IfValidAnd(Proj:IsHighRiseMFam == 1))
+    then  if  (Proj:AnalysisVersion < 250000)
+          then EnumString(Proj:GasType)
+          else if  (EnumString(Proj:GasType) == "None")  ; RJH 6/15/25 2025-CBECC-Schema Issue #13
+              then "Electricity"
+              else EnumString(Proj:GasType)
+              endif
+          endif
+    else UNDEFINED
+    endif
+ENDRULE
+RULE nrccSection_Info:afterchildren_Info17_SiteFuelType
+  ANNUAL_PROPOSED
+    if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0))
+    then  if  (Proj:AnalysisVersion < 250000)
+          then EnumString(Proj:GasType)
+          else if  (EnumString(Proj:GasType) == "None")  ; RJH 6/15/25 2025-CBECC-Schema Issue #13
+              then "Electricity"
+              else EnumString(Proj:GasType)
+              endif
+          endif
+    else UNDEFINED
+    endif
+ENDRULE
+
 ; RJH 6/15/25 2025-CBECC-Schema Issue #12
 RULE nrccSection_Info:Info17a_NaturalGasOnSite
   ANNUAL_PROPOSED
-    if  (Proj:AnalysisVersion < 250000)
-    then UNDEFINED
-    else if  (Proj:NatGasAvail)
-         then "true"
-         else "false"
-         endif
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam == 1 ) .OR. IfValidAnd(Proj:IsHighRiseMFam == 1))
+    then  if  (Proj:AnalysisVersion < 250000)
+          then UNDEFINED
+          else if  (Proj:NatGasAvail)
+              then "true"
+              else "false"
+              endif
+          endif
+    else UNDEFINED
     endif
 ENDRULE
+RULE nrccSection_Info:afterchildren_Info17a_NaturalGasOnSite
+  ANNUAL_PROPOSED
+    if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0))
+    then  if  (Proj:AnalysisVersion < 250000)
+          then UNDEFINED
+          else if  (Proj:NatGasAvail)
+              then "true"
+              else "false"
+              endif
+          endif
+    else UNDEFINED
+    endif
+ENDRULE
+
 RULE nrccSection_Info:Info18_NonResBuildingTotalConditionedFloorArea
   ANNUAL_PROPOSED
-    atof( Format( "%.2f", Bldg:NonResFlrArea ) )
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam == 1 ) .OR. IfValidAnd(Proj:IsHighRiseMFam == 1))
+    then atof( Format( "%.2f", Bldg:NonResFlrArea ) )
+    else UNDEFINED
+    endif
 ENDRULE
+RULE nrccSection_Info:afterchildren_Info18_NonResBuildingTotalConditionedFloorArea
+  ANNUAL_PROPOSED
+    if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0))
+    then atof( Format( "%.2f", Bldg:NonResFlrArea ) )
+    else UNDEFINED
+    endif
+ENDRULE
+
 RULE nrccSection_Info:Info19_AboveGradeStoryCount
   ANNUAL_PROPOSED
-    Bldg:AboveGrdStoryCnt
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam == 1 ) .OR. IfValidAnd(Proj:IsHighRiseMFam == 1))
+    then Bldg:AboveGrdStoryCnt
+    else UNDEFINED
+    endif
 ENDRULE
+RULE nrccSection_Info:afterchildren_Info19_AboveGradeStoryCount
+  ANNUAL_PROPOSED
+    if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0))
+    then Bldg:AboveGrdStoryCnt
+    else UNDEFINED
+    endif
+ENDRULE
+
 RULE nrccSection_Info:Info20_ResidentialBuildingTotalConditionedFloorArea
   ANNUAL_PROPOSED
-    atof( Format( "%.2f", Bldg:ResFlrArea ) )
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam == 1 ) .OR. IfValidAnd(Proj:IsHighRiseMFam == 1))
+    then atof( Format( "%.2f", Bldg:ResFlrArea ) )
+    else UNDEFINED
+    endif
 ENDRULE
+RULE nrccSection_Info:afterchildren_Info20_ResidentialBuildingTotalConditionedFloorArea
+  ANNUAL_PROPOSED
+    if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0))
+    then atof( Format( "%.2f", Bldg:ResFlrArea ) )
+    else UNDEFINED
+    endif
+ENDRULE
+
 RULE nrccSection_Info:Info21_BuildingTotalVolume
   ANNUAL_PROPOSED
-    atof( Format( "%.2f", Bldg:TotCondVol ) )
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam == 1 ) .OR. IfValidAnd(Proj:IsHighRiseMFam == 1))
+    then atof( Format( "%.2f", Bldg:TotCondVol ) )
+    else UNDEFINED
+    endif
+ENDRULE
+RULE nrccSection_Info:afterchildren_Info21_BuildingTotalVolume
+  ANNUAL_PROPOSED
+    if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0))
+    then atof( Format( "%.2f", Bldg:TotCondVol ) )
+    else UNDEFINED
+    endif
 ENDRULE
 
 // nrccSection_Info end
