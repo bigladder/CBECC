@@ -87,9 +87,12 @@ RULELIST "ProposedModelCodeCheck" 1 0 0 0
 ;															UnitTotCondFlrArea, CondFloorArea )  endif  }
 
 	; SAC 4/21/15 - added check to ensure at least one zone where Status = 'Existing' for EAA projects  ; SumChildrenIf -> SumAcrossIf - SAC 05/19/23 (tic #3479)
-	"Check to ensure at least one zone of Status = 'Existing' present when Run Scope = 'Addition and/or Alteration'"
-		ResProj:Action		= {	if (RunScope != 2 .OR. SumAcrossIf( ResZn:FloorArea, ResZn:Status = 1 ) > 0.1) then  UNCHANGED
-									else	PostError( "At least one 'Existing' zone must be specified when Run Scope = 'Addition and/or Alteration'.  If this model is of an addition alone, then change Run Scope to 'New Construction' and select 'Addition Alone project'." )  endif  }
+  ; fixed logic to include checks on ResOtherZn objects - SAC 08/17/26 (dev #958)
+  "Check to ensure at least one zone of Status = 'Existing' present when Run Scope = 'Addition and/or Alteration'"
+  ResProj:Action  =
+    { if( RunScope != 2 .OR. SumAcrossIf( ResZn:FloorArea, ResZn:Status = 1      ) > 0.1 .OR.
+                             SumAcrossIf( ResOtherZn:Area, ResOtherZn:Status = 1 ) > 0.1 ) then  UNCHANGED
+		  else	PostError( "At least one 'Existing' zone must be specified when Run Scope = 'Addition and/or Alteration'.  If this model is of an addition alone, then change Run Scope to 'New Construction' and select 'Addition Alone project'." )  endif  }
 
 	; SAC 6/6/13 - added check for conditioned/living/sleeping zones present in model
    ; revised logic to allow run where no res zones present as long as ResOtherZn(s) are - SAC 10/08/24 (tic #3630)
@@ -3394,10 +3397,10 @@ RULELIST "SetIndirectOutsideConnection"  1 0 0 0
 END
 ;*************************************************************************
 
-;*************************************************************************  SAC 06/10/22   ; moved from Multifam-BackwardCompatRuleLists.rule to here - SAC 06/15/26 (dev #903)
+;*************************************************************************  SAC 06/10/22   ; moved from Multifam-BackwardCompatRuleLists.rule to here - SAC 06/15/26 (dev #903)  ; SAC 08/12/26 (dev #1039)
 RULELIST "ModelErrorCheck_SpcFunc_HighRiseRes"  1 0 0 0
    "Post error for Spc w/ invalid highrise res SpcFunc"    Spc:Action =
-      {  if (IfValidAnd( SpcFunc = "High-Rise Residential Living Spaces" ))
+      {  if( EnumString( SpcFunc ) == "High-Rise Residential Living Spaces" )
          then  PostError( "Space '%s' space function (SpcFunc): 'High-Rise Residential Living Spaces' is no longer supported. %cResidential dwellings now must be defined via DwellUnitType and residential zones (ResZn). Search for 'Creating a Dwelling Unit Type' in CBECC user manual.", Name, 13 )
          else  UNCHANGED  endif  }
 END
