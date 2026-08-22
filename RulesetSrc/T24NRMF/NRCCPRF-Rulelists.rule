@@ -249,13 +249,25 @@ RULELIST "NRCCPRF_Proposed"  1 0 0 1
          endif }
 
 
-
-
-
    "Create nrccSection_C22Result9 object"
       nrccNRCCPRF:Action    = {  if (Proj:AnalysisVersion >= 220000) then CreateChildren( nrccSection_C22Result9,    1, "NRCC C22Result9" ) else UNDEFINED endif  }
-   "Create nrccSection_C22Result9 nrccTableUMLHC22 object"              nrccSection_C22Result9:Action  =
-      {  CreateChildren( nrccTableUMLHC22, 1, "NRCC UMLHC22 table" )  }
+
+   ; RJH 8/21/26 2025-CBECC-Schema Issue 64 - create backward compatible schema sections for < 250300 and ALL LMCC
+   "Create nrccSection_C22Result9 nrccTableUMLHC22 object"  nrccSection_C22Result9:Action  =
+      {  if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam == 1 ) .OR. IfValidAnd(Proj:IsHighRiseMFam == 1)) 
+         then CreateChildren( nrccTableUMLHC22, 1, "NRCC UMLHC22 table" )
+         else UNCHANGED 
+         endif }
+
+   ; RJH 8/21/26 2025-CBECC-Schema Issue 64 - add new Single Orientation schema sections for >= 250300 and NRCC only
+   ; For 250300 release ONLY implement Single Orientation (Multiple Orientation to be implemented later)
+   "Create nrccC22Result9_SingleOrientation object"   nrccSection_C22Result9:Action =
+      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0)) 
+         then CreateChildren( nrccC22Result9_SingleOrientation, 1, "C22Result9_SingleOrientation" )
+         else UNCHANGED 
+         endif }
+   "Create nrccC22Result9_SingleOrientation nrccTableUMLHC22 object" nrccC22Result9_SingleOrientation:Action  =
+      {  CreateChildren( nrccTableUMLHC22, 1, "SingleOrientation NRCC UMLHC22 table" )  }
 
 
    "Create nrccSection_Result1 object"
@@ -4056,22 +4068,22 @@ END
 ;*********** RJH 8/15/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
 RULELIST "NRCC_North_nrccMultipleOrientationEUI"  1 0 0 1
   ; Initialize nrccMultipleOrientationEUI object
-   "Set nrccMultipleOrientationEUI:attrib_EuiAttribute1"  nrccMultipleOrientationEUI:attrib_EuiAttribute1  = {  "NORTH"  }
+   "Set nrccMultipleOrientationEUI:attrib_EuiAttribute1"  nrccMultipleOrientationEUI:attrib_EuiAttribute1  = {  "NorthFacing"  }
 END
 ;*********** RJH 8/15/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
 RULELIST "NRCC_East_nrccMultipleOrientationEUI"  1 0 0 1
   ; Initialize nrccMultipleOrientationEUI object
-   "Set nrccMultipleOrientationEUI:attrib_EuiAttribute1"  nrccMultipleOrientationEUI:attrib_EuiAttribute1  = {  "EAST"  }
+   "Set nrccMultipleOrientationEUI:attrib_EuiAttribute1"  nrccMultipleOrientationEUI:attrib_EuiAttribute1  = {  "EastFacing"  }
 END
 ;*********** RJH 8/15/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
 RULELIST "NRCC_South_nrccMultipleOrientationEUI"  1 0 0 1
   ; Initialize nrccMultipleOrientationEUI object
-   "Set nrccMultipleOrientationEUI:attrib_EuiAttribute1"  nrccMultipleOrientationEUI:attrib_EuiAttribute1  = {  "SOUTH"  }
+   "Set nrccMultipleOrientationEUI:attrib_EuiAttribute1"  nrccMultipleOrientationEUI:attrib_EuiAttribute1  = {  "SouthFacing"  }
 END
 ;*********** RJH 8/15/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
 RULELIST "NRCC_West_nrccMultipleOrientationEUI"  1 0 0 1
   ; Initialize nrccMultipleOrientationEUI object
-   "Set nrccMultipleOrientationEUI:attrib_EuiAttribute1"  nrccMultipleOrientationEUI:attrib_EuiAttribute1  = {  "WEST"  }
+   "Set nrccMultipleOrientationEUI:attrib_EuiAttribute1"  nrccMultipleOrientationEUI:attrib_EuiAttribute1  = {  "WestFacing"  }
 END
 
 ;*********** RJH 8/16/26 2025-CBECC-Schema Issue 64 - Multi-Orientation results *****************************************
@@ -4261,6 +4273,7 @@ RULELIST "NRCCPRF_ap_PostSim"  1 0 0 1
    "DELETE empty nrccTableUMLH object"
       nrccSection_Result4:Action   = {  if (ComponentCount( nrcctblRowUMLH ) < 1) then  DeleteComp()  else  UNCHANGED  endif }
 
+  ; Create nrccSection_C22Result9 nrcctblRowUMLHC22 objects
    "Create nrcctblRowUMLHC22 object for each pertinent ThrmlZn"     ThrmlZn:nrcctblRowUMLHC22Ref =
       {  if (LocalCompAssigned( nrcctblRowUMLHC22Ref ) > 0 .OR.
              ComponentCount( nrccTableUMLHC22 ) < 1 .OR.

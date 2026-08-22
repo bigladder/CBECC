@@ -4486,10 +4486,10 @@ RULE nrccMultipleOrientationEUI:Action
   NRCCPRF
     if( EnumValue( Proj:FacilityType ) >= 10 .AND. IfValidAnd( Proj:MultiOrientation > 0 ) )
     then  switch( attrib_EuiAttribute1 )
-          case  "NORTH" :  EvalRulelist( "NRCC_North_nrccMultipleOrientationEUI_Results", 1 )
-          case  "EAST"  :  EvalRulelist( "NRCC_East_nrccMultipleOrientationEUI_Results" , 1 )
-          case  "SOUTH" :  EvalRulelist( "NRCC_South_nrccMultipleOrientationEUI_Results", 1 )
-          case  "WEST"  :  EvalRulelist( "NRCC_West_nrccMultipleOrientationEUI_Results" , 1 )
+          case  "NorthFacing" :  EvalRulelist( "NRCC_North_nrccMultipleOrientationEUI_Results", 1 )
+          case  "EastFacing"  :  EvalRulelist( "NRCC_East_nrccMultipleOrientationEUI_Results" , 1 )
+          case  "SouthFacing" :  EvalRulelist( "NRCC_South_nrccMultipleOrientationEUI_Results", 1 )
+          case  "WestFacing"  :  EvalRulelist( "NRCC_West_nrccMultipleOrientationEUI_Results" , 1 )
           default       :  UNCHANGED
           endswitch
     else  UNCHANGED
