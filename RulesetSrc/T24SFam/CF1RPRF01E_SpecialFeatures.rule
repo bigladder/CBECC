@@ -1136,7 +1136,7 @@ RULELIST "CF1RPRF01E_Final_2025SpecialFeatures"  1 0 0 1
                   then Format( "Community Solar: %s kWdc of %s", FltToStr( Proj:SpeclFeatrs:PVSysCreditVal, 2, 0, 0, 1 ), EnumString( Proj:CommunitySolarProject ) )
                   else UNCHANGED
                   endif
-            else  if (Proj:CommunitySolarProjID == 2 .AND. IfValidAnd( Proj:ResultSummary[1]:CmntySlrProjVal > 0 ))
+            else  if (IfValidAnd( Feat01_SpecialFeatureCategory = "PVCommunitySolar" ) .AND. Proj:CommunitySolarProjID == 2 .AND. IfValidAnd( Proj:ResultSummary[1]:CmntySlrProjVal > 0 ))
                   then Format( "%g blocks must be reserved from Community Solar project '%s'", Proj:ResultSummary[1]:CmntySlrProjVal, EnumString( Proj:CommunitySolarProject ) )
                   else UNCHANGED
                   endif
@@ -1159,7 +1159,7 @@ RULELIST "CF1RPRF01E_Final_2025SpecialFeatures"  1 0 0 1
                   then  FltToStr( Proj:SpeclFeatrs:PVSysCreditVal, 2, 0, 0, 1 )
                   else UNCHANGED
                   endif
-            else  if (Proj:CommunitySolarProjID == 2 .AND. IfValidAnd( Proj:ResultSummary[1]:CmntySlrProjVal > 0 ))
+            else  if (IfValidAnd( Feat01_SpecialFeatureCategory = "PVCommunitySolar" ) .AND. Proj:CommunitySolarProjID == 2 .AND. IfValidAnd( Proj:ResultSummary[1]:CmntySlrProjVal > 0 ))
                   then FltToStr( Proj:ResultSummary[1]:CmntySlrProjVal, 2, 0, 0, 1 )
                   else UNCHANGED
                   endif
