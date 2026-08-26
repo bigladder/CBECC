@@ -1,6 +1,8 @@
 <%#INTERFACE
 parameter "zonename", :name => "Zone Name", :domain => String
 parameter "systemname", :name => "Zone System Name", :domain => String
+parameter "availabilityschedule", :name => "HVAC Availability Schedule",
+  :domain => String, :default => "OfficeHVACAvail"  # building HVAC availability schedule; caller may override (default to office until ruleset is updated to supply per-zone schedule)
 
 parameter "type", :name => "Zone System Type",
   :domain => String, :default => "EvaporativeCooler"  # always EvaporativeCooler
@@ -76,13 +78,14 @@ fan_power_divisor = (primary_flow * rated_primary_pressure + secondary_flow * ra
 
 ! NOTE: ZoneHVAC:HybridUnitaryHVAC has several issues to work around:
 ! - Object name must be all caps or else it fails with an error.
-! - Availability Schedule must be specified or unit does not operate.
+! - Availability Schedule drives the building HVAC availability (e.g., OfficeHVACAvail);
+!   when 0 the unit holds Mode 0 (Standby) - no cooling, no ventilation, no supply fan.
 ! - System Maximum Supply Air Flow Rate and External Static Pressure are not actually used by the object.
 ! - Mode 2 Maximum Outside Air Temperature must have a value otherwise cooling does not operate.
 ! - Setting Mode 2 Minimum and Maximum Outside Air Fraction to 1 significantly cuts simulation run time.
 ZoneHVAC:HybridUnitaryHVAC,
   <%= system_name.upcase %>,  !- Name
-  <%= system_name %> Operation Schedule,  !- Availability Schedule Name
+  <%= availabilityschedule %>,  !- Availability Schedule Name
   ,                        !- Availability Manager List Name
   <%= system_name %> Min Supply Temp Schedule,  !- Minimum Supply Air Temperature Schedule Name
   <%= system_name %> Max Supply Temp Schedule,  !- Maximum Supply Air Temperature Schedule Name
@@ -103,8 +106,8 @@ ZoneHVAC:HybridUnitaryHVAC,
   Electricity,             !- First Fuel Type
   None,                    !- Second Fuel Type
   None,                    !- Third Fuel Type
-  Electricity Use,         !- Objective Function to Minimize
-  ,                        !- Design Specification Outdoor Air Object Name
+  Electricity Use,            !- Objective Function to Minimize
+  <%= zonename %> Design Specification Outdoor Air,                        !- Design Specification Outdoor Air Object Name
   Standby,                 !- Mode 0 Name
   ,                        !- Mode 0 Supply Air Temperature Lookup Table Name
   ,                        !- Mode 0 Supply Air Humidity Ratio Lookup Table Name
@@ -137,8 +140,8 @@ ZoneHVAC:HybridUnitaryHVAC,
   ,                        !- Mode 1 Maximum Return Air Humidity Ratio {kgWater/kgDryAir}
   ,                        !- Mode 1 Minimum Return Air Relative Humidity {percent}
   ,                        !- Mode 1 Maximum Return Air Relative Humidity {percent}
-  ,                        !- Mode 1 Minimum Outside Air Fraction
-  ,                        !- Mode 1 Maximum Outside Air Fraction
+  1,                        !- Mode 1 Minimum Outside Air Fraction
+  1,                        !- Mode 1 Maximum Outside Air Fraction
   ,                        !- Mode 1 Minimum Supply Air Mass Flow Rate Ratio
   ,                        !- Mode 1 Maximum Supply Air Mass Flow Rate Ratio
   Evaporative Cooling,     !- Mode 2 Name
@@ -151,7 +154,7 @@ ZoneHVAC:HybridUnitaryHVAC,
   ,                        !- Mode 2 System Third Fuel Consumption Lookup Table Name
   <%= system_name %> Water Use Lookup,  !- Mode 2 System Water Use Lookup Table Name
   ,                        !- Mode 2 Minimum Outside Air Temperature {C}
-  100,                     !- Mode 2 Maximum Outside Air Temperature {C}
+  ,                     !- Mode 2 Maximum Outside Air Temperature {C}
   ,                        !- Mode 2 Minimum Outside Air Humidity Ratio {kgWater/kgDryAir}
   ,                        !- Mode 2 Maximum Outside Air Humidity Ratio {kgWater/kgDryAir}
   ,                        !- Mode 2 Minimum Outside Air Relative Humidity {percent}
@@ -166,14 +169,6 @@ ZoneHVAC:HybridUnitaryHVAC,
   1,                       !- Mode 2 Maximum Outside Air Fraction
   ,                        !- Mode 2 Minimum Supply Air Mass Flow Rate Ratio
   ;                        !- Mode 2 Maximum Supply Air Mass Flow Rate Ratio
-
-Schedule:Compact,
-  <%= system_name %> Operation Schedule,  !- Name
-  OnOff,                   !- Schedule Type Limits Name
-  Through: 12/31,          !- Field 1
-  For: AllDays,            !- Field 2
-  Until: 24:00,            !- Field 3
-  1;                       !- Field 4
 
 Schedule:Compact,
   <%= system_name %> Min Supply Temp Schedule,  !- Name
