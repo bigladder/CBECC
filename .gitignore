@@ -1,0 +1,6 @@
+# Test outputs / simulation artifacts (kept locally, not tracked)
+Test/
+
+# EnergyPlus build staging dirs (raw build output pasted in for migration into
+# sim-EPlus/current/ — not committed)
+sim-EPlus/EnergyPlus-PR-*/
