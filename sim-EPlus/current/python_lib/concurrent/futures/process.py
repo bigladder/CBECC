@@ -191,6 +191,16 @@ class _SafeQueue(Queue):
             super()._on_queue_feeder_error(e, obj)
 
 
+def _get_chunks(*iterables, chunksize):
+    """ Iterates over zip()ed iterables in chunks. """
+    it = zip(*iterables)
+    while True:
+        chunk = tuple(itertools.islice(it, chunksize))
+        if not chunk:
+            return
+        yield chunk
+
+
 def _process_chunk(fn, chunk):
     """ Processes a chunk of an iterable passed to map.
 
@@ -296,9 +306,8 @@ class _ExecutorManagerThread(threading.Thread):
         # will wake up the queue management thread so that it can terminate
         # if there is no pending work item.
         def weakref_cb(_,
-                       thread_wakeup=self.thread_wakeup,
-                       mp_util_debug=mp.util.debug):
-            mp_util_debug('Executor collected: triggering callback for'
+                       thread_wakeup=self.thread_wakeup):
+            mp.util.debug('Executor collected: triggering callback for'
                           ' QueueManager wakeup')
             thread_wakeup.wakeup()
 
@@ -436,14 +445,24 @@ class _ExecutorManagerThread(threading.Thread):
         # Process the received a result_item. This can be either the PID of a
         # worker that exited gracefully or a _ResultItem
 
-        # Received a _ResultItem so mark the future as completed.
-        work_item = self.pending_work_items.pop(result_item.work_id, None)
-        # work_item can be None if another process terminated (see above)
-        if work_item is not None:
-            if result_item.exception:
-                work_item.future.set_exception(result_item.exception)
-            else:
-                work_item.future.set_result(result_item.result)
+        if isinstance(result_item, int):
+            # Clean shutdown of a worker using its PID
+            # (avoids marking the executor broken)
+            assert self.is_shutting_down()
+            p = self.processes.pop(result_item)
+            p.join()
+            if not self.processes:
+                self.join_executor_internals()
+                return
+        else:
+            # Received a _ResultItem so mark the future as completed.
+            work_item = self.pending_work_items.pop(result_item.work_id, None)
+            # work_item can be None if another process terminated (see above)
+            if work_item is not None:
+                if result_item.exception:
+                    work_item.future.set_exception(result_item.exception)
+                else:
+                    work_item.future.set_result(result_item.result)
 
     def is_shutting_down(self):
         # Check whether we should start shutting down the executor.
@@ -651,7 +670,7 @@ class ProcessPoolExecutor(_base.Executor):
         _check_system_limits()
 
         if max_workers is None:
-            self._max_workers = os.process_cpu_count() or 1
+            self._max_workers = os.cpu_count() or 1
             if sys.platform == 'win32':
                 self._max_workers = min(_MAX_WINDOWS_WORKERS,
                                         self._max_workers)
@@ -830,7 +849,7 @@ class ProcessPoolExecutor(_base.Executor):
             raise ValueError("chunksize must be >= 1.")
 
         results = super().map(partial(_process_chunk, fn),
-                              itertools.batched(zip(*iterables), chunksize),
+                              _get_chunks(*iterables, chunksize=chunksize),
                               timeout=timeout)
         return _chain_from_iterable_of_lists(results)
 

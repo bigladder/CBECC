@@ -1,3 +1,0 @@
-[console_scripts]
-plan_tool = plan_tools.runner:cli
-

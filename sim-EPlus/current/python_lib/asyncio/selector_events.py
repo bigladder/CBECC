@@ -265,17 +265,22 @@ class BaseSelectorEventLoop(base_events.BaseEventLoop):
             except (AttributeError, TypeError, ValueError):
                 # This code matches selectors._fileobj_to_fd function.
                 raise ValueError(f"Invalid file object: {fd!r}") from None
-        transport = self._transports.get(fileno)
-        if transport and not transport.is_closing():
-            raise RuntimeError(
-                f'File descriptor {fd!r} is used by transport '
-                f'{transport!r}')
+        try:
+            transport = self._transports[fileno]
+        except KeyError:
+            pass
+        else:
+            if not transport.is_closing():
+                raise RuntimeError(
+                    f'File descriptor {fd!r} is used by transport '
+                    f'{transport!r}')
 
     def _add_reader(self, fd, callback, *args):
         self._check_closed()
         handle = events.Handle(callback, args, self, None)
-        key = self._selector.get_map().get(fd)
-        if key is None:
+        try:
+            key = self._selector.get_key(fd)
+        except KeyError:
             self._selector.register(fd, selectors.EVENT_READ,
                                     (handle, None))
         else:
@@ -289,27 +294,30 @@ class BaseSelectorEventLoop(base_events.BaseEventLoop):
     def _remove_reader(self, fd):
         if self.is_closed():
             return False
-        key = self._selector.get_map().get(fd)
-        if key is None:
+        try:
+            key = self._selector.get_key(fd)
+        except KeyError:
             return False
-        mask, (reader, writer) = key.events, key.data
-        mask &= ~selectors.EVENT_READ
-        if not mask:
-            self._selector.unregister(fd)
         else:
-            self._selector.modify(fd, mask, (None, writer))
+            mask, (reader, writer) = key.events, key.data
+            mask &= ~selectors.EVENT_READ
+            if not mask:
+                self._selector.unregister(fd)
+            else:
+                self._selector.modify(fd, mask, (None, writer))
 
-        if reader is not None:
-            reader.cancel()
-            return True
-        else:
-            return False
+            if reader is not None:
+                reader.cancel()
+                return True
+            else:
+                return False
 
     def _add_writer(self, fd, callback, *args):
         self._check_closed()
         handle = events.Handle(callback, args, self, None)
-        key = self._selector.get_map().get(fd)
-        if key is None:
+        try:
+            key = self._selector.get_key(fd)
+        except KeyError:
             self._selector.register(fd, selectors.EVENT_WRITE,
                                     (None, handle))
         else:
@@ -324,22 +332,24 @@ class BaseSelectorEventLoop(base_events.BaseEventLoop):
         """Remove a writer callback."""
         if self.is_closed():
             return False
-        key = self._selector.get_map().get(fd)
-        if key is None:
+        try:
+            key = self._selector.get_key(fd)
+        except KeyError:
             return False
-        mask, (reader, writer) = key.events, key.data
-        # Remove both writer and connector.
-        mask &= ~selectors.EVENT_WRITE
-        if not mask:
-            self._selector.unregister(fd)
         else:
-            self._selector.modify(fd, mask, (reader, None))
+            mask, (reader, writer) = key.events, key.data
+            # Remove both writer and connector.
+            mask &= ~selectors.EVENT_WRITE
+            if not mask:
+                self._selector.unregister(fd)
+            else:
+                self._selector.modify(fd, mask, (reader, None))
 
-        if writer is not None:
-            writer.cancel()
-            return True
-        else:
-            return False
+            if writer is not None:
+                writer.cancel()
+                return True
+            else:
+                return False
 
     def add_reader(self, fd, callback, *args):
         """Add a reader callback."""
@@ -791,7 +801,7 @@ class _SelectorTransport(transports._FlowControlMixin,
         self._paused = False  # Set when pause_reading() called
 
         if self._server is not None:
-            self._server._attach(self)
+            self._server._attach()
         loop._transports[self._sock_fd] = self
 
     def __repr__(self):
@@ -868,8 +878,6 @@ class _SelectorTransport(transports._FlowControlMixin,
         if self._sock is not None:
             _warn(f"unclosed transport {self!r}", ResourceWarning, source=self)
             self._sock.close()
-            if self._server is not None:
-                self._server._detach(self)
 
     def _fatal_error(self, exc, message='Fatal error on transport'):
         # Should be called from exception handler only.
@@ -908,7 +916,7 @@ class _SelectorTransport(transports._FlowControlMixin,
             self._loop = None
             server = self._server
             if server is not None:
-                server._detach(self)
+                server._detach()
                 self._server = None
 
     def get_write_buffer_size(self):
@@ -1246,6 +1254,8 @@ class _SelectorDatagramTransport(_SelectorTransport, transports.DatagramTranspor
         if not isinstance(data, (bytes, bytearray, memoryview)):
             raise TypeError(f'data argument must be a bytes-like object, '
                             f'not {type(data).__name__!r}')
+        if not data:
+            return
 
         if self._address:
             if addr not in (None, self._address):
@@ -1281,7 +1291,7 @@ class _SelectorDatagramTransport(_SelectorTransport, transports.DatagramTranspor
 
         # Ensure that what we buffer is immutable.
         self._buffer.append((bytes(data), addr))
-        self._buffer_size += len(data) + 8  # include header bytes
+        self._buffer_size += len(data)
         self._maybe_pause_protocol()
 
     def _sendto_ready(self):

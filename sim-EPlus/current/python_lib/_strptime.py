@@ -10,7 +10,6 @@ FUNCTIONS:
     strptime -- Calculates the time struct represented by the passed-in string
 
 """
-import os
 import time
 import locale
 import calendar
@@ -353,29 +352,9 @@ class TimeRE(dict):
         format = re_sub(r"([\\.^$*+?\(\){}\[\]|])", r"\\\1", format)
         format = re_sub(r'\s+', r'\\s+', format)
         format = re_sub(r"'", "['\u02bc]", format)  # needed for br_FR
-        year_in_format = False
-        day_of_month_in_format = False
         def repl(m):
-            format_char = m[1]
-            match format_char:
-                case 'Y' | 'y' | 'G':
-                    nonlocal year_in_format
-                    year_in_format = True
-                case 'd':
-                    nonlocal day_of_month_in_format
-                    day_of_month_in_format = True
-            return self[format_char]
+            return self[m[1]]
         format = re_sub(r'%(O?.)', repl, format)
-        if day_of_month_in_format and not year_in_format:
-            import warnings
-            warnings.warn("""\
-Parsing dates involving a day of month without a year specified is ambiguious
-and fails to parse leap day. The default behavior will change in Python 3.15
-to either always raise an exception or to use a different default year (TBD).
-To avoid trouble, add a specific year to the input & format.
-See https://github.com/python/cpython/issues/70647.""",
-                          DeprecationWarning,
-                          skip_file_prefixes=(os.path.dirname(__file__),))
         return format
 
     def compile(self, format):

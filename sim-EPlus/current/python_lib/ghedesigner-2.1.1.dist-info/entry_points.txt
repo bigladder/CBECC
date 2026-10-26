@@ -1,3 +1,0 @@
-[console_scripts]
-ghedesigner = ghedesigner.main:run_manager_from_cli
-
